@@ -1,0 +1,16 @@
+{
+  "minify": true,
+  "jsc": {
+    "minity": {
+      "compress": {
+        "unused": true,
+        "drop_console": true,
+        "dead_code": true
+      },
+      "mangle": true,
+      "format": {
+        "comments": false
+      }
+    }
+  }
+}
