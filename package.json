@@ -9,7 +9,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,mdx}\"",
+    "analyze:html": "ANALYZE=1 next build",
+    "analyze:json": "ANALYZE=2 next build"
   },
   "dependencies": {
     "next": "14.2.15",
