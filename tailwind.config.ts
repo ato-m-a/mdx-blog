@@ -1,5 +1,6 @@
 /** @type {import("tailwindcss").Config} */
 import type { Config } from "tailwindcss";
+import typography from '@tailwindcss/typography';
 
 const config: Config = {
   darkMode: 'media',
@@ -10,14 +11,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {
-        'primary': '#333333'
-      },
       screens: {
-        'custom-lg' : '992px',
-        'max-lg': {'max': '991px'},
-        'max-md': {'max': '768px'},
-        'max-sm': {'max': '480px'}
+        'max-lg': {'max': '970px'},
+        'max-md': {'max': '614px'},
+        'max-sm': {'max': '364px'},
       },
       container: (theme) => ({
         center: true,
@@ -35,6 +32,9 @@ const config: Config = {
       },
     },
   },
+  plugins: [
+    typography({ target: 'modern' }),
+  ]
 };
 
 export default config;
