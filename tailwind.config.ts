@@ -2,6 +2,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: 'media',
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -31,8 +32,8 @@ const config: Config = {
       width: {
         '2/3': '66.6666%',
         '3/5': '60%'
-      }
-    }
+      },
+    },
   },
 };
 

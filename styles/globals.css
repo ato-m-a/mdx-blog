@@ -12,6 +12,9 @@ html {
   font-size: 14px;
 
   body {
+    @apply bg-zinc-100 text-zinc-900;
+    @apply dark:bg-zinc-900 dark:text-zinc-100;
+
     font-family: var(--font-pretendard);
 
     .codeblock {
