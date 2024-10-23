@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { Github, Linkedin } from 'lucide-react';
 import Container from '@/components/Container';
-import Paragraph from '@/components/Paragraph';
+import HoverGroup from '@/components/HoverGroup';
 import IconButton from '@/components/IconButton';
 import HeaderSection from './components/Sections/Header';
 import ProfileSection from './components/Sections/Profile';
@@ -21,47 +21,40 @@ const Home: NextPage = () => {
             data-id="current-job"
             className="max-sm:col-span-2"
           >
-            <Paragraph
+            <HoverGroup
               as="a"
               href="https://earlivery.com"
               target="_blank"
               className="text-lg color-primary"
-              hoverAnimation
             >
               트라이포드랩
-            </Paragraph>
+            </HoverGroup>
           </ProfileSection.Article>
           <ProfileSection.Article
             label="이전 경력 보기"
             data-id="previous-job-experience"
             className="max-sm:col-span-2"
           >
-            <Paragraph
+            <HoverGroup
               as="a"
               className="text-lg color-primary relative"
               href="https://ato-m-a.notion.site/11ae2547cb49803186a5c7b789eb5549?pvs=74"
               target="_blank"
-              hoverAnimation
             >
               포트폴리오 보기 →
-            </Paragraph>
+            </HoverGroup>
           </ProfileSection.Article>
           <ProfileSection.Article label="연락처" data-id="contact" className="max-md:col-span-2">
-            <Paragraph
-              as="a"
-              href="mailto:atomjh0295@gmail.com"
-              className="text-lg color-primary"
-              hoverAnimation
-            >
+            <HoverGroup as="a" href="mailto:atomjh0295@gmail.com" className="text-lg color-primary">
               atomjh0295@gmail.com
-            </Paragraph>
+            </HoverGroup>
           </ProfileSection.Article>
           <ProfileSection.Article
             label="소셜 미디어"
             data-id="social-media"
             className="max-md:col-span-2"
           >
-            <Paragraph as="div" className="text-lg color-tertiary flex space-x-4">
+            <div className="text-lg color-tertiary flex space-x-4">
               <IconButton
                 Icon={Github}
                 anchorProps={{
@@ -76,7 +69,7 @@ const Home: NextPage = () => {
                   target: '_blank',
                 }}
               />
-            </Paragraph>
+            </div>
           </ProfileSection.Article>
         </ProfileSection>
       </HomeMain>

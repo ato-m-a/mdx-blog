@@ -16,42 +16,6 @@ html {
 
   body {
     @apply bg-zinc-100 dark:bg-zinc-900;
-
     font-family: var(--font-pretendard);
-
-    .codeblock {
-      font-family: var(--font-jetbrains-mono);
-    }
-
-    .color-primary {
-      @apply text-zinc-900 dark:text-zinc-100;
-    }
-    .bg-primary {
-      @apply bg-zinc-900 dark:bg-zinc-100;
-    }
-
-    .color-secondary {
-      @apply text-zinc-600 dark:text-zinc-400;
-    }
-    .bg-secondary {
-      @apply bg-zinc-600 dark:bg-zinc-400;
-    }
-
-    .color-tertiary {
-      @apply text-zinc-600 dark:text-zinc-500;
-    }
-    .bg-tertiary {
-      @apply bg-zinc-600 dark:bg-zinc-500;
-    }
-  }
-}
-
-@layer utilities {
-  .icon_button {
-    @apply w-6 h-6 cursor-pointer transition-colors duration-200;
-    @apply text-zinc-600 dark:text-zinc-500;
-  }
-  .icon_button_hover {
-    @apply text-zinc-900 dark:text-zinc-100;
   }
 }

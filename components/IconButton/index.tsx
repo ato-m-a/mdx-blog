@@ -9,7 +9,15 @@ type IconButtonProps = {
 const IconButton: FC<IconButtonProps> = ({ Icon, anchorProps }) => {
   return (
     <a {...anchorProps}>
-      <Icon className="w-6 h-6 cursor-pointer transition-opacity dark:transition-colors duration-200 text-zinc-600 dark:text-zinc-500 hover:opacity-60 hover:dark:text-zinc-100" />
+      <Icon
+        className={`
+          w-6 h-6 cursor-pointer duration-200
+          transition-opacity dark:transition-colors
+          text-zinc-600 dark:text-zinc-500
+          dark:hover:text-zinc-100 dark:hover:opacity-100
+          hover:opacity-60
+        `}
+      />
     </a>
   );
 };
