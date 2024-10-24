@@ -1,5 +1,6 @@
 import Pretendard from '@/common/fonts/Pretendard.font';
 import JetBrainsMono from '@/common/fonts/JetBrains-mono.font';
+import QueryProvider from '@/components/Providers/QueryProvider';
 import getMetadata from './metadata';
 import '@/styles/globals.css';
 
@@ -13,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${Pretendard.variable} ${JetBrainsMono.variable}`}>{children}</body>
+      <QueryProvider>
+        <body className={`${Pretendard.variable} ${JetBrainsMono.variable}`}>{children}</body>
+      </QueryProvider>
     </html>
   );
 }

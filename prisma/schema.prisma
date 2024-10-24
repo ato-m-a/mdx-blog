@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Company {
+  id         Int       @id @default(autoincrement())
+  name       String    @db.Text
+  url        String    @db.Text
+  brandColor String    @db.Text
+  createdAt  DateTime  @map("created_at") @default(now())
+  updatedAt  DateTime? @map("updated_at") @updatedAt
+
+  experiences Experience[]
+
+  @@map("company")
+}
+
+model Experience {
+  id         Int       @id @default(autoincrement())
+  position   String    @db.Text
+  startDate  DateTime  @map("start_date")
+  endDate    DateTime? @map("end_date")
+  createdAt  DateTime  @map("created_at") @default(now())
+  updatedAt  DateTime? @map("updated_at") @updatedAt
+
+  company    Company   @relation(fields: [companyId], references: [id])
+  companyId  Int       @map("company_id")
+
+  @@map("experience")
+}
+
+model Post {
+  id        Int       @id @default(autoincrement())
+  title     String    @db.Text
+  content   String    @db.Text
+  createdAt DateTime  @map("created_at") @default(now())
+  updatedAt DateTime? @map("updated_at") @updatedAt
+
+  @@map("post")
+}
