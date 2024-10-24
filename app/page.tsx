@@ -7,6 +7,7 @@ import HomeHeader from './components/Header';
 import HomeMain from './components/Main';
 import ProfileSection from './components/Sections/Profile';
 import PostSection from './components/Sections/Post';
+import AboutSection from './components/Sections/About';
 
 const Home: NextPage = () => {
   return (
@@ -79,6 +80,7 @@ const Home: NextPage = () => {
           <PostSection.Article title="테스트" publishDate={new Date()} categories={['테스트']} />
           <PostSection.Article title="테스트" publishDate={new Date()} categories={['테스트']} />
         </PostSection>
+        <AboutSection />
       </HomeMain>
     </Container>
   );
