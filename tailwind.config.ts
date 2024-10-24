@@ -13,7 +13,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        'font-codeblock': ['var(--font-jetbrains-mono)'],
+        'codeblock': ['var(--font-jetbrains-mono)'],
       },
       screens: {
         'max-lg': {'max': '970px'},

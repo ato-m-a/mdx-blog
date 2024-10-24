@@ -19,11 +19,13 @@
     "@mdx-js/react": "^3.1.0",
     "@next/mdx": "^14.2.15",
     "@tailwindcss/typography": "^0.5.15",
+    "@toss/date": "^1.2.0",
     "lucide-react": "^0.453.0",
     "next": "14.2.15",
     "next-mdx-remote": "^5.0.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/mdx": "^2.0.13",

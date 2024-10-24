@@ -6,6 +6,7 @@ import IconButton from '@/components/IconButton';
 import HomeHeader from './components/Header';
 import HomeMain from './components/Main';
 import ProfileSection from './components/Sections/Profile';
+import PostSection from './components/Sections/Post';
 
 const Home: NextPage = () => {
   return (
@@ -72,6 +73,12 @@ const Home: NextPage = () => {
             </div>
           </ProfileSection.Article>
         </ProfileSection>
+        <PostSection>
+          <PostSection.Article title="테스트" publishDate={new Date()} categories={['테스트']} />
+          <PostSection.Article title="테스트" publishDate={new Date()} categories={['테스트']} />
+          <PostSection.Article title="테스트" publishDate={new Date()} categories={['테스트']} />
+          <PostSection.Article title="테스트" publishDate={new Date()} categories={['테스트']} />
+        </PostSection>
       </HomeMain>
     </Container>
   );

@@ -1,13 +1,14 @@
 import type { ElementType, ReactElement } from 'react';
-import type { FlexibleComponentProps } from '@/types';
+import type { FlexibleComponentProps } from '@/components/types';
 
 const HoverGroup = <E extends ElementType>({
   as,
   children,
   className,
+  extend,
   ...props
 }: FlexibleComponentProps<E>): ReactElement => {
-  const Component = as ?? 'p';
+  const Component = extend ?? as ?? 'a';
 
   return (
     <Component className={`relative cursor-pointer ${className}`} {...props}>

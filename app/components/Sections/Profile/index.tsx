@@ -9,7 +9,7 @@ const ProfileSection: IProfileSection = ({ children }) => {
   return (
     <section
       className={`
-        flex w-100 justify-between [grid-area:profile]
+        flex w-100 justify-between col-span-2
         max-lg:grid max-lg:grid-cols-3 max-lg:gap-6
         max-md:grid-cols-2
         max-sm:grid-cols-1
