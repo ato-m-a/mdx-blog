@@ -3,17 +3,17 @@ import { Github, Linkedin } from 'lucide-react';
 import Container from '@/components/Container';
 import HoverGroup from '@/components/HoverGroup';
 import IconButton from '@/components/IconButton';
-import HeaderSection from './components/Sections/Header';
+import HomeHeader from './components/Header';
+import HomeMain from './components/Main';
 import ProfileSection from './components/Sections/Profile';
-import HomeMain from './components/Sections/Main';
 
 const Home: NextPage = () => {
   return (
     <Container>
-      <HeaderSection>
-        <HeaderSection.Name>홍준혁</HeaderSection.Name>
-        <HeaderSection.Description>웹 프론트엔드 개발자</HeaderSection.Description>
-      </HeaderSection>
+      <HomeHeader>
+        <HomeHeader.Name>홍준혁</HomeHeader.Name>
+        <HomeHeader.Description>웹 프론트엔드 개발자</HomeHeader.Description>
+      </HomeHeader>
       <HomeMain>
         <ProfileSection>
           <ProfileSection.Article

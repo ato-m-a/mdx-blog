@@ -1,15 +1,12 @@
-import type { ElementType, ComponentPropsWithoutRef, ReactElement, PropsWithChildren } from 'react';
-
-type HoverGroupProps<E extends ElementType> = PropsWithChildren<
-  { as?: E } & ComponentPropsWithoutRef<E>
->;
+import type { ElementType, ReactElement } from 'react';
+import type { FlexibleComponentProps } from '@/types';
 
 const HoverGroup = <E extends ElementType>({
   as,
   children,
   className,
   ...props
-}: HoverGroupProps<E>): ReactElement => {
+}: FlexibleComponentProps<E>): ReactElement => {
   const Component = as ?? 'p';
 
   return (
