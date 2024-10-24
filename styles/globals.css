@@ -19,3 +19,11 @@ html {
     font-family: var(--font-pretendard);
   }
 }
+
+.company-label {
+  @apply flex items-center gap-2;
+
+  > .company-label__name {
+    @apply text-lg color-primary;
+  }
+}

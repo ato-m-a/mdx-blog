@@ -1,11 +1,11 @@
 import type { FC, HTMLAttributes, PropsWithChildren } from 'react';
 
-type ArticleProps = PropsWithChildren<{
+type ProfileArticleProps = PropsWithChildren<{
   label: string;
 }> &
   HTMLAttributes<HTMLDivElement>;
 
-const Article: FC<ArticleProps> = ({ children, label, className, ...props }) => {
+const ProfileArticle: FC<ProfileArticleProps> = ({ children, label, className, ...props }) => {
   const cn = `flex flex-col gap-2 ${className ?? ''}`;
 
   return (
@@ -16,4 +16,4 @@ const Article: FC<ArticleProps> = ({ children, label, className, ...props }) => 
   );
 };
 
-export default Article;
+export default ProfileArticle;

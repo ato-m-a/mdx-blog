@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 const AboutSection: FC = () => {
   return (
-    <section className="flex flex-col gap-y-4">
+    <section className="flex flex-col gap-y-4 max-lg:col-span-2">
       <h2 className="text-2xl color-primary font-semibold">소개글</h2>
       <section className="flex flex-col gap-y-2 leading-6 break-all color-primary">
         <p>

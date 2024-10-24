@@ -11,8 +11,8 @@ const HoverGroup = <E extends ElementType>({
   const Component = extend ?? as ?? 'a';
 
   return (
-    <Component className={`relative cursor-pointer ${className}`} {...props}>
-      <span className="relative group">
+    <Component className="relative cursor-pointer w-fit" {...props}>
+      <span className={`relative group ${className}`}>
         {children}
         <span
           className={`
