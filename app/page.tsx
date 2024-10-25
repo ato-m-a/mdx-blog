@@ -7,8 +7,8 @@ import HomeHeader from './components/Header';
 import HomeMain from './components/Main';
 import HomeFooter from './components/Footer';
 
-const Home: NextPage = () => {
-  const dehydrated = getDehydrated((helpers) => [
+const Home: NextPage = async () => {
+  const dehydrated = await getDehydrated((helpers) => [
     helpers.experience.getCurrent.prefetch(),
     helpers.experience.getMany.prefetch(),
   ]);
