@@ -12,7 +12,7 @@ model Company {
   id         Int       @id @default(autoincrement())
   name       String    @db.Text
   url        String    @db.Text
-  brandColor String    @db.Text
+  brandColor String    @map("brand_color") @db.Text
   createdAt  DateTime  @map("created_at") @default(now())
   updatedAt  DateTime? @map("updated_at") @updatedAt
 
@@ -24,10 +24,11 @@ model Company {
 model Experience {
   id         Int       @id @default(autoincrement())
   position   String    @db.Text
-  startDate  DateTime  @map("start_date")
-  endDate    DateTime? @map("end_date")
+  startDate  DateTime  @map("start_date") @db.Date
+  endDate    DateTime? @map("end_date") @db.Date
   createdAt  DateTime  @map("created_at") @default(now())
   updatedAt  DateTime? @map("updated_at") @updatedAt
+  content    String    @db.Text
 
   company    Company   @relation(fields: [companyId], references: [id])
   companyId  Int       @map("company_id")

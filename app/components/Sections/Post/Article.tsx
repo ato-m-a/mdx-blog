@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import type { PostSchema } from '@/schema/post.schema';
-import { kstFormat } from '@toss/date';
+import { format } from 'date-fns';
 import HoverGroup from '@/components/HoverGroup';
 import Link from 'next/link';
 
@@ -11,7 +11,7 @@ const PostArticle: FC<PostSchema> = ({ id, title, createdAt }) => {
         {title}
       </HoverGroup>
       <p className="text-sm font-codeblock color-tertiary">
-        {kstFormat(new Date(createdAt), 'EEE요일, yyyy년 MM월 dd일')}
+        {format(new Date(createdAt), 'MMM d, yyyy')}
       </p>
     </article>
   );

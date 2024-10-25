@@ -14,9 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <QueryProvider>
-        <body className={`${Pretendard.variable} ${JetBrainsMono.variable}`}>{children}</body>
-      </QueryProvider>
+      <body className={`${Pretendard.variable} ${JetBrainsMono.variable}`}>
+        <QueryProvider>{children}</QueryProvider>
+      </body>
     </html>
   );
 }

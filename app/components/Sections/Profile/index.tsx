@@ -1,11 +1,17 @@
+'use client';
+
 import type { FC } from 'react';
 import { Github, Linkedin } from 'lucide-react';
+import { GITHUB_URL, LINKEDIN_URL } from '@/app/constants/url';
 import ProfileArticle from './Article';
 import HoverGroup from '@/components/HoverGroup';
 import IconButton from '@/components/IconButton';
 import ColorBadge from '@/components/ColorBadge';
+import trpc from '@trpc.client';
 
 const ProfileSection: FC = () => {
+  const { data: currentExperience } = trpc.experience.getCurrent.useQuery();
+
   return (
     <section
       className={`
@@ -16,9 +22,9 @@ const ProfileSection: FC = () => {
       `}
     >
       <ProfileArticle label="현재 근무 중" data-id="current-job" className="max-sm:col-span-2">
-        <HoverGroup as="a" className="company-label" href="https://earlivery.com">
-          <ColorBadge color="#00a294" />
-          <span className="company-label__name">트라이포드랩</span>
+        <HoverGroup as="a" className="company-label" href={currentExperience?.url ?? LINKEDIN_URL}>
+          <ColorBadge color={currentExperience?.brandColor ?? '#25FF22'} />
+          <span className="company-label__name">{currentExperience?.name ?? 'OPEN TO WORK'}</span>
         </HoverGroup>
       </ProfileArticle>
       <ProfileArticle
@@ -45,14 +51,14 @@ const ProfileSection: FC = () => {
           <IconButton
             Icon={Github}
             anchorProps={{
-              href: 'https://github.com/ato-m-a/',
+              href: GITHUB_URL,
               target: '_blank',
             }}
           />
           <IconButton
             Icon={Linkedin}
             anchorProps={{
-              href: 'https://www.linkedin.com/in/hongjunhyuk/',
+              href: LINKEDIN_URL,
               target: '_blank',
             }}
           />
