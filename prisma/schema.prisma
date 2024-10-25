@@ -37,11 +37,24 @@ model Experience {
 }
 
 model Post {
+  id         Int        @id @default(autoincrement())
+  title      String     @db.Text
+  content    String     @db.Text
+  createdAt  DateTime   @map("created_at") @default(now())
+  updatedAt  DateTime?  @map("updated_at") @updatedAt
+
+  categories Category[] @relation("PostCategories")
+
+  @@map("post")
+}
+
+model Category {
   id        Int       @id @default(autoincrement())
-  title     String    @db.Text
-  content   String    @db.Text
+  name      String    @db.Text
   createdAt DateTime  @map("created_at") @default(now())
   updatedAt DateTime? @map("updated_at") @updatedAt
 
-  @@map("post")
+  posts     Post[]    @relation("PostCategories")
+
+  @@map("category")
 }

@@ -10,7 +10,7 @@ import ColorBadge from '@/components/ColorBadge';
 import trpc from '@trpc.client';
 
 const ProfileSection: FC = () => {
-  const { data: currentExperience } = trpc.experience.getCurrent.useQuery();
+  const { data: currentExperience } = trpc.experience.getCurrentJob.useQuery();
 
   return (
     <section

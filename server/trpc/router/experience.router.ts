@@ -21,7 +21,7 @@ const experienceRouter = t.router({
       },
     });
   }),
-  getCurrent: t.procedure.output(companySchema.nullable()).query(async ({ ctx: { prisma } }) => {
+  getCurrentJob: t.procedure.output(companySchema.nullable()).query(async ({ ctx: { prisma } }) => {
     const latestExperience = await prisma.experience.findFirst({
       where: {
         endDate: null,
