@@ -1,5 +1,5 @@
 import type { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch';
-import prisma from '@/common/prisma';
+import { prisma } from '@/common/utils';
 
 export type Context = ReturnType<typeof createContext>;
 

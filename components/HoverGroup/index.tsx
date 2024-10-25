@@ -18,7 +18,7 @@ const HoverGroup = <E extends ElementType>({
           className={`
             absolute left-0 bottom-0 
             w-full h-[1px] 
-            bg-primary
+            bg-invert
             origin-left
             transform scale-x-0
             transition-transform duration-200 ease-out

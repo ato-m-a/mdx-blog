@@ -8,6 +8,7 @@ const experienceSchema = z.object({
   company: companySchema,
   position: z.string(),
   startDate: z.date(),
+  content: z.string(),
   endDate: z.date().nullable(),
   createdAt: z.date(),
   updatedAt: z.date().nullable(),

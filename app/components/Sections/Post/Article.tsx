@@ -10,7 +10,7 @@ const PostArticle: FC<PostSchema> = ({ id, title, createdAt }) => {
       <HoverGroup extend={Link} href={`/posts/${id}`} className="text-lg color-primary">
         {title}
       </HoverGroup>
-      <p className="text-sm font-codeblock color-tertiary">
+      <p className="text-sm font-codeblock color-secondary">
         {format(new Date(createdAt), 'MMM d, yyyy')}
       </p>
     </article>

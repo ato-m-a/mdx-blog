@@ -13,8 +13,8 @@ const IconButton: FC<IconButtonProps> = ({ Icon, anchorProps }) => {
         className={`
           w-6 h-6 cursor-pointer duration-200
           transition-opacity dark:transition-colors
-          text-zinc-600 dark:text-zinc-500
-          dark:hover:text-zinc-100 dark:hover:opacity-100
+          color-primary dark:color-secondary
+          dark:hover:color-primary dark:hover:opacity-100
           hover:opacity-60
         `}
       />

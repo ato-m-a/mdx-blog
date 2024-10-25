@@ -2,6 +2,7 @@
 import type { Config } from 'tailwindcss';
 import plugin from 'tailwindcss/plugin';
 import typography from '@tailwindcss/typography';
+import tailwindcssAnimate from 'tailwindcss-animate';
 
 const config: Config = {
   darkMode: 'media',
@@ -37,6 +38,7 @@ const config: Config = {
     },
   },
   plugins: [
+    tailwindcssAnimate,
     typography({ target: 'modern' }),
     plugin(({ addUtilities, theme }) => addUtilities({
       '.color-primary': {
@@ -46,33 +48,45 @@ const config: Config = {
         },
       },
       '.color-secondary': {
-        color: theme('colors.zinc.600'),
+        color: theme('colors.zinc.500'),
         '@media (prefers-color-scheme: dark)': {
           color: theme('colors.zinc.400'),
         },
       },
       '.color-tertiary': {
-        color: theme('colors.zinc.600'),
+        color: theme('colors.zinc.400'),
         '@media (prefers-color-scheme: dark)': {
           color: theme('colors.zinc.500'),
         },
       },
       '.bg-primary': {
-        backgroundColor: theme('colors.zinc.900'),
+        backgroundColor: theme('colors.zinc.100'),
         '@media (prefers-color-scheme: dark)': {
-          backgroundColor: theme('colors.zinc.100'),
+          backgroundColor: theme('colors.zinc.900'),
         },
       },
       '.bg-secondary': {
-        backgroundColor: theme('colors.zinc.600'),
+        backgroundColor: theme('colors.zinc.400'),
         '@media (prefers-color-scheme: dark)': {
-          backgroundColor: theme('colors.zinc.400'),
+          backgroundColor: theme('colors.zinc.600'),
         },
       },
       '.bg-tertiary': {
         backgroundColor: theme('colors.zinc.600'),
         '@media (prefers-color-scheme: dark)': {
           backgroundColor: theme('colors.zinc.500'),
+        },
+      },
+      '.border-base': {
+        borderColor: theme('colors.zinc.300'),
+        '@media (prefers-color-scheme: dark)': {
+          borderColor: theme('colors.zinc.700'),
+        },
+      },
+      '.bg-invert': {
+        backgroundColor: theme('colors.zinc.900'),
+        '@media (prefers-color-scheme: dark)': {
+          backgroundColor: theme('colors.zinc.100'),
         },
       },
     })),

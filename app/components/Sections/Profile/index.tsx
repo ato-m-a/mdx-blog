@@ -47,7 +47,7 @@ const ProfileSection: FC = () => {
         </HoverGroup>
       </ProfileArticle>
       <ProfileArticle label="소셜 미디어" data-id="social-media" className="max-md:col-span-2">
-        <div className="text-lg color-tertiary flex space-x-4">
+        <div className="text-lg color-secondary flex space-x-4">
           <IconButton
             Icon={Github}
             anchorProps={{
