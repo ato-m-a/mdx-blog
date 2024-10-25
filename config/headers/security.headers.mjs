@@ -1,20 +1,6 @@
-const ConentSecurityPolicy = `
-  default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' www.googletagmanager.com www.google-analytics.com;
-  style-src 'self' 'unsafe-inline';
-  img-src * blob: data:;
-  connect-src *;
-  font-src 'self';
-  frame-src 'self';
-`;
-
 const securityHeaders = {
   source: '/(.*)',
   headers: [
-    {
-      key: 'Content-Security-Policy',
-      value: ConentSecurityPolicy.replace(/\n/g, ''),
-    },
     {
       key: 'Referrer-Policy',
       value: 'strict-origin-when-cross-origin',
