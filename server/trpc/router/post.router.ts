@@ -8,7 +8,7 @@ const postRouter = t.router({
     .input(pagedRequestSchema)
     .output(pagedResponseSchema(postSchema))
     .query(async ({ ctx: { prisma }, input: { page, limit } }) => {
-      const [data, totalCount] = await prisma.$transaction([
+      const [data, totalCount] = await Promise.all([
         prisma.post.findMany({
           skip: (page - 1) * limit,
           take: limit,

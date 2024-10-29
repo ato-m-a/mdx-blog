@@ -16,7 +16,7 @@ const PostSection: FC = () => {
         {posts && posts.totalCount > 0 ? (
           posts.data.map((post) => <PostArticle key={post.id} {...post} />)
         ) : (
-          <p className="color-tertiary leading-10">아직 게시된 글이 없습니다.</p>
+          <p className="color-tertiary leading-10">아직 작성된 포스트가 없습니다.</p>
         )}
       </section>
       <HoverGroup extend={Link} className="color-primary" href="/posts">
