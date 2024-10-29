@@ -1,3 +1,5 @@
+'use client';
+
 import type { FC } from 'react';
 import type { ExperienceSchema } from '@/schema/experience.schema';
 import {
@@ -7,7 +9,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogClose,
-  DialogCloseIcon,
   DialogTrigger,
   DialogDescription,
 } from '@/components/ui/dialog';
@@ -17,9 +18,7 @@ import ColorBadge from '@/components/ColorBadge';
 
 type ExperienceDialogProps = Pick<ExperienceSchema, 'company' | 'content'>;
 
-const ExperienceDialog: FC<ExperienceDialogProps> = ({ company, content }) => {
-  console.dir(content);
-
+const ExperienceDialog: FC<ExperienceDialogProps> = ({ company }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -40,20 +39,49 @@ const ExperienceDialog: FC<ExperienceDialogProps> = ({ company, content }) => {
         <main className="px-6 h-full overflow-y-auto">
           <Heading.h1>제목</Heading.h1>
           <Heading.h2>소제목1</Heading.h2>
-          <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</Paragraph>
-          <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</Paragraph>
-          <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</Paragraph>
+          <Paragraph>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum
+            dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing
+            elit. Quisquam, quos.
+          </Paragraph>
+          <Paragraph>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum
+            dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Quisquam, quos.
+          </Paragraph>
           <Heading.h2>소제목2</Heading.h2>
-          <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</Paragraph>
-          <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</Paragraph>
-          <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</Paragraph>
+          <Paragraph>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum
+            dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+          </Paragraph>
+          <Paragraph>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum
+            dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Quisquam, quos.
+          </Paragraph>
           <Heading.h3>소제목2-1</Heading.h3>
-          <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</Paragraph>
-          <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</Paragraph>
+          <Paragraph>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum
+            dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Quisquam, quos.
+          </Paragraph>
           <Heading.h3>소제목2-2</Heading.h3>
-          <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</Paragraph>
-          <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</Paragraph>
-          <Paragraph>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</Paragraph>
+          <Paragraph>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum
+            dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing
+            elit. Quisquam, quos.
+          </Paragraph>
+          <Paragraph>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum
+            dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Quisquam, quos.
+          </Paragraph>
         </main>
         <DialogFooter className="p-6">
           <DialogClose>Close</DialogClose>
