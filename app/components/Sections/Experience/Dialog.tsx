@@ -10,6 +10,7 @@ import {
   DialogTrigger,
   DialogDescription,
 } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 import MDXRemote from '@/components/MDXRemote';
 
 type ExperienceDialogProps = Pick<ExperienceSchema, 'content'> & {
@@ -65,7 +66,9 @@ const ExperienceDialog: FC<ExperienceDialogProps> = ({ render }) => {
           />
         </main>
         <DialogFooter className="p-6">
-          <DialogClose>Close</DialogClose>
+          <DialogClose>
+            <Button>닫기</Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
