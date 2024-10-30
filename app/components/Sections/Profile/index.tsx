@@ -6,7 +6,7 @@ import { GITHUB_URL, LINKEDIN_URL } from '@/app/constants/url';
 import ProfileArticle from './Article';
 import HoverGroup from '@/components/HoverGroup';
 import IconButton from '@/components/IconButton';
-import ColorBadge from '@/components/ColorBadge';
+import CompanyLabel from '@/components/CompanyLabel';
 import trpc from '@trpc.client';
 
 const ProfileSection: FC = () => {
@@ -22,10 +22,11 @@ const ProfileSection: FC = () => {
       `}
     >
       <ProfileArticle label="현재 근무 중" data-id="current-job" className="max-sm:col-span-2">
-        <HoverGroup as="a" className="company-label" href={currentExperience?.url ?? LINKEDIN_URL}>
-          <ColorBadge color={currentExperience?.brandColor ?? '#25FF22'} />
-          <span className="company-label__name">{currentExperience?.name ?? 'OPEN TO WORK'}</span>
-        </HoverGroup>
+        <CompanyLabel
+          href={currentExperience?.url ?? LINKEDIN_URL}
+          brandColor={currentExperience?.brandColor ?? '#25FF22'}
+          name={currentExperience?.name ?? 'OPEN TO WORK'}
+        />
       </ProfileArticle>
       <ProfileArticle
         label="이전 경력 보기"
