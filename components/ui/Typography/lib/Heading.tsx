@@ -6,7 +6,7 @@ type CnRecords = Readonly<{ [key in HeadingTags]: string }>;
 type HeadingRecords = Readonly<{ [key in HeadingTags]: HeadingElement }>;
 
 const cnRecords: CnRecords = {
-  h1: 'scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl',
+  h1: 'scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl [&:not(:first-of-type)]:mt-10',
   h2: 'mt-10 scroll-m-20 border-b border-base pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0',
   h3: 'mt-8 scroll-m-20 text-2xl font-semibold tracking-tight',
 } as const;

@@ -1,7 +1,10 @@
 import type { NextPage } from 'next';
 import { HydrationBoundary } from '@tanstack/react-query';
 import { getDehydrated } from '@trpc.lib';
-import HomeSections from './components/Sections';
+import ProfileSection from './components/Sections/Profile';
+import PostSection from './components/Sections/Post';
+import AboutSection from './components/Sections/About';
+import ExperienceSection from './components/Sections/Experience';
 import Container from '@/components/Container';
 import HomeHeader from './components/Header';
 import HomeMain from './components/Main';
@@ -22,10 +25,10 @@ const Home: NextPage = async () => {
       </HomeHeader>
       <HomeMain>
         <HydrationBoundary state={dehydrated}>
-          <HomeSections.Profile />
-          <HomeSections.Post />
-          <HomeSections.About />
-          <HomeSections.Experience />
+          <ProfileSection />
+          <PostSection />
+          <AboutSection />
+          <ExperienceSection />
         </HydrationBoundary>
       </HomeMain>
       <HomeFooter />

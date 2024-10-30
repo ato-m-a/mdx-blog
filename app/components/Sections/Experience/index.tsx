@@ -1,11 +1,9 @@
-'use client';
-
 import type { FC } from 'react';
-import trpc from '@trpc.client';
+import trpc from '@trpc.server';
 import ExperienceArticle from './Article';
 
-const ExperienceSection: FC = () => {
-  const { data: experiences } = trpc.experience.getMany.useQuery();
+const ExperienceSection: FC = async () => {
+  const experiences = await trpc.experience.getMany();
 
   return (
     <section className="flex flex-col gap-y-4 max-lg:col-span-2">
