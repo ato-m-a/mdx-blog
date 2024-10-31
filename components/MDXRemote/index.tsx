@@ -1,7 +1,18 @@
 import type { FC } from 'react';
 import type { MDXComponents } from 'mdx/types';
 import { MDXRemote as MDXRemoteCore, type MDXRemoteSerializeResult } from 'next-mdx-remote/rsc';
-import { Heading, Paragraph } from '@/components/ui/Typography';
+import {
+  Heading,
+  Paragraph,
+  Anchor,
+  Blockquote,
+  UnorderedList,
+  ListItem,
+  Table,
+  TableWrapper,
+  TableHeaderCell,
+  TableDataCell,
+} from '@/components/ui/Typography';
 
 type MDXRemoteProps = {
   source: MDXRemoteSerializeResult | string;
@@ -17,6 +28,17 @@ const MDXRemote: FC<MDXRemoteProps> = ({ source, components: componentsOverride 
         h2: Heading.h2,
         h3: Heading.h3,
         p: Paragraph,
+        a: Anchor,
+        blockquote: Blockquote,
+        ul: UnorderedList,
+        li: ListItem,
+        table: ({ children, ...props }) => (
+          <TableWrapper {...props}>
+            <Table>{children}</Table>
+          </TableWrapper>
+        ),
+        th: TableHeaderCell,
+        td: TableDataCell,
         ...componentsOverride,
       }}
     />
