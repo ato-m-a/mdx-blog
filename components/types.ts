@@ -1,14 +1,6 @@
-import type { ElementType, ComponentType, ComponentProps } from 'react';
+import type { ElementType, ComponentProps } from 'react';
 
-type FlexibleProps<E extends ElementType | ComponentType<unknown>> =
-  | {
-      as?: E;
-      extend?: never;
-    }
-  | {
-      as?: never;
-      extend: E;
-    };
+type FlexibleProps<E extends ElementType, T = object> = { as?: E } & T;
 
-export type FlexibleComponentProps<E extends ElementType> = FlexibleProps<E> &
+export type FlexibleComponentProps<E extends ElementType, T = object> = FlexibleProps<E, T> &
   Omit<ComponentProps<E>, keyof FlexibleProps<E>>;

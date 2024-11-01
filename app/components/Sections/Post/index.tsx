@@ -19,8 +19,10 @@ const PostSection: FC = () => {
           <p className="color-tertiary leading-10">아직 작성된 포스트가 없습니다.</p>
         )}
       </section>
-      <HoverGroup extend={Link} className="color-primary" href="/posts">
-        모든 글 보기 →
+      <HoverGroup asChild>
+        <Link href="/posts" className="color-primary">
+          모든 글 보기 →
+        </Link>
       </HoverGroup>
     </section>
   );

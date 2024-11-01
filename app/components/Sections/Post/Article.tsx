@@ -7,8 +7,10 @@ import Link from 'next/link';
 const PostArticle: FC<PostSchema> = ({ id, title, createdAt }) => {
   return (
     <article className="border-l-2 border-zinc-700 pl-4">
-      <HoverGroup extend={Link} href={`/posts/${id}`} className="text-lg color-primary">
-        {title}
+      <HoverGroup asChild>
+        <Link href={`/posts/${id}`} className="text-lg color-primary">
+          {title}
+        </Link>
       </HoverGroup>
       <p className="text-sm font-codeblock color-secondary">
         {format(new Date(createdAt), 'MMM d, yyyy')}

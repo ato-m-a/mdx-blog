@@ -7,8 +7,8 @@ type CompanyLabelProps = Pick<CompanySchema, 'brandColor' | 'name'> & { href?: s
 
 const CompanyLabel: FC<CompanyLabelProps> = ({ brandColor, name, href }) => {
   const hoverGroupProps = href
-    ? { as: 'a' as ElementType, href, extend: undefined }
-    : { as: 'p' as ElementType, role: 'button', extend: undefined };
+    ? { as: 'a' as ElementType, href, target: '_blank' }
+    : { as: 'p' as ElementType, role: 'button' };
 
   return (
     <HoverGroup className="flex items-center gap-2" {...hoverGroupProps}>

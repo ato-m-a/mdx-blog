@@ -1,31 +1,42 @@
-import type { ElementType, ReactElement } from 'react';
-import type { FlexibleComponentProps } from '@/components/types';
+import type { HoverGroupProps } from './types';
+import { isValidElement, type ElementType, type ReactElement } from 'react';
+import { cn } from '@/common/utils';
+import { Slot } from '@radix-ui/react-slot';
+
+const Underline = () => (
+  <span
+    className={`
+      absolute left-0 bottom-0 
+      w-full h-[1px] 
+      bg-invert
+      origin-left
+      transform scale-x-0
+      transition-transform duration-200 ease-out
+      group-hover:scale-x-100
+    `}
+  />
+);
 
 const HoverGroup = <E extends ElementType>({
-  as,
   children,
+  as,
+  asChild = false,
   className,
-  extend,
   ...props
-}: FlexibleComponentProps<E>): ReactElement => {
-  const Component = extend ?? as ?? 'a';
+}: HoverGroupProps<E>): ReactElement => {
+  const Component = asChild ? Slot : (as ?? 'a');
+
+  const combinedClassName = cn(
+    'relative group cursor-pointer w-fit',
+    asChild && isValidElement(children) ? children.props.className : className,
+  );
 
   return (
-    <Component className="relative cursor-pointer w-fit" {...props}>
-      <span className={`relative group ${className}`}>
+    <Component {...props} className={combinedClassName}>
+      <>
         {children}
-        <span
-          className={`
-            absolute left-0 bottom-0 
-            w-full h-[1px] 
-            bg-invert
-            origin-left
-            transform scale-x-0
-            transition-transform duration-200 ease-out
-            group-hover:scale-x-100
-          `}
-        />
-      </span>
+        <Underline />
+      </>
     </Component>
   );
 };

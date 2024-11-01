@@ -21,6 +21,9 @@ const config: Config = {
         'max-md': {'max': '614px'},
         'max-sm': {'max': '364px'},
       },
+      colors: {
+        background: 'hsl(var(--background))',
+      },
       container: (theme) => ({
         center: true,
         screens : {
