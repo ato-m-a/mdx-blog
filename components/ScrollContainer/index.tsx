@@ -26,7 +26,7 @@ const ScrollContainer = <E extends ElementType>({
   return (
     <div className="relative flex-grow overflow-hidden px-6 py-0.5">
       <div
-        className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-background via-background/70 to-transparent pointer-events-none z-10 transition-opacity duration-300"
+        className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-background via-background/70 to-transparent pointer-events-none z-10 transition-opacity duration-100"
         style={{ opacity: showTopIndicator ? 1 : 0 }}
         aria-hidden="true"
       />
@@ -34,7 +34,7 @@ const ScrollContainer = <E extends ElementType>({
         {children}
       </Component>
       <div
-        className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-background via-background/70 to-transparent pointer-events-none z-10 transition-opacity duration-300"
+        className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-background via-background/70 to-transparent pointer-events-none z-10 transition-opacity duration-100"
         style={{ opacity: showBottomIndicator ? 1 : 0 }}
         aria-hidden="true"
       />
