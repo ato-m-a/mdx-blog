@@ -10,25 +10,41 @@ import {
   DialogTrigger,
   DialogDescription,
 } from '@/components/ui/dialog';
+import { format } from 'date-fns';
 import { Button } from '@/components/ui/button';
 import MDXRemote from '@/components/MDXRemote';
 import ScrollContainer from '@/components/ScrollContainer';
+import HoverGroup from '@/components/HoverGroup';
 
-type ExperienceDialogProps = Pick<ExperienceSchema, 'content'> & {
+type ExperienceDialogProps = Omit<ExperienceSchema, 'id' | 'createdAt' | 'updatedAt'> & {
   trigger: ReactNode;
 };
 
-const ExperienceDialog: FC<ExperienceDialogProps> = ({ trigger }) => {
+const ExperienceDialog: FC<ExperienceDialogProps> = ({
+  trigger,
+  company,
+  department,
+  position,
+  startDate,
+  endDate,
+}) => {
+  const workPeriod = `${format(startDate, 'yyyy.MM')} - ${endDate ? format(endDate, 'yyyy.MM') : '현재'}`;
+
   return (
     <Dialog>
       <DialogTrigger asChild>
         <div>{trigger}</div>
       </DialogTrigger>
       <DialogContent className="bg-primary color-primary flex flex-col border-base p-0 max-w-[60dvw] max-h-[80dvh] max-lg:max-w-[80dvw] max-lg:max-h-[90dvh] max-md:max-w-full max-md:w-full max-md:max-h-full h-full">
-        <DialogHeader className="p-6 w-full bg-primary">
-          <DialogTitle>Dialog Demo</DialogTitle>
-          <DialogDescription className="color-secondary">
-            This is a dialog demo for experience.
+        <DialogHeader className="p-6 w-full bg-primary text-left">
+          <DialogTitle asChild>
+            <HoverGroup as="a" href={company.url} target="_blank">
+              {company.name}
+            </HoverGroup>
+          </DialogTitle>
+          <DialogDescription className="color-secondary">{workPeriod}</DialogDescription>
+          <DialogDescription className="color-primary">
+            {department} / {position}
           </DialogDescription>
         </DialogHeader>
         <ScrollContainer as="main" className="h-full overflow-y-auto flex-1">

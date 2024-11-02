@@ -7,6 +7,7 @@ const companySchema = z.object({
   name: z.string(),
   url: z.string().url(),
   brandColor: z.string(),
+  description: z.string(),
   createdAt: z.date(),
   updatedAt: z.date().nullable(),
 });
