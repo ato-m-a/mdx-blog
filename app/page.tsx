@@ -13,7 +13,6 @@ import HomeFooter from './components/Footer';
 const Home: NextPage = async () => {
   const dehydrated = await getDehydrated((helpers) => [
     helpers.experience.getCurrentJob.prefetch(),
-    helpers.experience.getMany.prefetch(),
     helpers.post.getMany.prefetch({ page: 1, limit: 4 }),
   ]);
 

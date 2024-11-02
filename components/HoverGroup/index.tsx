@@ -1,5 +1,5 @@
 import type { HoverGroupProps } from './types';
-import { isValidElement, type ElementType, type ReactElement } from 'react';
+import { isValidElement, cloneElement, type ElementType, type ReactElement, FC } from 'react';
 import { cn } from '@/common/utils';
 import { Slot } from '@radix-ui/react-slot';
 
@@ -31,12 +31,30 @@ const HoverGroup = <E extends ElementType>({
     asChild && isValidElement(children) ? children.props.className : className,
   );
 
-  return (
-    <Component {...props} className={combinedClassName}>
+  const Render: FC = () => {
+    if (asChild && isValidElement(children)) {
+      return cloneElement(children as ReactElement, {
+        className: combinedClassName,
+        children: (
+          <>
+            {children.props.children}
+            <Underline />
+          </>
+        ),
+      });
+    }
+
+    return (
       <>
         {children}
         <Underline />
       </>
+    );
+  };
+
+  return (
+    <Component {...props} className={combinedClassName}>
+      <Render />
     </Component>
   );
 };
