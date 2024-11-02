@@ -43,6 +43,13 @@ const ExperienceDialog: FC<ExperienceDialogProps> = ({ trigger }) => {
               adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing
               elit. Quisquam, quos.
 
+
+              \`\`\`javascript {start:1}{2}
+              function greet(name) {
+                return \`안녕하세요, \${name}님!\`;
+              }
+              \`\`\`
+
               ## 소제목2-1
 
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum
