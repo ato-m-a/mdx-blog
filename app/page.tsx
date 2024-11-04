@@ -9,6 +9,7 @@ import Container from '@/components/Container';
 import HomeHeader from './components/Header';
 import HomeMain from './components/Main';
 import HomeFooter from './components/Footer';
+import ThemeToggleButton from '@/components/ThemeToggleButton';
 
 const Home: NextPage = async () => {
   const dehydrated = await getDehydrated((helpers) => [
@@ -19,7 +20,10 @@ const Home: NextPage = async () => {
   return (
     <Container>
       <HomeHeader>
-        <HomeHeader.Name>홍준혁</HomeHeader.Name>
+        <HomeHeader.Name>
+          홍준혁
+          <ThemeToggleButton />
+        </HomeHeader.Name>
         <HomeHeader.Description>웹 프론트엔드 개발자</HomeHeader.Description>
       </HomeHeader>
       <HomeMain>

@@ -7,34 +7,36 @@
 @layer base {
   :root {
     --background: 240 4% 95%;
-
-    @media (prefers-color-scheme: dark) {
-      --background: 240 6% 10%;
-    }
   }
-}
 
-pre[class*="language-"] > code {
-	position: relative;
-	display: block;
+  .dark {
+    --background: 240 6% 10%;
+  }
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  transition: background-color 0.2s ease;
 }
 
 html {
-  ::selection {
-    @apply bg-zinc-900 dark:bg-zinc-100;
-    @apply text-zinc-100 dark:text-zinc-900;
-  }
+  background-color: hsl(var(--background));
+}
 
-  body {
-    @apply bg-zinc-100 dark:bg-zinc-900;
-    font-family: var(--font-pretendard);
-  }
+body {
+  @apply bg-primary;
+  font-family: var(--font-pretendard);
+}
+
+::selection {
+  @apply bg-invert color-invert;
+}
+
+pre[class*='language-'] > code {
+  position: relative;
+  display: block;
 }
 
 pre {

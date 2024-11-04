@@ -5,7 +5,7 @@ import typography from '@tailwindcss/typography';
 import tailwindcssAnimate from 'tailwindcss-animate';
 
 const config: Config = {
-  darkMode: 'media',
+  darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -43,56 +43,66 @@ const config: Config = {
   plugins: [
     tailwindcssAnimate,
     typography({ target: 'modern' }),
-    plugin(({ addUtilities, theme }) => addUtilities({
-      '.color-primary': {
-        color: theme('colors.zinc.900'),
-        '@media (prefers-color-scheme: dark)': {
-          color: theme('colors.zinc.100'),
+    plugin(({ addVariant, addUtilities, theme }) => {
+      addVariant('dark', ['[data-theme="dark"] &', '.dark &']);
+
+      addUtilities({
+        '.color-primary': {
+          color: theme('colors.zinc.900'),
+          '.dark &': {
+            color: theme('colors.zinc.100'),
+          },
         },
-      },
-      '.color-secondary': {
-        color: theme('colors.zinc.500'),
-        '@media (prefers-color-scheme: dark)': {
-          color: theme('colors.zinc.400'),
-        },
-      },
-      '.color-tertiary': {
-        color: theme('colors.zinc.400'),
-        '@media (prefers-color-scheme: dark)': {
+        '.color-secondary': {
           color: theme('colors.zinc.500'),
+          '.dark &': {
+            color: theme('colors.zinc.400'),
+          },
         },
-      },
-      '.bg-primary': {
-        backgroundColor: theme('colors.zinc.100'),
-        '@media (prefers-color-scheme: dark)': {
-          backgroundColor: theme('colors.zinc.900'),
+        '.color-tertiary': {
+          color: theme('colors.zinc.400'),
+          '.dark &': {
+            color: theme('colors.zinc.500'),
+          },
         },
-      },
-      '.bg-secondary': {
-        backgroundColor: theme('colors.zinc.400'),
-        '@media (prefers-color-scheme: dark)': {
-          backgroundColor: theme('colors.zinc.600'),
-        },
-      },
-      '.bg-tertiary': {
-        backgroundColor: theme('colors.zinc.600'),
-        '@media (prefers-color-scheme: dark)': {
-          backgroundColor: theme('colors.zinc.500'),
-        },
-      },
-      '.border-base': {
-        borderColor: theme('colors.zinc.300'),
-        '@media (prefers-color-scheme: dark)': {
-          borderColor: theme('colors.zinc.700'),
-        },
-      },
-      '.bg-invert': {
-        backgroundColor: theme('colors.zinc.900'),
-        '@media (prefers-color-scheme: dark)': {
+        '.bg-primary': {
           backgroundColor: theme('colors.zinc.100'),
+          '.dark &': {
+            backgroundColor: theme('colors.zinc.900'),
+          },
         },
-      },
-    })),
+        '.bg-secondary': {
+          backgroundColor: theme('colors.zinc.400'),
+          '.dark &': {
+            backgroundColor: theme('colors.zinc.600'),
+          },
+        },
+        '.bg-tertiary': {
+          backgroundColor: theme('colors.zinc.600'),
+          '.dark &': {
+            backgroundColor: theme('colors.zinc.500'),
+          },
+        },
+        '.border-base': {
+          borderColor: theme('colors.zinc.300'),
+          '.dark &': {
+            borderColor: theme('colors.zinc.700'),
+          },
+        },
+        '.color-invert': {
+          color: theme('colors.zinc.100'),
+          '.dark &': {
+            color: theme('colors.zinc.900'),
+          },
+        },
+        '.bg-invert': { 
+          backgroundColor: theme('colors.zinc.900'),
+          '.dark &': {
+            backgroundColor: theme('colors.zinc.100'),
+          },
+        },
+      });
+    }),
   ]
 };
 

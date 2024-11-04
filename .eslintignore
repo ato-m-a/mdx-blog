@@ -2,3 +2,4 @@ next.config.mjs
 tailwind.config.ts
 postcss.config.mjs
 config/**/*.mjs
+public/js/**/*.js
