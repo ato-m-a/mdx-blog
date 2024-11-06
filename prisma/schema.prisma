@@ -60,3 +60,12 @@ model Category {
 
   @@map("category")
 }
+
+model Auth {
+  id        Int       @id @default(autoincrement())
+  password  String    @db.Text
+  createdAt DateTime  @map("created_at") @default(now())
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("auth")
+}

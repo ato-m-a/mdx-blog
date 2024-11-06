@@ -1,10 +1,10 @@
-import t from '@/server/trpc';
+import { router, publicProcedure } from '@/server/trpc';
 import pagedRequestSchema from '@/schema/common/paged-request.schema';
 import pagedResponseSchema from '@/schema/common/paged-response.schema';
 import postSchema from '@/schema/post.schema';
 
-const postRouter = t.router({
-  getMany: t.procedure
+const postRouter = router({
+  getMany: publicProcedure
     .input(pagedRequestSchema)
     .output(pagedResponseSchema(postSchema))
     .query(async ({ ctx: { prisma }, input: { page, limit } }) => {

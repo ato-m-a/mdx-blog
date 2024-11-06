@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/sonner';
 import Pretendard from '@/common/fonts/Pretendard.font';
 import JetBrainsMono from '@/common/fonts/JetBrains-mono.font';
 import QueryProvider from '@/components/Providers/QueryProvider';
@@ -18,6 +19,14 @@ export default function RootLayout({
       <body className={`${Pretendard.variable} ${JetBrainsMono.variable}`}>
         <ThemeProvider>
           <QueryProvider>{children}</QueryProvider>
+          <Toaster
+            toastOptions={{
+              classNames: {
+                error: 'bg-red-500 text-white',
+                success: 'bg-green-500 text-white',
+              },
+            }}
+          />
         </ThemeProvider>
       </body>
     </html>

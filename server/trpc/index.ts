@@ -1,12 +1,9 @@
-import type { Context } from './context';
-import { initTRPC } from '@trpc/server';
-import superjson from 'superjson';
+import t from './trpc';
 
-const t = initTRPC.context<Context>().create({
-  transformer: superjson,
-  errorFormatter({ shape }) {
-    return shape;
-  },
-});
+/** middleware */
+import sessionMiddleware from './middleware/session.middleware';
 
-export default t;
+export const createCallerFactory = t.createCallerFactory;
+export const router = t.router;
+export const publicProcedure = t.procedure;
+export const protectedProcedure = t.procedure.use(sessionMiddleware);

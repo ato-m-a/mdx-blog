@@ -3,3 +3,4 @@ tailwind.config.ts
 postcss.config.mjs
 config/**/*.mjs
 public/js/**/*.js
+env.d.ts

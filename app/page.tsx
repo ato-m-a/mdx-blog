@@ -10,6 +10,7 @@ import HomeHeader from './components/Header';
 import HomeMain from './components/Main';
 import HomeFooter from './components/Footer';
 import ThemeToggleButton from '@/components/ThemeToggleButton';
+import CommandListener from '@/components/CommandListener';
 
 const Home: NextPage = async () => {
   const dehydrated = await getDehydrated((helpers) => [
@@ -22,7 +23,7 @@ const Home: NextPage = async () => {
       <HomeHeader>
         <HomeHeader.Name>
           홍준혁
-          <ThemeToggleButton />
+          <ThemeToggleButton className="ml-2" />
         </HomeHeader.Name>
         <HomeHeader.Description>웹 프론트엔드 개발자</HomeHeader.Description>
       </HomeHeader>
@@ -35,6 +36,7 @@ const Home: NextPage = async () => {
         </HydrationBoundary>
       </HomeMain>
       <HomeFooter />
+      <CommandListener />
     </Container>
   );
 };
