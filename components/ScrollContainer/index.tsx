@@ -1,7 +1,7 @@
 'use client';
 
 import type { FlexibleComponentProps } from '@/components/types';
-import { useRef, useState, type ReactElement, type ElementType } from 'react';
+import { useRef, useState, useEffect, type ReactElement, type ElementType } from 'react';
 
 const ScrollContainer = <E extends ElementType>({
   as,
@@ -22,6 +22,8 @@ const ScrollContainer = <E extends ElementType>({
       setShowBottomIndicator(scrollTop + clientHeight < scrollHeight - 1);
     }
   };
+
+  useEffect(() => handleScroll(), []);
 
   return (
     <div className="relative flex-grow overflow-hidden px-6 py-0.5">

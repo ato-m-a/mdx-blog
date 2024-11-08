@@ -35,8 +35,8 @@ const ExperienceDialog: FC<ExperienceDialogProps> = ({
       <DialogTrigger asChild>
         <div>{trigger}</div>
       </DialogTrigger>
-      <DialogContent className="bg-primary color-primary flex flex-col border-base p-0 max-w-[60dvw] max-h-[80dvh] max-lg:max-w-[80dvw] max-lg:max-h-[90dvh] max-md:max-w-full max-md:w-full max-md:max-h-full h-full">
-        <DialogHeader className="p-6 w-full bg-primary text-left">
+      <DialogContent className="flex flex-col p-0 max-w-[60dvw] max-h-[80dvh] max-lg:max-w-[80dvw] max-lg:max-h-[90dvh] max-md:max-w-full max-md:w-full max-md:max-h-full h-full">
+        <DialogHeader className="p-6 w-full text-left">
           <DialogTitle asChild>
             <HoverGroup as="a" href={company.url} target="_blank">
               {company.name}

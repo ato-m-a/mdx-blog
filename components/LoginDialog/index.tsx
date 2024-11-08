@@ -66,7 +66,7 @@ const LoginDialog: FC<LoginDialogProps> = ({ open, setOpen }) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-primary color-primary flex flex-col border-base">
+      <DialogContent className="flex flex-col">
         <DialogHeader hidden>
           <DialogTitle hidden>Login Dialog</DialogTitle>
           <DialogDescription hidden>Enter password to continue</DialogDescription>
