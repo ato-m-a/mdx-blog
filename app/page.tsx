@@ -10,7 +10,7 @@ import HomeHeader from './components/Header';
 import HomeMain from './components/Main';
 import HomeFooter from './components/Footer';
 import ThemeToggleButton from '@/components/ThemeToggleButton';
-import CommandListener from '@/components/CommandListener';
+import LoginDialog from '@/components/LoginDialog';
 
 const Home: NextPage = async () => {
   const dehydrated = await getDehydrated((helpers) => [
@@ -36,7 +36,7 @@ const Home: NextPage = async () => {
         </HydrationBoundary>
       </HomeMain>
       <HomeFooter />
-      <CommandListener />
+      <LoginDialog />
     </Container>
   );
 };

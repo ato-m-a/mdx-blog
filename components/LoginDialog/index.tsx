@@ -1,6 +1,6 @@
 'use client';
 
-import type { FC, Dispatch, SetStateAction } from 'react';
+import { useState, type FC } from 'react';
 import { unstable_batchedUpdates } from 'react-dom';
 import {
   Dialog,
@@ -25,14 +25,13 @@ import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import loginRequestSchema, { type LoginRequestSchema } from '@/schema/login/login-request.schema';
+import useCommands from '@/common/hooks/useCommands';
 import trpc from '@trpc.client';
 
-type LoginDialogProps = {
-  open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-};
+const LoginDialog: FC = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  useCommands(['l'], () => setIsOpen(true));
 
-const LoginDialog: FC<LoginDialogProps> = ({ open, setOpen }) => {
   const form = useForm<LoginRequestSchema>({
     resolver: zodResolver(loginRequestSchema),
   });
@@ -40,7 +39,7 @@ const LoginDialog: FC<LoginDialogProps> = ({ open, setOpen }) => {
   const onOpenChange = (state: boolean) =>
     unstable_batchedUpdates(() => {
       if (!state) form.reset({});
-      setOpen(state);
+      setIsOpen(state);
     });
 
   const { data: sessionValid, refetch: refetchSessionValid } = trpc.auth.checkPermission.useQuery();
@@ -65,7 +64,7 @@ const LoginDialog: FC<LoginDialogProps> = ({ open, setOpen }) => {
   });
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="flex flex-col">
         <DialogHeader hidden>
           <DialogTitle hidden>Login Dialog</DialogTitle>
