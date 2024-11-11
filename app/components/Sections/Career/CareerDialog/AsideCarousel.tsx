@@ -29,10 +29,16 @@ const AsideCarousel: FC<AsideProps> = ({ experiences }) => {
     handleCursorChange((value) => api.scrollTo(value));
   }, [api]);
 
+  const draggable = experiences.length >= 2;
+
   return (
     <Carousel
       setApi={setApi}
-      className="flex flex-col gap-4 max-lg:flex-row max-lg:justify-between min-w-[11.5rem] max-xl:min-w-[6.5rem] max-lg:w-full"
+      className={`flex flex-col gap-4 max-lg:flex-row max-lg:justify-between min-w-[11.5rem] max-xl:min-w-[6.5rem] max-lg:w-full ${
+        draggable ? 'cursor-grab' : 'cursor-default'
+      }`}
+      draggable={draggable}
+      opts={{ watchDrag: draggable }}
     >
       <CarouselContent>
         {experiences.map((experience, index) => (
