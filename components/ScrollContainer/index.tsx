@@ -26,7 +26,7 @@ const ScrollContainer = <E extends ElementType>({
   useEffect(() => handleScroll(), []);
 
   return (
-    <div className="relative flex-grow overflow-hidden px-6 py-0.5">
+    <div className="relative flex-grow overflow-hidden py-0.5">
       <div
         className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-background via-background/70 to-transparent pointer-events-none z-10 transition-opacity duration-100"
         style={{ opacity: showTopIndicator ? 1 : 0 }}

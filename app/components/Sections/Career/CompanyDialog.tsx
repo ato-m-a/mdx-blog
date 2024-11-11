@@ -1,7 +1,8 @@
 'use client';
 
-import type { FC, ReactNode } from 'react';
-import companySchema, { type CompanySchema } from '@/schema/company.schema';
+import type { FC } from 'react';
+import type { EditableProps, WithTrigger } from '@/components/types';
+import companySchema, { type CompanySchema } from '@/schema/company/company.schema';
 import { useForm } from 'react-hook-form';
 import {
   Dialog,
@@ -27,8 +28,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import ColorBadge from '@/components/ColorBadge';
 import trpc from '@trpc.client';
 
-type IntersectionProps = ({ edit: true } & CompanySchema) | { edit?: false | undefined };
-type CompanyDialogProps = IntersectionProps & { trigger: ReactNode };
+type CompanyDialogProps = EditableProps<CompanySchema> & WithTrigger;
 
 const CompanyDialog: FC<CompanyDialogProps> = ({ edit, trigger, ...company }) => {
   const form = useForm<CompanySchema>({

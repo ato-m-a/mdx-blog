@@ -1,20 +1,18 @@
 import type { FC } from 'react';
 import trpc from '@trpc.server';
-import ExperienceArticle from './Article';
+import CareerArticle from './Article';
 
-const ExperienceSection: FC = async () => {
-  const experiences = await trpc.experience.getMany();
+const CareerSection: FC = async () => {
+  const careers = await trpc.company.getCareers();
 
   return (
     <section className="flex flex-col gap-y-4 max-lg:col-span-2">
       <h2 className="text-2xl color-primary font-semibold">이력</h2>
       <section className="flex flex-col gap-y-4">
-        {experiences?.map((experience) => (
-          <ExperienceArticle key={experience.id} {...experience} />
-        ))}
+        {careers?.map((career) => <CareerArticle key={career.id} {...career} />)}
       </section>
     </section>
   );
 };
 
-export default ExperienceSection;
+export default CareerSection;

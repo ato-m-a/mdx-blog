@@ -1,5 +1,5 @@
 import type { ElementType, FC } from 'react';
-import type { CompanySchema } from '@/schema/company.schema';
+import type { CompanySchema } from '@/schema/company/company.schema';
 import HoverGroup from '@/components/HoverGroup';
 import ColorBadge from '@/components/ColorBadge';
 

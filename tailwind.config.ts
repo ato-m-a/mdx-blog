@@ -17,6 +17,7 @@ const config: Config = {
         'codeblock': ['var(--font-jetbrains-mono)'],
       },
       screens: {
+        'max-xl': {'max': '1440px'},
         'max-lg': {'max': '970px'},
         'max-md': {'max': '614px'},
         'max-sm': {'max': '364px'},
