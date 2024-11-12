@@ -1,4 +1,6 @@
 import { Toaster } from '@/components/ui/sonner';
+import { SidebarProvider } from '@/components/ui/sidebar';
+import { Sidebar, SidebarTrigger } from '@/components/Sidebar';
 import Pretendard from '@/common/fonts/Pretendard.font';
 import JetBrainsMono from '@/common/fonts/JetBrains-mono.font';
 import QueryProvider from '@/components/Providers/QueryProvider';
@@ -18,15 +20,21 @@ export default function RootLayout({
     <html lang="ko" suppressHydrationWarning>
       <body className={`${Pretendard.variable} ${JetBrainsMono.variable}`}>
         <ThemeProvider>
-          <QueryProvider>{children}</QueryProvider>
-          <Toaster
-            toastOptions={{
-              classNames: {
-                error: 'bg-red-500 text-white',
-                success: 'bg-green-500 text-white',
-              },
-            }}
-          />
+          <SidebarProvider defaultOpen={false}>
+            <QueryProvider>
+              <Sidebar />
+              <SidebarTrigger />
+              {children}
+            </QueryProvider>
+            <Toaster
+              toastOptions={{
+                classNames: {
+                  error: 'bg-red-500 text-white',
+                  success: 'bg-green-500 text-white',
+                },
+              }}
+            />
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>
