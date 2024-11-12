@@ -6,17 +6,18 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselIndicator,
   type CarouselApi,
 } from '@/components/ui/carousel';
 import AsideArticle from './AsideArticle';
 import Observed from '@/components/Observed';
-import CarouselIndicator from './CarouselIndicator';
+
 type AsideProps = {
   experiences: ExperienceSchema[];
 };
 
 const AsideCarousel: FC<AsideProps> = ({ experiences }) => {
-  const { setCursor, handleCursorChange } = Observed.useContext();
+  const { cursor, setCursor, handleCursorChange } = Observed.useContext();
   const [api, setApi] = useState<CarouselApi | null>(null);
 
   useEffect(() => {
@@ -37,7 +38,6 @@ const AsideCarousel: FC<AsideProps> = ({ experiences }) => {
       className={`flex flex-col gap-4 max-lg:flex-row max-lg:justify-between min-w-[11.5rem] max-xl:min-w-[6.5rem] max-lg:w-full ${
         draggable ? 'cursor-grab' : 'cursor-default'
       }`}
-      draggable={draggable}
       opts={{ watchDrag: draggable }}
     >
       <CarouselContent>
@@ -47,7 +47,12 @@ const AsideCarousel: FC<AsideProps> = ({ experiences }) => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselIndicator totalPage={experiences.length} />
+      <CarouselIndicator
+        totalCount={experiences.length}
+        currentIndex={cursor}
+        setIndex={setCursor}
+        invisible={experiences.length < 2}
+      />
     </Carousel>
   );
 };

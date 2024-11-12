@@ -5,6 +5,7 @@ import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-reac
 import { cn } from '@/common/utils';
 import { Button } from '@/components/ui/button';
 import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -16,6 +17,15 @@ type CarouselProps = {
   plugins?: CarouselPlugin;
   orientation?: 'horizontal' | 'vertical';
   setApi?: (api: CarouselApi) => void;
+};
+
+type CarouselIndicatorProps = {
+  totalCount: number;
+  currentIndex: number;
+  setIndex: (page: number) => void;
+  className?: string;
+  disabled?: boolean;
+  invisible?: boolean;
 };
 
 type CarouselContextProps = {
@@ -231,6 +241,49 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
 );
 CarouselNext.displayName = 'CarouselNext';
 
+const CarouselIndicator: React.FC<CarouselIndicatorProps> = ({
+  totalCount,
+  currentIndex,
+  setIndex,
+  className,
+  disabled = false,
+  invisible = false,
+}) => {
+  const iconClassName = (className: string) =>
+    cn('w-6 h-6 cursor-pointer transition-opacity duration-100', className);
+
+  const toPrev = () => {
+    if (currentIndex > 0 && !disabled) setIndex(currentIndex - 1);
+  };
+
+  const toNext = () => {
+    if (currentIndex < totalCount - 1 && !disabled) setIndex(currentIndex + 1);
+  };
+
+  if (invisible) return null;
+
+  return (
+    <div className={cn('flex items-center gap-2 w-max max-sm:gap-0', className)}>
+      <ChevronLeft
+        onClick={toPrev}
+        className={iconClassName(
+          currentIndex === 0 || disabled ? 'opacity-50 cursor-not-allowed' : '',
+        )}
+      />
+      <span className="color-primary text-sm whitespace-nowrap max-sm:hidden">
+        {currentIndex + 1} / {totalCount}
+      </span>
+      <ChevronRight
+        onClick={toNext}
+        className={iconClassName(
+          currentIndex === totalCount - 1 || disabled ? 'opacity-50 cursor-not-allowed' : '',
+        )}
+      />
+    </div>
+  );
+};
+CarouselIndicator.displayName = 'CarouselIndicator';
+
 export {
   type CarouselApi,
   Carousel,
@@ -238,4 +291,5 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  CarouselIndicator,
 };

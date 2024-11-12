@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-type ObservedContextType = {
+export type ObservedContextType = {
   cursor: number;
   setCursor: (cursor: number) => void;
   handleCursorChange: (callback: (cursor: number) => void) => void;
