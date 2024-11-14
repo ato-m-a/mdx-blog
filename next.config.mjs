@@ -8,16 +8,14 @@ import webpackConfig from './config/webpack/lib/webpackConfig.mjs';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  webpack: (config, options) => webpackConfig(config, options)
-    .use(applyBundleAnalyzerPlugin)
-    .use(applyOptimization)
-    .use(applyPathResolve)
-    .apply(),
+  webpack: (config, options) =>
+    webpackConfig(config, options)
+      .use(applyBundleAnalyzerPlugin)
+      .use(applyOptimization)
+      .use(applyPathResolve)
+      .apply(),
   async headers() {
-    return [
-      securityHeaders,
-      ...cacheControlHeaders,
-    ];
+    return [securityHeaders, ...cacheControlHeaders];
   },
 };
 

@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { HydrationBoundary } from '@tanstack/react-query';
-import { getDehydrated } from '@trpc.lib';
+import { getDehydrated } from 'trpc/lib';
 import ProfileSection from './components/Sections/Profile';
 import PostSection from './components/Sections/Post';
 import AboutSection from './components/Sections/About';
@@ -10,7 +10,7 @@ import HomeHeader from './components/Header';
 import HomeMain from './components/Main';
 import HomeFooter from './components/Footer';
 import ThemeToggleButton from '@/components/ThemeToggleButton';
-import LoginDialog from '@/components/LoginDialog';
+import SessionDialog from '@/components/SessionDialog';
 
 const Home: NextPage = async () => {
   const dehydrated = await getDehydrated((helpers) => [
@@ -36,7 +36,7 @@ const Home: NextPage = async () => {
         </HydrationBoundary>
       </HomeMain>
       <HomeFooter />
-      <LoginDialog />
+      <SessionDialog />
     </Container>
   );
 };

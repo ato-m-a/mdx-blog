@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import trpc from '@trpc.server';
+import trpc from 'trpc-server';
 import CareerArticle from './Article';
 
 const CareerSection: FC = async () => {

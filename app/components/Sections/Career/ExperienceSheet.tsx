@@ -11,7 +11,7 @@ import {
   SheetTitle,
   SheetDescription,
 } from '@/components/ui/sheet';
-import trpc from '@trpc.client';
+import trpc from 'trpc-client';
 
 type ExperienceSheetProps = EditableProps<ExperienceSchema> & WithTrigger;
 

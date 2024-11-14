@@ -4,7 +4,7 @@ import { useRef, type FC, type PropsWithChildren } from 'react';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { httpBatchLink } from '@trpc/client';
-import trpc from '@trpc.client';
+import trpc from 'trpc-client';
 import superjson from 'superjson';
 
 const QueryProvider: FC<PropsWithChildren> = ({ children }) => {

@@ -1,14 +1,25 @@
 import { useEffect } from 'react';
 
-type Keys = ReadonlyArray<((event: KeyboardEvent) => boolean) | string>;
+type KeyEvent = ((event: KeyboardEvent) => boolean) | string;
+type KeysOrKey = ReadonlyArray<KeyEvent> | KeyEvent;
 
-const useCommands = (keyArray: Keys, callback: () => void) => {
+const useCommands = (keysOrKey: KeysOrKey, callback: () => void) => {
   const handleKeyDown = (event: KeyboardEvent) => {
-    for (const key of keyArray) {
-      if (typeof key === 'function') {
-        key(event);
-      } else if (event.metaKey && event.key === key) {
+    if (keysOrKey instanceof Array) {
+      for (const key of keysOrKey) {
+        if (typeof key === 'function') {
+          key(event);
+        } else if ((event.metaKey || event.ctrlKey) && event.key === key) {
+          callback();
+          event.preventDefault();
+        }
+      }
+    } else {
+      if (typeof keysOrKey === 'function') {
+        keysOrKey(event);
+      } else if ((event.metaKey || event.ctrlKey) && event.key === keysOrKey) {
         callback();
+        event.preventDefault();
       }
     }
   };

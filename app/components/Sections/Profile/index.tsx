@@ -7,7 +7,7 @@ import ProfileArticle from './Article';
 import HoverGroup from '@/components/HoverGroup';
 import IconButton from '@/components/IconButton';
 import CompanyLabel from '@/components/CompanyLabel';
-import trpc from '@trpc.client';
+import trpc from 'trpc-client';
 
 const ProfileSection: FC = () => {
   const { data: currentExperience } = trpc.experience.getCurrentJob.useQuery();

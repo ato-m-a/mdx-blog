@@ -20,21 +20,22 @@ export default function RootLayout({
     <html lang="ko" suppressHydrationWarning>
       <body className={`${Pretendard.variable} ${JetBrainsMono.variable}`}>
         <ThemeProvider>
-          <SidebarProvider defaultOpen={false}>
-            <QueryProvider>
+          <QueryProvider>
+            <SidebarProvider defaultOpen={false}>
               <Sidebar />
               <SidebarTrigger />
               {children}
-            </QueryProvider>
-            <Toaster
-              toastOptions={{
-                classNames: {
-                  error: 'bg-red-500 text-white',
-                  success: 'bg-green-500 text-white',
-                },
-              }}
-            />
-          </SidebarProvider>
+            </SidebarProvider>
+          </QueryProvider>
+          <Toaster
+            toastOptions={{
+              classNames: {
+                error: 'bg-red-500 text-white',
+                success: 'bg-green-500 text-white',
+              },
+            }}
+            richColors
+          />
         </ThemeProvider>
       </body>
     </html>

@@ -11,6 +11,7 @@ import { Separator } from '@/components/ui/separator';
 import { Sheet, SheetContent } from '@/components/ui/sheet';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import trpc from 'trpc-client';
 import useIsMobile from '@/common/hooks/useIsMobile';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar:state';
@@ -61,6 +62,11 @@ const SidebarProvider = React.forwardRef<
     },
     ref,
   ) => {
+    // session valid check
+    const { data: sessionValid } = trpc.auth.checkPermission.useQuery(undefined, {
+      refetchOnWindowFocus: true,
+    });
+
     const isMobile = useIsMobile();
     const [openMobile, setOpenMobile] = React.useState(false);
 
@@ -85,8 +91,9 @@ const SidebarProvider = React.forwardRef<
 
     // Helper to toggle the sidebar.
     const toggleSidebar = React.useCallback(() => {
+      if (!sessionValid) return;
       return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open);
-    }, [isMobile, setOpen, setOpenMobile]);
+    }, [isMobile, setOpen, setOpenMobile, sessionValid]);
 
     // Adds a keyboard shortcut to toggle the sidebar.
     React.useEffect(() => {
@@ -187,7 +194,7 @@ const Sidebar = React.forwardRef<
           <SheetContent
             data-sidebar="sidebar"
             data-mobile="true"
-            className="w-[--sidebar-width] bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
+            className="w-[--sidebar-width] bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden border-sidebar-border"
             style={
               {
                 '--sidebar-width': SIDEBAR_WIDTH_MOBILE,

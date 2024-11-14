@@ -19,9 +19,9 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@trpc.server": ["./common/trpc/server.ts"],
-      "@trpc.client": ["./common/trpc/client.ts"],
-      "@trpc.lib": ["./common/trpc/lib"]
+      "trpc-server": ["./common/trpc/server.ts"],
+      "trpc-client": ["./common/trpc/client.ts"],
+      "trpc/lib": ["./common/trpc/lib"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "env.d.ts"],

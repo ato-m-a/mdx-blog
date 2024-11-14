@@ -3,7 +3,7 @@
 import type { FC } from 'react';
 import PostArticle from './Article';
 import HoverGroup from '@/components/HoverGroup';
-import trpc from '@trpc.client';
+import trpc from 'trpc-client';
 import Link from 'next/link';
 
 const PostSection: FC = () => {

@@ -1,29 +1,27 @@
 'use client';
 
-import type { ComponentType, FC } from 'react';
-import trpc from '@trpc.client';
+import type { FC, ReactNode } from 'react';
+import trpc from 'trpc-client';
 
-type ProtectedProps<P extends object> = P & {
-  sessionValid: boolean;
-  refetchSessionValid: () => void;
+type ChildrenType = FC<ProtectedChildrenProps> | ReactNode;
+type ProtectedChildrenProps = {
+  state: boolean;
+  refetch: () => void;
+};
+type ProtectedProps = {
+  children: ChildrenType;
+  fallback?: ChildrenType;
 };
 
-type ProtectedArg<P extends object> = ComponentType<ProtectedProps<P>>;
-type ProtectedReturns<P extends object> = FC<P>;
+const Protected: FC<ProtectedProps> = ({ children, fallback }) => {
+  const { data: state, refetch } = trpc.auth.checkPermission.useQuery(undefined, {
+    refetchOnWindowFocus: true,
+  });
 
-const Protected = <P extends object>(Component: ProtectedArg<P>): ProtectedReturns<P> => {
-  const ProtectedComponent: FC<P> = (props: P) => {
-    const { data: sessionValid, refetch: refetchSessionValid } =
-      trpc.auth.checkPermission.useQuery();
+  if (state === undefined) return null;
 
-    if (!sessionValid) return null;
-
-    return (
-      <Component {...props} sessionValid={sessionValid} refetchSessionValid={refetchSessionValid} />
-    );
-  };
-
-  return ProtectedComponent;
+  if (state) return typeof children === 'function' ? children({ state, refetch }) : children;
+  return typeof fallback === 'function' ? fallback({ state, refetch }) : fallback;
 };
 
 export default Protected;

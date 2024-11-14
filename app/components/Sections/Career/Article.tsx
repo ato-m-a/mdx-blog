@@ -1,10 +1,8 @@
 import type { FC } from 'react';
 import type { CareerSchema } from '@/schema/company/career.schema';
 import { format } from 'date-fns';
-import { Button } from '@/components/ui/button';
 import CompanyLabel from '@/components/CompanyLabel';
 import CareerDialog from './CareerDialog';
-import CompanyDialog from './CompanyDialog';
 
 const CareerArticle: FC<CareerSchema> = ({ experiences, ...company }) => {
   const startDate = experiences[0].startDate;
@@ -23,7 +21,6 @@ const CareerArticle: FC<CareerSchema> = ({ experiences, ...company }) => {
           />
         </div>
       </div>
-      <CompanyDialog trigger={<Button variant="link">수정</Button>} edit {...company} />
     </article>
   );
 };
