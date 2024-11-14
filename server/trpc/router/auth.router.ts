@@ -40,7 +40,9 @@ const authRouter = router({
 
     return true;
   }),
-  checkPermission: publicProcedure.query(async ({ ctx: { req, redisClient } }) => {
+  checkPermission: publicProcedure.query(async ({ ctx: { req, resHeaders, redisClient } }) => {
+    resHeaders?.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+
     const sessionId = req?.headers.get(HEADERS_SESSION_KEY);
 
     if (!sessionId) return false;
