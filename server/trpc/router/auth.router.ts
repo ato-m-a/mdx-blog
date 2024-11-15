@@ -30,7 +30,7 @@ const authRouter = router({
     return await session.check();
   }),
   extendSession: protectedProcedure.mutation(
-    async ({ ctx: { session } }) => await session.create(),
+    async ({ ctx: { session } }) => await session.extend(),
   ),
 });
 

@@ -1,11 +1,14 @@
 import type { SessionStorage } from '@/server/trpc/lib/storage';
 import { HEADERS_SESSION_KEY, STORAGE_SESSION_KEY } from '@/common/utils/session';
 import { UnauthorizedException } from '@/server/trpc/lib/exceptions';
-import { parseISO, addSeconds } from 'date-fns';
+import { addSeconds, parseISO } from 'date-fns';
 import { nanoid } from 'nanoid';
+
+const DEFAULT_ORIGIN = 'dev-mode';
 
 export default class Session {
   private readonly storage: SessionStorage;
+  private readonly origin: string = DEFAULT_ORIGIN;
   private _id: string | null;
   private _expiresAt: Date | null = null;
 
@@ -13,6 +16,7 @@ export default class Session {
     this.storage = storage;
 
     const { headers } = req ?? {};
+    this.origin = headers ? (headers.get('x-forwarded-for') ?? DEFAULT_ORIGIN) : DEFAULT_ORIGIN;
     this._id = headers ? (headers.get(HEADERS_SESSION_KEY) ?? null) : null;
   }
 
@@ -28,17 +32,29 @@ export default class Session {
     this._expiresAt = value;
   }
 
-  async create(EX: number = 3600): Promise<string> {
+  async create(duration: number = 3600): Promise<string> {
     await this.destroy();
 
     const sessionId = nanoid();
     await this.storage.set(
       STORAGE_SESSION_KEY(sessionId),
-      addSeconds(new Date(), EX).toISOString(),
-      EX,
+      addSeconds(new Date(), duration).toISOString(),
+      duration,
     );
     this.init(sessionId);
 
+    await this.sync();
+
+    return sessionId;
+  }
+
+  async extend(duration: number = 3600): Promise<string> {
+    const sessionId = this.validateSessionId();
+    await this.storage.extend(
+      STORAGE_SESSION_KEY(sessionId),
+      addSeconds(new Date(), duration).toISOString(),
+      duration,
+    );
     await this.sync();
 
     return sessionId;
