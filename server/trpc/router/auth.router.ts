@@ -1,15 +1,12 @@
 import { router, publicProcedure, protectedProcedure } from '@/server/trpc';
-import { TRPCError } from '@trpc/server';
-import { nanoid } from 'nanoid';
-import { HEADERS_SESSION_KEY, REDIS_SESSION_KEY } from '@/common/utils/session';
-import { addHours } from 'date-fns';
+import { UnauthorizedException } from '@/server/trpc/lib/exceptions';
 import loginRequestSchema from '@/schema/login/login-request.schema';
 import bcrypt from 'bcrypt';
 
 const authRouter = router({
   login: publicProcedure
     .input(loginRequestSchema)
-    .mutation(async ({ input: { password }, ctx: { prisma, redisClient } }) => {
+    .mutation(async ({ input: { password }, ctx: { prisma, session } }) => {
       const storedAuth = await prisma.auth.findFirst({
         orderBy: {
           createdAt: 'desc',
@@ -18,39 +15,23 @@ const authRouter = router({
           deletedAt: null,
         },
       });
-
-      if (!storedAuth) throw new TRPCError({ code: 'UNAUTHORIZED' });
+      if (!storedAuth) throw new UnauthorizedException();
 
       const isValid = await bcrypt.compare(password, storedAuth.password);
+      if (!isValid) throw new UnauthorizedException();
 
-      if (!isValid) throw new TRPCError({ code: 'UNAUTHORIZED' });
-
-      const sessionId = nanoid();
-
-      await redisClient.set(REDIS_SESSION_KEY(sessionId), addHours(new Date(), 1).toISOString(), {
-        EX: 3600,
-      });
-
-      return sessionId;
+      return await session.create();
     }),
-  logout: protectedProcedure.mutation(async ({ ctx: { req, redisClient } }) => {
-    const sessionId = req?.headers.get(HEADERS_SESSION_KEY);
-
-    if (sessionId) await redisClient.del(REDIS_SESSION_KEY(sessionId));
-
-    return true;
+  logout: protectedProcedure.mutation(async ({ ctx: { session } }) => {
+    await session.destroy();
   }),
-  checkPermission: publicProcedure.query(async ({ ctx: { req, resHeaders, redisClient } }) => {
+  checkPermission: publicProcedure.query(async ({ ctx: { resHeaders, session } }) => {
     resHeaders?.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-
-    const sessionId = req?.headers.get(HEADERS_SESSION_KEY);
-
-    if (!sessionId) return false;
-
-    const storedSession = await redisClient.get(REDIS_SESSION_KEY(sessionId));
-
-    return Boolean(storedSession);
+    return await session.check();
   }),
+  extendSession: protectedProcedure.mutation(
+    async ({ ctx: { session } }) => await session.create(),
+  ),
 });
 
 export default authRouter;

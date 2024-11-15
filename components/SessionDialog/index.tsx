@@ -50,6 +50,16 @@ const SessionDialog: FC = () => {
     },
   });
 
+  const { mutate: extendSession } = trpc.auth.extendSession.useMutation({
+    onSuccess: (sessionId) => {
+      sessionStorage.setItem('sessionId', sessionId);
+      toast.success('Session extended successfully.');
+    },
+    onError: () => {
+      toast.error('Failed to extend session.');
+    },
+  });
+
   useCommands('l', () => dispatch('toggle'));
   useCommands('o', () => logout());
 
@@ -69,7 +79,7 @@ const SessionDialog: FC = () => {
                 Logout
                 <CommandShortcut>⌘O</CommandShortcut>
               </Button>
-              <Button>
+              <Button onClick={() => extendSession()}>
                 Extend Session
                 <CommandShortcut>⌘E</CommandShortcut>
               </Button>
