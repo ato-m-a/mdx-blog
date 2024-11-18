@@ -1,5 +1,6 @@
 import { router, publicProcedure, protectedProcedure } from '@/server/trpc';
 import { UnauthorizedException } from '@/server/trpc/lib/exceptions';
+import noCacheMiddleware from '@/server/trpc/middleware/no-cache.middleware';
 import loginRequestSchema from '@/schema/login/login-request.schema';
 import bcrypt from 'bcrypt';
 
@@ -25,14 +26,12 @@ const authRouter = router({
   logout: protectedProcedure.mutation(async ({ ctx: { session } }) => {
     await session.destroy();
   }),
-  checkPermission: publicProcedure.query(async ({ ctx: { resHeaders, session } }) => {
-    resHeaders?.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    return await session.check();
-  }),
-  getExpiry: protectedProcedure.query(async ({ ctx: { resHeaders, session } }) => {
-    resHeaders?.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    return await session.getExpiry();
-  }),
+  checkPermission: publicProcedure
+    .use(noCacheMiddleware)
+    .query(async ({ ctx: { session } }) => await session.check()),
+  getExpiry: protectedProcedure
+    .use(noCacheMiddleware)
+    .query(async ({ ctx: { session } }) => await session.getExpiry()),
   extendSession: protectedProcedure.mutation(
     async ({ ctx: { session } }) => await session.extend(),
   ),
