@@ -29,6 +29,10 @@ const authRouter = router({
     resHeaders?.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     return await session.check();
   }),
+  getExpiry: protectedProcedure.query(async ({ ctx: { resHeaders, session } }) => {
+    resHeaders?.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    return await session.getExpiry();
+  }),
   extendSession: protectedProcedure.mutation(
     async ({ ctx: { session } }) => await session.extend(),
   ),

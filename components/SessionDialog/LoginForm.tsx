@@ -1,12 +1,6 @@
 'use client';
 
 import { useEffect, type FC } from 'react';
-import { Input } from '@/components/ui/input';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Form, FormItem, FormControl, FormField } from '@/components/ui/form';
-import { toast } from 'sonner';
-import loginRequestSchema, { type LoginRequestSchema } from '@/schema/login/login-request.schema';
 import {
   DialogContent,
   DialogHeader,
@@ -14,25 +8,30 @@ import {
   DialogDescription,
   useDialog,
 } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Form, FormItem, FormControl, FormField } from '@/components/ui/form';
+import { toast } from 'sonner';
+import loginRequestSchema, { type LoginRequestSchema } from '@/schema/login/login-request.schema';
 import { CommandShortcut } from '@/components/ui/command';
-import trpc from 'trpc-client';
+import useLogin from '@/common/hooks/session/useLogin';
 
 type LoginFormProps = {
-  onSuccess: () => void;
+  onOpenChange: (open: boolean) => void;
 };
 
-const LoginForm: FC<LoginFormProps> = ({ onSuccess }) => {
+const LoginForm: FC<LoginFormProps> = ({ onOpenChange }) => {
   const { open } = useDialog();
 
   const form = useForm<LoginRequestSchema>({
     resolver: zodResolver(loginRequestSchema),
   });
 
-  const { mutate: login } = trpc.auth.login.useMutation({
-    onSuccess: (sessionId) => {
-      onSuccess();
-      sessionStorage.setItem('sessionId', sessionId);
+  const login = useLogin({
+    onSuccess: () => {
       toast.success('Logged in successfully.');
+      onOpenChange(false);
     },
     onError: () => toast.error('Login Failed', { description: 'Invalid Password!' }),
   });
@@ -50,7 +49,7 @@ const LoginForm: FC<LoginFormProps> = ({ onSuccess }) => {
   return (
     <DialogContent
       className="gap-0 p-4 bg-transparent border-none shadow-none max-w-[30vw] max-lg:max-w-[50vw] max-md:max-w-[70vw] max-sm:max-w-[90vw]"
-      overlayProps={{ className: 'backdrop-blur-sm bg-black/50' }}
+      overlayProps={{ className: 'backdrop-blur-lg bg-black/10 dark:bg-black/50' }}
       closeButtonVisible={false}
     >
       <DialogHeader hidden>

@@ -9,12 +9,12 @@ import {
   DialogDescription,
   DialogClose,
 } from '@/components/ui/dialog';
-import { unstable_batchedUpdates } from 'react-dom';
 import { Button } from '@/components/ui/button';
 import { CommandShortcut } from '@/components/ui/command';
 import { toast } from 'sonner';
-import trpc from 'trpc-client';
 import Protected from '@/components/lib/Protected';
+import useLogout from '@/common/hooks/session/useLogout';
+import useExtendSession from '@/common/hooks/session/useExtendSession';
 import useCommands from '@/common/hooks/useCommands';
 import LoginForm from './LoginForm';
 
@@ -29,43 +29,35 @@ const SessionDialog: FC = () => {
     false,
   );
 
-  const utils = trpc.useUtils();
-
-  const onSuccess = () =>
-    unstable_batchedUpdates(() => {
-      dispatch('close');
-      utils.auth.checkPermission.invalidate();
-    });
-
-  const { mutate: logout } = trpc.auth.logout.useMutation({
+  const logout = useLogout({
     onSuccess: () => {
-      onSuccess();
-      sessionStorage.removeItem('sessionId');
+      dispatch('close');
       toast.success('Logged out successfully.');
     },
     onError: () => {
-      onSuccess();
-      sessionStorage.removeItem('sessionId');
+      dispatch('close');
       toast.error('Session already expired.');
     },
   });
 
-  const { mutate: extendSession } = trpc.auth.extendSession.useMutation({
-    onSuccess: (sessionId) => {
-      sessionStorage.setItem('sessionId', sessionId);
+  const extend = useExtendSession({
+    onSuccess: () => {
+      dispatch('close');
       toast.success('Session extended successfully.');
     },
     onError: () => {
+      dispatch('close');
       toast.error('Failed to extend session.');
     },
   });
 
   useCommands('l', () => dispatch('toggle'));
-  useCommands('o', () => logout());
+  useCommands('o', () => logout(), { enabled: isOpen });
+  useCommands('e', () => extend(), { enabled: isOpen });
 
   return (
     <Dialog open={isOpen} onOpenChange={dispatch}>
-      <Protected fallback={<LoginForm onSuccess={onSuccess} />}>
+      <Protected fallback={<LoginForm onOpenChange={dispatch} />}>
         <DialogContent className="space-y-4 border-base" closeButtonVisible={false}>
           <DialogHeader>
             <DialogTitle>Session Management</DialogTitle>
@@ -79,7 +71,7 @@ const SessionDialog: FC = () => {
                 Logout
                 <CommandShortcut>⌘O</CommandShortcut>
               </Button>
-              <Button onClick={() => extendSession()}>
+              <Button onClick={() => extend()}>
                 Extend Session
                 <CommandShortcut>⌘E</CommandShortcut>
               </Button>

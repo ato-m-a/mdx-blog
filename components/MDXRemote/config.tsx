@@ -28,4 +28,4 @@ export const components: MDXComponents = {
   ),
   th: TableHeaderCell,
   td: TableDataCell,
-};
+} as const;

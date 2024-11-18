@@ -79,6 +79,12 @@ export default class Session {
     return true;
   }
 
+  async getExpiry(): Promise<Date> {
+    const sessionId = this.validateSessionId();
+    const stored = await this.getSessionData(sessionId);
+    return parseISO(stored);
+  }
+
   private validateSessionId(): string {
     if (!this.id) throw new UnauthorizedException();
     return this.id;
