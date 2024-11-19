@@ -3,6 +3,7 @@ import {
   Heading,
   Paragraph,
   Anchor,
+  Code,
   Blockquote,
   UnorderedList,
   ListItem,
@@ -19,6 +20,7 @@ export const components: MDXComponents = {
   p: Paragraph,
   a: Anchor,
   blockquote: Blockquote,
+  code: Code,
   ul: UnorderedList,
   li: ListItem,
   table: ({ children, ...props }) => (

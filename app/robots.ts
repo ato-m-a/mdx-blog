@@ -5,6 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
+      disallow: ['/company', '/experience'],
     },
     sitemap: 'https://ato-m-a.me/sitemap.xml',
   };

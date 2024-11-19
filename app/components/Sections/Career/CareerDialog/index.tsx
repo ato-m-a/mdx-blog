@@ -53,8 +53,9 @@ const CareerDialog: FC<CareerDialogProps> = ({ trigger, company, experiences }) 
                     consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur
                     adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing
                     elit. Quisquam, quos.
-            
-            
+
+                    \`/app.tsx\`
+
                     \`\`\`javascript {start:1}{2}
                     function greet(name) {
                       return \`안녕하세요, \${name}님!\`;

@@ -56,6 +56,7 @@ const config: Config = {
     typography({ target: 'modern' }),
     plugin(({ addVariant, addUtilities, theme }) => {
       addVariant('dark', ['[data-theme="dark"] &', '.dark &']);
+      addVariant('not-in-pre', '&:not(pre *)');
 
       addUtilities({
         '.color-primary': {
