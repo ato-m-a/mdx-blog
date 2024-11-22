@@ -1,6 +1,7 @@
 'use client';
 
 import type {
+  SearchParamsRecord,
   DispatchSearchParamsProps,
   DispatchSearchParamsOptions,
 } from '@/common/context/searchParams/types';
@@ -15,7 +16,7 @@ const SearchParamsProviderCore: React.FC<React.PropsWithChildren> = ({ children 
 
   const [isPending, startTransition] = React.useTransition();
 
-  const mergeParams = (current: URLSearchParams, next: Record<string, string>) => {
+  const mergeParams = (current: URLSearchParams, next: SearchParamsRecord) => {
     for (const [key, value] of Object.entries(next)) {
       if (value && value !== '') current.set(key, value);
       else current.delete(key);

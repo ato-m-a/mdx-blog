@@ -18,7 +18,7 @@ const PostSelect: FC = () => {
   const options = categories ?? [];
 
   const onValueChange = (category: string) => setSearchParams({ category });
-  const value = categories?.includes(category) ? category : undefined;
+  const value = category && categories?.includes(category) ? category : undefined;
 
   return (
     <Select

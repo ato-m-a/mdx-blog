@@ -2,7 +2,7 @@
 
 import type { FC } from 'react';
 import { Github, Linkedin } from 'lucide-react';
-import { GITHUB_URL, LINKEDIN_URL } from '@/app/constants/url';
+import { GITHUB_URL, LINKEDIN_URL, PORTFOLIO_URL } from '@/app/constants/url';
 import ProfileArticle from './Article';
 import IconButton from '@/components/IconButton';
 import CompanyLabel from '@/components/CompanyLabel';
@@ -33,7 +33,7 @@ const ProfileSection: FC = () => {
         className="max-sm:col-span-2"
       >
         <a
-          href="https://ato-m-a.notion.site/11ae2547cb49803186a5c7b789eb5549?pvs=74"
+          href={PORTFOLIO_URL}
           target="_blank"
           className="text-lg color-primary animated-underline"
         >

@@ -28,7 +28,7 @@ export const metadata = createMetadata({
 const Home: NextPage = async () => {
   const dehydrated = await getDehydrated((helpers) => [
     helpers.experience.getCurrentJob.prefetch(),
-    helpers.post.getMany.prefetch({ page: 1, limit: 4 }),
+    helpers.post.getMany.prefetch({ take: 4 }),
   ]);
 
   return (
