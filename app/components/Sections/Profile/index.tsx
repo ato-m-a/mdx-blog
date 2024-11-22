@@ -4,7 +4,6 @@ import type { FC } from 'react';
 import { Github, Linkedin } from 'lucide-react';
 import { GITHUB_URL, LINKEDIN_URL } from '@/app/constants/url';
 import ProfileArticle from './Article';
-import HoverGroup from '@/components/HoverGroup';
 import IconButton from '@/components/IconButton';
 import CompanyLabel from '@/components/CompanyLabel';
 import trpc from 'trpc-client';
@@ -33,19 +32,22 @@ const ProfileSection: FC = () => {
         data-id="previous-job-experience"
         className="max-sm:col-span-2"
       >
-        <HoverGroup
-          as="a"
-          className="text-lg color-primary relative"
+        <a
           href="https://ato-m-a.notion.site/11ae2547cb49803186a5c7b789eb5549?pvs=74"
           target="_blank"
+          className="text-lg color-primary animated-underline"
         >
           포트폴리오 보기 →
-        </HoverGroup>
+        </a>
       </ProfileArticle>
       <ProfileArticle label="연락처" data-id="contact" className="max-md:col-span-2">
-        <HoverGroup as="a" href="mailto:atomjh0295@gmail.com" className="text-lg color-primary">
+        <a
+          href="mailto:atomjh0295@gmail.com"
+          target="_blank"
+          className="text-lg color-primary animated-underline"
+        >
           atomjh0295@gmail.com
-        </HoverGroup>
+        </a>
       </ProfileArticle>
       <ProfileArticle label="소셜 미디어" data-id="social-media" className="max-md:col-span-2">
         <div className="text-lg color-secondary flex space-x-4">

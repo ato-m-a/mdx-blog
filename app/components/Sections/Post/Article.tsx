@@ -1,17 +1,14 @@
 import type { FC } from 'react';
-import type { PostSchema } from '@/schema/post.schema';
+import type { PostResponseSchema } from '@/schema/post/post-response.schema';
 import { format } from 'date-fns';
-import HoverGroup from '@/components/HoverGroup';
 import Link from 'next/link';
 
-const PostArticle: FC<PostSchema> = ({ id, title, createdAt }) => {
+const PostArticle: FC<PostResponseSchema> = ({ id, title, createdAt }) => {
   return (
     <article className="border-l-2 border-zinc-700 pl-4">
-      <HoverGroup asChild>
-        <Link href={`/posts/${id}`} className="text-lg color-primary">
-          {title}
-        </Link>
-      </HoverGroup>
+      <Link href={`/posts/${id}`} className="text-lg color-primary w-fit animated-underline">
+        {title}
+      </Link>
       <p className="text-sm font-codeblock color-secondary">
         {format(new Date(createdAt), 'MMM d, yyyy')}
       </p>

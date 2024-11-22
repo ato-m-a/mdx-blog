@@ -1,20 +1,24 @@
-import type { ElementType, FC } from 'react';
+import type { FC } from 'react';
 import type { CompanySchema } from '@/schema/company/company.schema';
-import HoverGroup from '@/components/HoverGroup';
+import { cn } from '@/common/utils';
 import ColorBadge from '@/components/ColorBadge';
 
-type CompanyLabelProps = Pick<CompanySchema, 'brandColor' | 'name'> & { href?: string };
+type CompanyLabelProps = Pick<CompanySchema, 'brandColor' | 'name'> & {
+  href?: string;
+  className?: string;
+};
 
-const CompanyLabel: FC<CompanyLabelProps> = ({ brandColor, name, href }) => {
-  const hoverGroupProps = href
-    ? { as: 'a' as ElementType, href, target: '_blank' }
-    : { as: 'p' as ElementType, role: 'button' };
+const CompanyLabel: FC<CompanyLabelProps> = ({ brandColor, name, href, className }) => {
+  const Element = href ? 'a' : 'p';
 
   return (
-    <HoverGroup className="flex items-center gap-2" {...hoverGroupProps}>
+    <Element
+      className={cn('flex items-center gap-2 animated-underline cursor-pointer', className)}
+      {...(href ? { href, target: '_blank', rel: 'noopener noreferrer' } : { type: 'button' })}
+    >
       <ColorBadge color={brandColor} />
       <span className="text-lg color-primary">{name}</span>
-    </HoverGroup>
+    </Element>
   );
 };
 

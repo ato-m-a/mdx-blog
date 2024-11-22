@@ -48,13 +48,14 @@ export const Sidebar: FC = () => (
 );
 
 export const SidebarTrigger: FC = () => {
-  const { open } = useSidebar();
+  const { open, isMobile } = useSidebar();
 
   return (
     <Protected>
       <SidebarTriggerCore
         className={cn(
-          'h-9 w-9 fixed top-4 left-4 [&_svg]:!w-5 [&_svg]:!h-5',
+          'h-9 w-9 fixed left-4 [&_svg]:!w-5 [&_svg]:!h-5',
+          isMobile ? 'bottom-4' : 'top-4',
           open ? 'z-0' : 'z-10',
         )}
       />

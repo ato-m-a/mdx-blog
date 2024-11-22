@@ -38,7 +38,7 @@ const LoginForm: FC<LoginFormProps> = ({ onOpenChange }) => {
 
   useEffect(() => {
     if (!open) form.reset();
-  }, [open]);
+  }, [open, form]);
 
   useEffect(() => {
     const { password: passwordError } = form.formState.errors;

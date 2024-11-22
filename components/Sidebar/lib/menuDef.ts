@@ -3,7 +3,7 @@ import { FileText, Home, Building, Briefcase } from 'lucide-react';
 
 export const navigationDef: ReadonlyArray<MenuItemOptions> = [
   { href: '/', Icon: Home, label: 'Home' },
-  { href: '/posts', Icon: FileText, label: 'Posts' },
+  { href: '/post', Icon: FileText, label: 'Post' },
 ] as const;
 
 export const manageEntitiesDef: ReadonlyArray<MenuItemOptions> = [

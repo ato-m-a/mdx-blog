@@ -6,9 +6,8 @@ export type PagedResponseSchema<T extends z.ZodRawShape> = z.infer<
 
 const pagedResponseSchema = <T extends z.ZodRawShape>(schema: z.ZodObject<T>) =>
   z.object({
-    totalCount: z.number(),
-    totalPage: z.number(),
-    data: z.array(schema),
+    nextCursor: z.number().optional(),
+    data: schema.array(),
   });
 
 export default pagedResponseSchema;

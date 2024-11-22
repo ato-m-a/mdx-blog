@@ -1,4 +1,3 @@
-/** @type {import("tailwindcss").Config} */
 import type { Config } from 'tailwindcss';
 import plugin from 'tailwindcss/plugin';
 import typography from '@tailwindcss/typography';
@@ -18,9 +17,18 @@ const config: Config = {
       },
       screens: {
         'max-xl': {'max': '1440px'},
+        'min-xl': {'min': '1441px'},
         'max-lg': {'max': '970px'},
+        'min-lg': {'min': '971px'},
         'max-md': {'max': '614px'},
+        'min-md': {'min': '615px'},
         'max-sm': {'max': '364px'},
+        'min-sm': {'min': '365px'},
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic':
+          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -55,9 +63,29 @@ const config: Config = {
     tailwindcssAnimate,
     typography({ target: 'modern' }),
     plugin(({ addVariant, addUtilities, theme }) => {
+      /** dark mode */
       addVariant('dark', ['[data-theme="dark"] &', '.dark &']);
+      /** inline code */
       addVariant('not-in-pre', '&:not(pre *)');
 
+      /** animated underline */
+      addUtilities({
+        '.animated-underline': {
+          'background-image': `linear-gradient(to right, ${theme('colors.zinc.100')}, ${theme('colors.zinc.100')}), linear-gradient(to right, ${theme('colors.zinc.900')}, ${theme('colors.zinc.900')}, ${theme('colors.zinc.900')})`,
+          'background-size': '100% 0.1em, 0 0.1em',
+          'background-position': '100% 100%, 0 100%',
+          'background-repeat': 'no-repeat',
+          'transition': 'background-size 300ms',
+          '.dark &': {
+            'background-image': `linear-gradient(to right, ${theme('colors.zinc.900')}, ${theme('colors.zinc.900')}), linear-gradient(to right, ${theme('colors.zinc.100')}, ${theme('colors.zinc.100')}, ${theme('colors.zinc.100')})`,
+          }
+        },
+        '.animated-underline:hover, .animated-underline:focus': {
+          'background-size': '0 0.1em, 100% 0.1em',
+        },
+      });
+
+      /** color palette */
       addUtilities({
         '.color-primary': {
           color: theme('colors.zinc.900'),
@@ -93,6 +121,12 @@ const config: Config = {
           backgroundColor: theme('colors.zinc.600'),
           '.dark &': {
             backgroundColor: theme('colors.zinc.500'),
+          },
+        },
+        '.bg-inactive': {
+          backgroundColor: theme('colors.zinc.200'),
+          '.dark &': {
+            backgroundColor: theme('colors.zinc.800'),
           },
         },
         '.border-base': {

@@ -22,7 +22,7 @@ const sunVariants = {
   exit: { scale: 0.6, rotate: -90, transition: { duration: 0.5 } },
 };
 
-const ThemeToggleCore: FC<ThemeToggleButtonProps> = ({ className }) => {
+const ThemeToggleButton: FC<ThemeToggleButtonProps> = ({ className }) => {
   const [mounted, setMounted] = useState<boolean>(false);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const ThemeToggleCore: FC<ThemeToggleButtonProps> = ({ className }) => {
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
-      className={cn('relative rounded-full self-start', className)}
+      className={cn('relative rounded-full', className)}
       aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
     >
       <motion.div
@@ -57,4 +57,4 @@ const ThemeToggleCore: FC<ThemeToggleButtonProps> = ({ className }) => {
   );
 };
 
-export default ThemeToggleCore;
+export default ThemeToggleButton;

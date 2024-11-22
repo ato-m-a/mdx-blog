@@ -17,6 +17,9 @@ const Underline = () => (
   />
 );
 
+/**
+ * @deprecated use utility class 'animated-underline' instead.
+ */
 const HoverGroup = <E extends ElementType>({
   children,
   as,

@@ -14,7 +14,6 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import ExperienceContainer from './ExperienceContainer';
-import HoverGroup from '@/components/HoverGroup';
 import ScrollContainer from '@/components/ScrollContainer';
 import MDXRemote from '@/components/MDXRemote';
 
@@ -32,9 +31,14 @@ const CareerDialog: FC<CareerDialogProps> = ({ trigger, company, experiences }) 
       <DialogContent className="flex flex-col gap-0 p-0 max-w-[60dvw] max-h-[80dvh] max-lg:max-w-[80dvw] max-lg:max-h-[90dvh] max-md:max-w-full max-md:w-full max-md:max-h-full h-full">
         <DialogHeader className="p-6 w-full text-left">
           <DialogTitle>
-            <HoverGroup as="a" href={company.url}>
+            <a
+              href={company.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="animated-underline"
+            >
               {company.name}
-            </HoverGroup>
+            </a>
           </DialogTitle>
           <DialogDescription className="color-secondary">{company.description}</DialogDescription>
         </DialogHeader>
@@ -55,7 +59,7 @@ const CareerDialog: FC<CareerDialogProps> = ({ trigger, company, experiences }) 
                     elit. Quisquam, quos.
 
                     \`/app.tsx\`
-
+            
                     \`\`\`javascript {start:1}{2}
                     function greet(name) {
                       return \`안녕하세요, \${name}님!\`;

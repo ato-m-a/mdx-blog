@@ -28,7 +28,7 @@ const AsideCarousel: FC<AsideProps> = ({ experiences }) => {
     });
 
     handleCursorChange((value) => api.scrollTo(value));
-  }, [api]);
+  }, [api, setCursor, handleCursorChange]);
 
   const draggable = experiences.length >= 2;
 
