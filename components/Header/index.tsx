@@ -1,13 +1,14 @@
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import Breadcrumb, { type BreadcrumbProps } from '@/components/Breadcrumb';
 import ThemeToggleButton from '@/components/ThemeToggleButton';
 
 type HeaderProps = BreadcrumbProps & {
   title: string;
   subtitle?: string;
+  widget?: ReactNode;
 };
 
-const Header: FC<HeaderProps> = ({ pathMap, title, subtitle }) => {
+const Header: FC<HeaderProps> = ({ pathMap, title, subtitle, widget }) => {
   return (
     <header className="flex justify-between items-center">
       <div className="flex flex-col gap-2">
@@ -15,7 +16,10 @@ const Header: FC<HeaderProps> = ({ pathMap, title, subtitle }) => {
         <h1 className="text-2xl font-bold">{title}</h1>
         {subtitle && <h2 className="text-sm color-secondary">{subtitle}</h2>}
       </div>
-      <ThemeToggleButton />
+      <div className="flex items-center gap-2">
+        {widget}
+        <ThemeToggleButton />
+      </div>
     </header>
   );
 };

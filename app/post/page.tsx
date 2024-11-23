@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import type { SearchParams } from '@/components/types';
 import { getDehydrated } from '@/common/trpc/lib';
 import { HydrationBoundary } from '@tanstack/react-query';
 import SearchParamsProvider from '@/components/Providers/SearchParamsProvider';
@@ -10,8 +9,7 @@ import Header from '@/components/Header';
 import PostTags from './components/Tags';
 import PostToolbar from './components/Toolbar';
 import PostContent from './components/Content';
-
-type PostPageProps = SearchParams<'page' | 'category' | 'keyword' | 'tag'>;
+import CreatePostLink from './components/CreatePostLink';
 
 export const revalidate = 60;
 
@@ -26,7 +24,7 @@ export const metadata = createMetadata({
   }),
 });
 
-const PostPage: NextPage<PostPageProps> = async () => {
+const PostPage: NextPage = async () => {
   const dehydrated = await getDehydrated((helpers) => [
     helpers.post.getMany.prefetch(),
     helpers.post.getCountsByTag.prefetch(),
@@ -42,6 +40,7 @@ const PostPage: NextPage<PostPageProps> = async () => {
         ]}
         title="Post"
         subtitle="내일 더 나아지기 위한 기록입니다."
+        widget={<CreatePostLink />}
       />
       <HydrationBoundary state={dehydrated}>
         <SearchParamsProvider>

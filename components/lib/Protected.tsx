@@ -3,11 +3,11 @@
 import type { FC, ReactNode } from 'react';
 import trpc from 'trpc-client';
 
-type ChildrenType = FC<ProtectedChildrenProps> | ReactNode;
 type ProtectedChildrenProps = {
   state: boolean;
   refetch: () => void;
 };
+type ChildrenType = FC<ProtectedChildrenProps> | ReactNode;
 type ProtectedProps = {
   children: ChildrenType;
   fallback?: ChildrenType;
