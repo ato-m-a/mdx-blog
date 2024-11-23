@@ -1,12 +1,22 @@
 'use client';
 
-import type { SearchParamsRecord } from '@/common/context/searchParams/types';
+import type {
+  SearchParamsRecord,
+  SearchParamsContextType,
+} from '@/common/context/searchParams/types';
 import { useContext } from 'react';
 import SearchParamsContext from '@/common/context/searchParams';
 
-type SearchParamsSerializer<T> = (params: SearchParamsRecord) => T;
+type UseSearchParamsReturns<T extends object = SearchParamsRecord> = {
+  searchParams: T;
+} & Omit<SearchParamsContextType, 'searchParams'>;
+type SearchParamsSerializer<T extends object> = (params: SearchParamsRecord) => T;
 
-const useSearchParams = <T = SearchParamsRecord>(serializer?: SearchParamsSerializer<T>) => {
+function useSearchParams(): UseSearchParamsReturns;
+function useSearchParams<T extends object>(
+  serializer: SearchParamsSerializer<T>,
+): UseSearchParamsReturns<T>;
+function useSearchParams<T extends object>(serializer?: SearchParamsSerializer<T>) {
   const context = useContext(SearchParamsContext);
 
   if (!context) {
@@ -18,7 +28,7 @@ const useSearchParams = <T = SearchParamsRecord>(serializer?: SearchParamsSerial
   return {
     searchParams: serializer ? serializer(searchParams) : searchParams,
     ...restOfContext,
-  } as const;
-};
+  };
+}
 
 export default useSearchParams;
