@@ -14,9 +14,6 @@ const QueryProvider: FC<PropsWithChildren> = ({ children }) => {
         httpBatchLink({
           url: '/api/trpc',
           transformer: superjson,
-          headers: () => ({
-            'x-session-id': sessionStorage.getItem('sessionId') ?? undefined,
-          }),
         }),
       ],
     }),

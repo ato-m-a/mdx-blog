@@ -1,5 +1,6 @@
 import type { SessionStorage } from '@/server/trpc/lib/storage';
-import { HEADERS_SESSION_KEY, STORAGE_SESSION_KEY } from '@/common/utils/session';
+import { STORAGE_SESSION_KEY } from '@/common/utils/session';
+import { getSessionCookie } from '@/common/utils/cookie';
 import { UnauthorizedException } from '@/server/trpc/lib/exceptions';
 import { addSeconds, parseISO } from 'date-fns';
 import { nanoid } from 'nanoid';
@@ -17,7 +18,7 @@ export default class Session {
 
     const { headers } = req ?? {};
     this.origin = headers ? (headers.get('x-forwarded-for') ?? DEFAULT_ORIGIN) : DEFAULT_ORIGIN;
-    this._id = headers ? (headers.get(HEADERS_SESSION_KEY) ?? null) : null;
+    this._id = headers ? (getSessionCookie(headers) ?? null) : null;
   }
 
   get id() {

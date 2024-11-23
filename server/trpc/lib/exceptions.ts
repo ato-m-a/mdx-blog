@@ -5,3 +5,9 @@ export class UnauthorizedException extends TRPCError {
     super({ code: 'UNAUTHORIZED', message });
   }
 }
+
+export class InternalServerErrorException extends TRPCError {
+  constructor(message?: string) {
+    super({ code: 'INTERNAL_SERVER_ERROR', message });
+  }
+}

@@ -5,5 +5,6 @@ declare namespace NodeJS {
     ID: string;
     NAME: string;
     EMAIL: string;
+    COOKIE_SESSION_KEY: string;
   }
 }

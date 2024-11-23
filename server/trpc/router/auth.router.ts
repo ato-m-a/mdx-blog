@@ -1,5 +1,6 @@
 import { router, publicProcedure, protectedProcedure } from '@/server/trpc';
 import { UnauthorizedException } from '@/server/trpc/lib/exceptions';
+import { setSessionCookie } from '@/common/utils/cookie';
 import noCacheMiddleware from '@/server/trpc/middleware/no-cache.middleware';
 import loginRequestSchema from '@/schema/login/login-request.schema';
 import bcrypt from 'bcrypt';
@@ -7,7 +8,7 @@ import bcrypt from 'bcrypt';
 const authRouter = router({
   login: publicProcedure
     .input(loginRequestSchema)
-    .mutation(async ({ input: { password }, ctx: { prisma, session } }) => {
+    .mutation(async ({ input: { password }, ctx: { prisma, session, resHeaders } }) => {
       const storedAuth = await prisma.auth.findFirst({
         orderBy: {
           createdAt: 'desc',
@@ -21,10 +22,12 @@ const authRouter = router({
       const isValid = await bcrypt.compare(password, storedAuth.password);
       if (!isValid) throw new UnauthorizedException();
 
-      return await session.create();
+      const sessionId = await session.create();
+      setSessionCookie({ sessionId, resHeaders });
     }),
-  logout: protectedProcedure.mutation(async ({ ctx: { session } }) => {
+  logout: protectedProcedure.mutation(async ({ ctx: { session, resHeaders } }) => {
     await session.destroy();
+    setSessionCookie({ sessionId: '', maxAge: 0, resHeaders });
   }),
   checkPermission: publicProcedure
     .use(noCacheMiddleware)
@@ -32,9 +35,10 @@ const authRouter = router({
   getExpiry: protectedProcedure
     .use(noCacheMiddleware)
     .query(async ({ ctx: { session } }) => await session.getExpiry()),
-  extendSession: protectedProcedure.mutation(
-    async ({ ctx: { session } }) => await session.extend(),
-  ),
+  extendSession: protectedProcedure.mutation(async ({ ctx: { session, resHeaders } }) => {
+    const sessionId = await session.extend();
+    setSessionCookie({ sessionId, resHeaders });
+  }),
 });
 
 export default authRouter;
