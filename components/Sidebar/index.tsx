@@ -11,7 +11,7 @@ import {
 import { cn } from '@/common/utils';
 import { navigationDef, manageEntitiesDef } from './lib/menuDef';
 import { Clock } from 'lucide-react';
-import Protected from '@/components/lib/Protected';
+import Protected from '@/components/Protected';
 import SidebarHeader from './SidebarHeader';
 import SidebarGroup from './lib/SidebarGroup';
 import MenuItem from './lib/MenuItem';

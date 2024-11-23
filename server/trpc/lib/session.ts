@@ -34,8 +34,6 @@ export default class Session {
   }
 
   async create(duration: number = 3600): Promise<string> {
-    await this.destroy();
-
     const sessionId = nanoid();
     await this.storage.set(
       STORAGE_SESSION_KEY(sessionId),
@@ -73,9 +71,11 @@ export default class Session {
     this.expiresAt = parseISO(stored);
   }
 
-  async check(): Promise<boolean> {
-    if (!this.id) return false;
-    if (!(await this.storage.get(STORAGE_SESSION_KEY(this.id)))) return false;
+  async check(_id?: string): Promise<boolean> {
+    const id = _id ?? this.id;
+
+    if (!id) return false;
+    if (!(await this.storage.get(STORAGE_SESSION_KEY(id)))) return false;
 
     return true;
   }

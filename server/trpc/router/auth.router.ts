@@ -2,7 +2,8 @@ import { router, publicProcedure, protectedProcedure } from '@/server/trpc';
 import { UnauthorizedException } from '@/server/trpc/lib/exceptions';
 import { setSessionCookie } from '@/common/utils/cookie';
 import noCacheMiddleware from '@/server/trpc/middleware/no-cache.middleware';
-import loginRequestSchema from '@/schema/login/login-request.schema';
+import loginRequestSchema from '@/schema/auth/login-request.schema';
+import checkPermissionRequestSchema from '@/schema/auth/checkPermission-request.schema';
 import bcrypt from 'bcrypt';
 
 const authRouter = router({
@@ -31,7 +32,15 @@ const authRouter = router({
   }),
   checkPermission: publicProcedure
     .use(noCacheMiddleware)
-    .query(async ({ ctx: { session } }) => await session.check()),
+    .input(checkPermissionRequestSchema.optional())
+    .query(async ({ ctx: { session }, input }) => {
+      const { id, throwOnError = false } = input ?? {};
+
+      const sessionValid = await session.check(id);
+      if (!sessionValid && throwOnError) throw new UnauthorizedException();
+
+      return sessionValid;
+    }),
   getExpiry: protectedProcedure
     .use(noCacheMiddleware)
     .query(async ({ ctx: { session } }) => await session.getExpiry()),

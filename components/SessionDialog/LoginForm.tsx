@@ -8,21 +8,17 @@ import {
   DialogDescription,
   useDialog,
 } from '@/components/ui/dialog';
+import { CommandShortcut } from '@/components/ui/command';
 import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormItem, FormControl, FormField } from '@/components/ui/form';
 import { toast } from 'sonner';
-import loginRequestSchema, { type LoginRequestSchema } from '@/schema/login/login-request.schema';
-import { CommandShortcut } from '@/components/ui/command';
+import loginRequestSchema, { type LoginRequestSchema } from '@/schema/auth/login-request.schema';
 import useLogin from '@/common/hooks/session/useLogin';
 
-type LoginFormProps = {
-  onOpenChange: (open: boolean) => void;
-};
-
-const LoginForm: FC<LoginFormProps> = ({ onOpenChange }) => {
-  const { open } = useDialog();
+const LoginForm: FC = () => {
+  const { open, onOpenChange } = useDialog();
 
   const form = useForm<LoginRequestSchema>({
     resolver: zodResolver(loginRequestSchema),
@@ -31,7 +27,7 @@ const LoginForm: FC<LoginFormProps> = ({ onOpenChange }) => {
   const login = useLogin({
     onSuccess: () => {
       toast.success('Logged in successfully.');
-      onOpenChange(false);
+      onOpenChange?.(false);
     },
     onError: () => toast.error('Login Failed', { description: 'Invalid Password!' }),
   });

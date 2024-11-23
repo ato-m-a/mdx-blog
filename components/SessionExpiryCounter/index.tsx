@@ -5,7 +5,7 @@ import { intervalToDuration } from 'date-fns';
 import { cn } from '@/common/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 import trpc from 'trpc-client';
-import Protected from '@/components/lib/Protected';
+import Protected from '@/components/Protected';
 import getQueryState from '@/common/utils/getQueryState';
 
 type ParagraphProps = Omit<HTMLAttributes<HTMLParagraphElement>, 'prefix' | 'suffix'>;

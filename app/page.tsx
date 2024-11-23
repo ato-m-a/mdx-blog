@@ -1,13 +1,13 @@
 import type { NextPage } from 'next';
 import { HydrationBoundary } from '@tanstack/react-query';
 import { getDehydrated } from 'trpc/lib';
+import Container from '@/components/Container';
 import createOpenGraph from '@/common/utils/createOpenGraph';
 import createMetadata from '@/common/utils/createMetadata';
 import ProfileSection from './components/Sections/Profile';
 import PostSection from './components/Sections/Post';
 import AboutSection from './components/Sections/About';
 import CareerSection from './components/Sections/Career';
-import Container from '@/components/Container';
 import HomeHeader from './components/Header';
 import HomeMain from './components/Main';
 import HomeFooter from './components/Footer';

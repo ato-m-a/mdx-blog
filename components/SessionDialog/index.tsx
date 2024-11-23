@@ -12,7 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { CommandShortcut } from '@/components/ui/command';
 import { toast } from 'sonner';
-import Protected from '@/components/lib/Protected';
+import Protected from '@/components/Protected';
 import useLogout from '@/common/hooks/session/useLogout';
 import useExtendSession from '@/common/hooks/session/useExtendSession';
 import useCommands from '@/common/hooks/useCommands';
@@ -57,7 +57,7 @@ const SessionDialog: FC = () => {
 
   return (
     <Dialog open={isOpen} onOpenChange={dispatch}>
-      <Protected fallback={<LoginForm onOpenChange={dispatch} />}>
+      <Protected fallback={<LoginForm />}>
         <DialogContent className="space-y-4 border-base" closeButtonVisible={false}>
           <DialogHeader>
             <DialogTitle>Session Management</DialogTitle>
