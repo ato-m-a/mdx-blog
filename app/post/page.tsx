@@ -35,10 +35,10 @@ const PostPage: NextPage = async () => {
     <Container className="flex flex-col gap-16">
       <Header
         pathMap={[
-          { href: '/', label: 'Home' },
-          { href: '/post', label: 'Post' },
+          { href: '/', label: '홈' },
+          { href: '/post', label: '포스트' },
         ]}
-        title="Post"
+        title="포스트 목록"
         subtitle="내일 더 나아지기 위한 기록입니다."
         widget={<CreatePostLink />}
       />
