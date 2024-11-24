@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { useMemo, type FC } from 'react';
 import type { MenuItemOptions } from '../types';
 import { usePathname } from 'next/navigation';
 import {
@@ -13,9 +13,18 @@ import Link from 'next/link';
 const MenuItem: FC<MenuItemOptions> = ({ href, Icon, label, subItems }) => {
   const pathname = usePathname();
 
+  const isActive = useMemo<boolean>(() => {
+    const isRootPage = href === '/';
+    const isManagementPage = pathname.startsWith('/manage');
+
+    if (isRootPage) return pathname === '/';
+    if (isManagementPage) return pathname.includes(href);
+    return pathname === href;
+  }, [href, pathname]);
+
   return (
     <SidebarMenuItem>
-      <SidebarMenuButton isActive={pathname === href} asChild>
+      <SidebarMenuButton isActive={isActive} asChild>
         <Link href={href}>
           <Icon />
           {label}

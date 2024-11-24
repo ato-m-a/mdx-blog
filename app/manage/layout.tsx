@@ -5,7 +5,7 @@ import Protected from '@/components/Protected';
 import trpc from 'trpc-server';
 
 /**
- * 세션 검증을 수행하는데, 미들웨어가 node.js 런타임을 지원하지 않아 레이아웃에서 수행합니다.
+ * 세션 검증을 수행하는데, 미들웨어가 node.js 런타임을 지원하지 않아 TCP 기반의 redis client 사용이 불가해 레이아웃에서 수행합니다.
  *
  * 추후 kv 사용하거나 Next.js를 버려야겠습니다...
  */

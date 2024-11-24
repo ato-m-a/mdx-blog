@@ -36,7 +36,7 @@ export const Sidebar: FC = () => (
             <MenuItem key={item.label} {...item} />
           ))}
         </SidebarGroup>
-        <SidebarGroup label="Manage Entities">
+        <SidebarGroup label="Manage">
           {manageEntitiesDef.map((item) => (
             <MenuItem key={item.label} {...item} />
           ))}
