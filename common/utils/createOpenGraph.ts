@@ -27,7 +27,7 @@ type Options = {
 const createOpenGraph = ({ pathname, title, subtitle, theme }: Options): string => {
   const urlPrefix = '/api/og/';
   const searchParams = new URLSearchParams({
-    title: title instanceof Array ? title.join('\n') : title,
+    title: title instanceof Array ? title.join(`\\n`) : title,
   });
 
   if (subtitle) searchParams.append('subtitle', subtitle);
