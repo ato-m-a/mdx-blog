@@ -18,20 +18,20 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ pathMap }) => {
   if (pathMap.length === 0) return null;
 
   return (
-    <BreadcrumbCore>
-      <BreadcrumbList>
+    <BreadcrumbCore className="max-w-full">
+      <BreadcrumbList className="w-full flex overflow-hidden whitespace-nowrap">
         {pathMap.slice(0, -1).map(({ href, label }) => (
           <Fragment key={`breadcrumb-${label}`}>
-            <BreadcrumbItem>
+            <BreadcrumbItem className="flex-shrink-0">
               <BreadcrumbLink asChild>
                 <Link href={href}>{label}</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbSeparator />
+            <BreadcrumbSeparator className="flex-shrink-0" />
           </Fragment>
         ))}
-        <BreadcrumbItem>
-          <BreadcrumbPage>{pathMap.at(-1)?.label}</BreadcrumbPage>
+        <BreadcrumbItem className="flex-1 min-w-0">
+          <BreadcrumbPage className="truncate">{pathMap.at(-1)?.label}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </BreadcrumbCore>
