@@ -27,9 +27,13 @@ const postRouter = router({
         }),
       ]);
 
+      const filteredTags = tags.flatMap((tag) =>
+        tag._count.posts > 0 ? [{ ...tag, postCount: tag._count.posts }] : [],
+      );
+
       return {
         totalCount,
-        tags: tags.map(({ _count, ...tag }) => ({ ...tag, postCount: _count.posts })),
+        tags: filteredTags,
       };
     }),
   getMany: publicProcedure
