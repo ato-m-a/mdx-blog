@@ -11,3 +11,9 @@ export class InternalServerErrorException extends TRPCError {
     super({ code: 'INTERNAL_SERVER_ERROR', message });
   }
 }
+
+export class BadRequestException extends TRPCError {
+  constructor(message?: string) {
+    super({ code: 'BAD_REQUEST', message });
+  }
+}

@@ -14,9 +14,8 @@ import {
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { CommandShortcut } from '@/components/ui/command';
-import { ActionItems } from '@/components/DropdownItem';
 import { cn } from '@/common/utils';
-
+import CommandItem from '@/components/CommandItem';
 type SidebarHeaderProps = {
   className?: string;
   title: string;
@@ -51,8 +50,8 @@ const SidebarHeader: FC<SidebarHeaderProps> = ({ className, title, subtitle, wid
               side="right"
               className="w-[--radix-popper-anchor-width] !bg-primary"
             >
-              <ActionItems.logout onSuccess={closeDropdown} onError={closeDropdown} />
-              <ActionItems.extendSession onSuccess={closeDropdown} onError={closeDropdown} />
+              <CommandItem.logout onSuccess={closeDropdown} onError={closeDropdown} />
+              <CommandItem.extendSession onSuccess={closeDropdown} onError={closeDropdown} />
               <DropdownMenuSeparator />
               <DropdownMenuItem className="cursor-pointer" onClick={() => setOpen(false)}>
                 사이드바 닫기

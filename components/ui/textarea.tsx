@@ -2,8 +2,45 @@ import * as React from 'react';
 
 import { cn } from '@/common/utils';
 
-const Textarea = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<'textarea'>>(
-  ({ className, ...props }, ref) => {
+type TextareaProps = Omit<React.ComponentProps<'textarea'>, 'value' | 'onChange'> & {
+  value: string;
+  onChange: (value: string) => void;
+  rowsAutoIncrement?: boolean;
+  enableTab?: boolean;
+};
+
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
+  (
+    { className, value, rows: _rows, rowsAutoIncrement, onChange, onKeyDown, enableTab, ...props },
+    ref,
+  ) => {
+    const [rows, setRows] = React.useState<number | undefined>(_rows);
+    React.useEffect(() => {
+      if (rowsAutoIncrement) {
+        const lines = value?.split('\n').length;
+        setRows(Math.max(lines, _rows ?? 0));
+      }
+    }, [value, _rows, rowsAutoIncrement]);
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      onKeyDown?.(e);
+      if (e.key === 'Tab') {
+        e.preventDefault();
+
+        const textarea = e.target;
+        if (textarea instanceof HTMLTextAreaElement && enableTab) {
+          const start = textarea.selectionStart;
+          const end = textarea.selectionEnd;
+          const newValue = value.slice(0, start) + '  ' + value.slice(end);
+          onChange(newValue);
+
+          setTimeout(() => {
+            textarea.selectionStart = textarea.selectionEnd = start + 2;
+          }, 0);
+        }
+      }
+    };
+
     return (
       <textarea
         className={cn(
@@ -11,6 +48,10 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, React.ComponentProps<'tex
           className,
         )}
         ref={ref}
+        value={value}
+        rows={rows}
+        onKeyDown={handleKeyDown}
+        onChange={(e) => onChange(e.target.value)}
         {...props}
       />
     );

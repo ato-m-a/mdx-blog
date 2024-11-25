@@ -13,7 +13,7 @@ export const metadata = createMetadata({
 
 const CreatePostPage: NextPage = () => {
   return (
-    <Container className="flex flex-col gap-16">
+    <Container className="flex flex-col gap-16 max-lg:gap-10">
       <Header
         pathMap={[
           { href: '/', label: '홈' },

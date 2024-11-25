@@ -8,6 +8,8 @@ const toast = {
   logout_failed: () => t.error('세션이 이미 만료되었습니다.'),
   extend_success: () => t.success('세션을 성공적으로 연장했습니다.'),
   extend_failed: () => t.error('세션 연장에 실패했습니다.'),
+  create_post_success: () => t.success('새 포스트를 작성했습니다.'),
+  create_post_failed: () => t.error('포스트 작성에 실패했습니다.'),
 } as const;
 
 export default toast;

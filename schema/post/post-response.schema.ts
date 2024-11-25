@@ -6,6 +6,7 @@ export type PostResponseSchema = z.infer<typeof postResponseSchema>;
 const postResponseSchema = z.object({
   id: z.number(),
   title: z.string(),
+  subtitle: z.string().nullable(),
   content: z.string(),
   category: categoryResponseSchema,
   createdAt: z.date(),

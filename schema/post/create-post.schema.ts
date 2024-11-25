@@ -8,6 +8,7 @@ const EMPTY_CATEGORY = '카테고리를 선택해주세요.';
 
 const createPostSchema = z.object({
   title: z.string().min(1, EMPTY_TITLE),
+  subtitle: z.string().optional(),
   content: z.string().min(1, EMPTY_CONTENT),
   category: z
     .string()

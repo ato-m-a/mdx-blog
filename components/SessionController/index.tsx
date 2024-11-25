@@ -7,10 +7,10 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
 } from '@/components/ui/dropdown-menu';
-import { ActionItems } from '@/components/DropdownItem';
 import { cn } from '@/common/utils';
 import { Button } from '@/components/ui/button';
 import { Clock } from 'lucide-react';
+import CommandItem from '@/components/CommandItem';
 import Protected from '@/components/Protected';
 import SessionExpiryCounter from '@/components/SessionExpiryCounter';
 
@@ -34,8 +34,8 @@ const SessionController: FC<SessionControllerProps> = ({ variant = 'ghost', clas
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent side="bottom" className="w-44 right-0 !bg-primary">
-          <ActionItems.logout onSuccess={closeDropdown} onError={closeDropdown} />
-          <ActionItems.extendSession onSuccess={closeDropdown} onError={closeDropdown} />
+          <CommandItem.logout onSuccess={closeDropdown} onError={closeDropdown} />
+          <CommandItem.extendSession onSuccess={closeDropdown} onError={closeDropdown} />
         </DropdownMenuContent>
       </DropdownMenu>
     </Protected>

@@ -26,13 +26,13 @@ export const metadata = createMetadata({
 
 const PostPage: NextPage = async () => {
   const dehydrated = await getDehydrated((helpers) => [
-    helpers.post.getMany.prefetch(),
+    helpers.post.getMany.prefetchInfinite({ take: 10 }),
     helpers.post.getCountsByTag.prefetch(),
     helpers.category.getMany.prefetch(),
   ]);
 
   return (
-    <Container className="flex flex-col gap-16">
+    <Container className="flex flex-col gap-16 max-lg:gap-10">
       <Header
         pathMap={[
           { href: '/', label: '홈' },
