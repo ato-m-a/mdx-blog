@@ -38,12 +38,14 @@ const CreatePostForm: FC = () => {
 
   const utils = trpc.useUtils();
   const { mutate: createPost } = trpc.post.create.useMutation({
-    onSuccess: () => {
+    onSuccess: ({ slug }) => {
       utils.post.invalidate();
-      router.push('/post');
+      router.push(`/post/${slug}`);
       toast.create_post_success();
     },
-    onError: () => toast.create_post_failed(),
+    onError: ({ message }) => {
+      toast.create_post_failed(message);
+    },
   });
 
   return (

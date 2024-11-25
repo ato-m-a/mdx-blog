@@ -1,6 +1,6 @@
 import type { Category } from '@prisma/client';
 import { router, publicProcedure, protectedProcedure } from '@/server/trpc';
-import { BadRequestException } from '@/server/trpc/lib/exceptions';
+import { BadRequestException, ConflictException } from '@/server/trpc/lib/exceptions';
 import pagedResponseSchema from '@/schema/common/paged-response.schema';
 import getCountsByTagSchema from '@/schema/post/getCountsByTag.schema';
 import postRequestSchema from '@/schema/post/post-request.schema';
@@ -77,6 +77,8 @@ const postRouter = router({
     .input(createPostSchema)
     .mutation(async ({ ctx: { prisma }, input: { tag, category, ...postInput } }) => {
       return await prisma.$transaction(async (tx) => {
+        const { title } = postInput;
+
         const categoryExists = await tx.category.findUnique({
           where: {
             name: category,
@@ -108,8 +110,22 @@ const postRouter = router({
           };
         }
 
+        const slug = title
+          .replace(/[^a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]/g, '-')
+          .replace(/-+/g, '-')
+          .replace(/^-|-$/g, '');
+
+        const isDuplicated = await tx.post.findFirst({
+          where: { title, slug },
+        });
+
+        if (isDuplicated) {
+          throw new ConflictException('이미 존재하는 포스트입니다.');
+        }
+
         const post = await tx.post.create({
           data: {
+            slug,
             ...postInput,
             category: { connect: { id: categoryExists.id } },
             ...(tagData ? { tags: tagData } : {}),

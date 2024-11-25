@@ -17,3 +17,9 @@ export class BadRequestException extends TRPCError {
     super({ code: 'BAD_REQUEST', message });
   }
 }
+
+export class ConflictException extends TRPCError {
+  constructor(message?: string) {
+    super({ code: 'CONFLICT', message });
+  }
+}

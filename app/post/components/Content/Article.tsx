@@ -3,14 +3,14 @@ import type { PostResponseSchema } from '@/schema/post/post-response.schema';
 import { format } from 'date-fns';
 import Link from 'next/link';
 
-type PostArticleProps = Pick<PostResponseSchema, 'title' | 'createdAt'>;
+type PostArticleProps = Pick<PostResponseSchema, 'title' | 'slug' | 'createdAt'>;
 
-const PostArticle: FC<PostArticleProps> = ({ title, createdAt }) => {
+const PostArticle: FC<PostArticleProps> = ({ slug, title, createdAt }) => {
   return (
     <article className="flex flex-col gap-1">
       <div className="line-clamp-2">
         <Link
-          href={`/post/${title}`}
+          href={`/post/${slug}`}
           className="text-2xl color-primary break-words animated-underline"
         >
           {title}

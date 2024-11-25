@@ -5,6 +5,7 @@ export type PostResponseSchema = z.infer<typeof postResponseSchema>;
 
 const postResponseSchema = z.object({
   id: z.number(),
+  slug: z.string(),
   title: z.string(),
   subtitle: z.string().nullable(),
   content: z.string(),

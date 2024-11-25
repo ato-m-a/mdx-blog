@@ -40,7 +40,8 @@ model Experience {
 
 model Post {
   id         Int        @id @default(autoincrement())
-  title      String     @db.Text @unique
+  slug       String     @db.Text @unique
+  title      String     @db.Text
   subtitle   String?    @db.Text
   content    String     @db.Text
   createdAt  DateTime   @map("created_at") @default(now())
@@ -51,7 +52,7 @@ model Post {
 
   tags       Tag[]      @relation("PostTags")
 
-  @@index([title])
+  @@index([slug])
   @@map("post")
 }
 
