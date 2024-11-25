@@ -14,8 +14,8 @@ import {
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { CommandShortcut } from '@/components/ui/command';
-import { toast } from 'sonner';
 import { cn } from '@/common/utils';
+import toast from '@/common/utils/toast';
 import useCommands from '@/common/hooks/useCommands';
 import useExtendSession from '@/common/hooks/session/useExtendSession';
 import useLogout from '@/common/hooks/session/useLogout';
@@ -34,22 +34,22 @@ const SidebarHeader: FC<SidebarHeaderProps> = ({ className, title, subtitle, wid
   const logout = useLogout({
     onSuccess: () => {
       setDropdownOpen(false);
-      toast.success('Logged out successfully.');
+      toast.logout_success();
     },
     onError: () => {
       setDropdownOpen(false);
-      toast.error('Session already expired.');
+      toast.logout_failed();
     },
   });
 
   const extend = useExtendSession({
     onSuccess: () => {
       setDropdownOpen(false);
-      toast.success('Session extended successfully.');
+      toast.extend_success();
     },
     onError: () => {
       setDropdownOpen(false);
-      toast.error('Failed to extend session.');
+      toast.extend_failed();
     },
   });
 

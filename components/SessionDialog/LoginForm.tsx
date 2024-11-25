@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormItem, FormControl, FormField } from '@/components/ui/form';
-import { toast } from 'sonner';
+import toast from '@/common/utils/toast';
 import loginRequestSchema, { type LoginRequestSchema } from '@/schema/auth/login-request.schema';
 import useLogin from '@/common/hooks/session/useLogin';
 
@@ -26,10 +26,10 @@ const LoginForm: FC = () => {
 
   const login = useLogin({
     onSuccess: () => {
-      toast.success('Logged in successfully.');
+      toast.login_success();
       onOpenChange?.(false);
     },
-    onError: () => toast.error('Login Failed', { description: 'Invalid Password!' }),
+    onError: () => toast.login_failed(),
   });
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const LoginForm: FC = () => {
   useEffect(() => {
     const { password: passwordError } = form.formState.errors;
 
-    if (passwordError) toast.error(passwordError.message);
+    if (passwordError) toast.login_failed();
   }, [form.formState.errors]);
 
   return (

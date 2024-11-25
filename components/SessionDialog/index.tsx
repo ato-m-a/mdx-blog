@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { CommandShortcut } from '@/components/ui/command';
-import { toast } from 'sonner';
+import toast from '@/common/utils/toast';
 import Protected from '@/components/Protected';
 import useLogout from '@/common/hooks/session/useLogout';
 import useExtendSession from '@/common/hooks/session/useExtendSession';
@@ -32,22 +32,22 @@ const SessionDialog: FC = () => {
   const logout = useLogout({
     onSuccess: () => {
       dispatch('close');
-      toast.success('Logged out successfully.');
+      toast.logout_success();
     },
     onError: () => {
       dispatch('close');
-      toast.error('Session already expired.');
+      toast.logout_failed();
     },
   });
 
   const extend = useExtendSession({
     onSuccess: () => {
       dispatch('close');
-      toast.success('Session extended successfully.');
+      toast.extend_success();
     },
     onError: () => {
       dispatch('close');
-      toast.error('Failed to extend session.');
+      toast.extend_failed();
     },
   });
 
