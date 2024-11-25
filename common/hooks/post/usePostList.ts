@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import getQueryState from '@/common/utils/getQueryState';
 import useSearchParams from '@/common/hooks/useSearchParams';
-import postRequestSchema from '@/schema/post/post-request.schema';
+import postListRequestSchema from '@/schema/post/list-request.schema';
 import trpc from 'trpc-client';
 
 const usePostList = () => {
@@ -11,15 +12,18 @@ const usePostList = () => {
 
   const {
     searchParams: { keyword, tag, category },
-  } = useSearchParams(postRequestSchema.parse);
+  } = useSearchParams(postListRequestSchema.parse);
 
   const payload = { keyword, tag, category, take: 10 };
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status, error } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, ...status } =
     trpc.post.getMany.useInfiniteQuery(payload, {
       getNextPageParam: ({ nextCursor }) => nextCursor,
       select: ({ pages }) => pages.flatMap((page) => page.data),
+      placeholderData: (data) => data,
     });
+
+  const queryState = getQueryState(status);
 
   useEffect(() => {
     if (isFetchingNextPage) return;
@@ -45,7 +49,7 @@ const usePostList = () => {
     };
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
-  return { data, status, error, elementRef } as const;
+  return { data, elementRef, queryState } as const;
 };
 
 export default usePostList;

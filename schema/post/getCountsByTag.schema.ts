@@ -5,7 +5,7 @@ export type GetCountsByTagSchema = z.infer<typeof getCountsByTagSchema>;
 
 const getCountsByTagSchema = z.object({
   totalCount: z.number(),
-  tags: getTagResponseSchema.array(),
+  tags: getTagResponseSchema.extend({ postCount: z.number() }).array(),
 });
 
 export default getCountsByTagSchema;

@@ -1,9 +1,11 @@
 import type { Category } from '@prisma/client';
+import type { Prisma } from '@prisma/client';
 import { router, publicProcedure, protectedProcedure } from '@/server/trpc';
 import { BadRequestException, ConflictException } from '@/server/trpc/lib/exceptions';
 import pagedResponseSchema from '@/schema/common/paged-response.schema';
 import getCountsByTagSchema from '@/schema/post/getCountsByTag.schema';
 import postRequestSchema from '@/schema/post/post-request.schema';
+import postListRequestSchema from '@/schema/post/list-request.schema';
 import postResponseSchema from '@/schema/post/post-response.schema';
 import createPostSchema from '@/schema/post/create-post.schema';
 
@@ -36,8 +38,17 @@ const postRouter = router({
         tags: filteredTags,
       };
     }),
+  get: publicProcedure
+    .input(postRequestSchema)
+    .output(postResponseSchema.nullable())
+    .query(async ({ ctx: { prisma }, input: { slug } }) => {
+      return await prisma.post.findUnique({
+        where: { slug },
+        include: { category: true, tags: true },
+      });
+    }),
   getMany: publicProcedure
-    .input(postRequestSchema.optional())
+    .input(postListRequestSchema.optional())
     .output(pagedResponseSchema(postResponseSchema))
     .query(async ({ ctx: { prisma }, input }) => {
       const { cursor, take = 10, category, keyword, tag } = input ?? {};
@@ -46,15 +57,13 @@ const postRouter = router({
 
       if (category) {
         categoryExists = await prisma.category.findUnique({
-          where: {
-            name: category,
-          },
+          where: { name: category },
         });
       }
 
-      const where = {
+      const where: Prisma.PostWhereInput = {
         ...(categoryExists ? { category: { name: category } } : {}),
-        ...(keyword ? { title: { contains: keyword } } : {}),
+        ...(keyword ? { title: { contains: keyword, mode: 'insensitive' } } : {}),
         ...(tag ? { tags: { some: { name: tag } } } : {}),
       };
 
@@ -65,8 +74,9 @@ const postRouter = router({
         orderBy: { createdAt: 'desc' },
         include: {
           category: true,
+          tags: true,
         },
-        where,
+        where: Object.keys(where).length > 0 ? where : undefined,
       });
 
       let nextCursor: number | undefined = undefined;

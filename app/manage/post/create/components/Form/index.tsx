@@ -82,7 +82,13 @@ const CreatePostForm: FC = () => {
                 <FormItem className="flex-1">
                   <FormLabel>제목</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="제목을 입력해주세요" />
+                    <Textarea
+                      {...field}
+                      placeholder="제목을 입력해주세요"
+                      className="resize-none"
+                      rows={1}
+                      rowsAutoIncrement
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
