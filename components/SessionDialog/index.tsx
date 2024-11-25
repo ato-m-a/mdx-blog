@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { CommandShortcut } from '@/components/ui/command';
-import toast from '@/common/utils/toast';
+import trpc from 'trpc-client';
 import Protected from '@/components/Protected';
 import useLogout from '@/common/hooks/session/useLogout';
 import useExtendSession from '@/common/hooks/session/useExtendSession';
@@ -29,31 +29,21 @@ const SessionDialog: FC = () => {
     false,
   );
 
+  const { data: sessionValid } = trpc.auth.checkPermission.useQuery();
+
   const logout = useLogout({
-    onSuccess: () => {
-      dispatch('close');
-      toast.logout_success();
-    },
-    onError: () => {
-      dispatch('close');
-      toast.logout_failed();
-    },
+    onSuccess: () => dispatch('close'),
+    onError: () => dispatch('close'),
   });
 
   const extend = useExtendSession({
-    onSuccess: () => {
-      dispatch('close');
-      toast.extend_success();
-    },
-    onError: () => {
-      dispatch('close');
-      toast.extend_failed();
-    },
+    onSuccess: () => dispatch('close'),
+    onError: () => dispatch('close'),
   });
 
   useCommands('l', () => dispatch('toggle'));
-  useCommands('o', () => logout(), { enabled: isOpen });
-  useCommands('e', () => extend(), { enabled: isOpen });
+  useCommands('o', () => logout(), { enabled: isOpen && sessionValid });
+  useCommands('e', () => extend(), { enabled: isOpen && sessionValid });
 
   return (
     <Dialog open={isOpen} onOpenChange={dispatch}>

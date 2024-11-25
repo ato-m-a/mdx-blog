@@ -25,11 +25,7 @@ const LoginForm: FC = () => {
   });
 
   const login = useLogin({
-    onSuccess: () => {
-      toast.login_success();
-      onOpenChange?.(false);
-    },
-    onError: () => toast.login_failed(),
+    onSuccess: () => onOpenChange?.(false),
   });
 
   useEffect(() => {

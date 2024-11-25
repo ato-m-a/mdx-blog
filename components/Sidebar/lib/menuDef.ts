@@ -6,7 +6,7 @@ export const navigationDef: ReadonlyArray<MenuItemOptions> = [
   { href: '/post', Icon: FileText, label: 'Post' },
 ] as const;
 
-export const manageEntitiesDef: ReadonlyArray<MenuItemOptions> = [
+export const manageDataDef: ReadonlyArray<MenuItemOptions> = [
   { href: '/company', Icon: Building, label: 'Company' },
-  { href: '/experiences', Icon: Briefcase, label: 'Experiences' },
+  { href: '/experiences', Icon: Briefcase, label: 'Experience' },
 ] as const;

@@ -9,7 +9,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { cn } from '@/common/utils';
-import { navigationDef, manageEntitiesDef } from './lib/menuDef';
+import { navigationDef, manageDataDef } from './lib/menuDef';
 import { Clock } from 'lucide-react';
 import Protected from '@/components/Protected';
 import SidebarHeader from './SidebarHeader';
@@ -37,7 +37,7 @@ export const Sidebar: FC = () => (
           ))}
         </SidebarGroup>
         <SidebarGroup label="Manage">
-          {manageEntitiesDef.map((item) => (
+          {manageDataDef.map((item) => (
             <MenuItem key={item.label} {...item} />
           ))}
         </SidebarGroup>

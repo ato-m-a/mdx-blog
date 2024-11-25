@@ -1,14 +1,12 @@
 'use client';
 
 import type { FC } from 'react';
+import useCategories from '@/common/hooks/category/useCategories';
 import useSearchParams from '@/common/hooks/useSearchParams';
-import trpc from 'trpc-client';
 import Select from '@/components/Select';
 
 const PostSelect: FC = () => {
-  const { data: categories } = trpc.category.getMany.useQuery(undefined, {
-    select: (data) => data.map(({ name }) => name),
-  });
+  const categories = useCategories();
 
   const {
     searchParams: { category },

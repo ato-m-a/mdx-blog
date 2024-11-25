@@ -42,7 +42,7 @@ const SessionExpiryCounter: FC<SessionExpiryCounterProps> = ({
   }, []);
 
   return (
-    <Protected>
+    <Protected fallback={fallback}>
       <div className={cn('flex gap-1 items-center', className)} {...props}>
         {prefix}
         {isInitialLoading ? (

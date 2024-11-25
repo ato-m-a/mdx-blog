@@ -1,7 +1,9 @@
 import type { NextPage } from 'next';
 import createMetadata from '@/common/utils/createMetadata';
+import SessionController from '@/components/SessionController';
 import Container from '@/components/Container';
 import Header from '@/components/Header';
+import CreatePostForm from './components/Form';
 
 export const metadata = createMetadata({
   pathname: '/manage/post/create',
@@ -20,7 +22,9 @@ const CreatePostPage: NextPage = () => {
         ]}
         title="포스트 작성"
         subtitle="새 포스트를 작성합니다."
+        widget={<SessionController />}
       />
+      <CreatePostForm />
     </Container>
   );
 };
