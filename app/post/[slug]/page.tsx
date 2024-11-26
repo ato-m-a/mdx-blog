@@ -49,7 +49,7 @@ const PostViewPage: NextPage<PostViewPageProps> = async ({ params: { slug } }) =
   if (!post) return notFound();
 
   return (
-    <Container className="flex flex-col gap-16 max-lg:gap-10">
+    <Container className="flex flex-col gap-16 max-lg:gap-10 max-md:gap-6">
       <PostHeader {...post} />
       <MDXRemote source={post.content} />
     </Container>
