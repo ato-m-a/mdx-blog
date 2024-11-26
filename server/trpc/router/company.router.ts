@@ -1,6 +1,6 @@
 import { router, publicProcedure, protectedProcedure } from '@/server/trpc';
-import companySchema from '@/schema/company/company.schema';
-import careerSchema from '@/schema/company/career.schema';
+import { companySchema } from '@/schema/company/base.schema';
+import { getCareersResponseSchema } from '@/schema/company/response.schema';
 
 const companyRouter = router({
   get: publicProcedure
@@ -9,13 +9,15 @@ const companyRouter = router({
     .query(async ({ ctx: { prisma }, input: { id } }) => {
       return await prisma.company.findUnique({ where: { id } });
     }),
-  getCareers: publicProcedure.output(careerSchema.array()).query(async ({ ctx: { prisma } }) => {
-    return await prisma.company.findMany({
-      include: {
-        experiences: true,
-      },
-    });
-  }),
+  getCareers: publicProcedure
+    .output(getCareersResponseSchema.array())
+    .query(async ({ ctx: { prisma } }) => {
+      return await prisma.company.findMany({
+        include: {
+          experiences: true,
+        },
+      });
+    }),
   update: protectedProcedure
     .input(companySchema.omit({ createdAt: true, updatedAt: true }))
     .output(companySchema)

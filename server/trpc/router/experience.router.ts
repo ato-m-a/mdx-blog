@@ -1,6 +1,6 @@
 import { router, publicProcedure } from '@/server/trpc';
-import experienceSchema from '@/schema/experience.schema';
-import companySchema from '@/schema/company/company.schema';
+import { experienceSchema } from '@/schema/experience/base.schema';
+import { companySchema } from '@/schema/company/base.schema';
 
 const experienceRouter = router({
   getMany: publicProcedure.output(experienceSchema.array()).query(async ({ ctx: { prisma } }) => {

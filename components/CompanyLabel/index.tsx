@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import type { CompanySchema } from '@/schema/company/company.schema';
+import type { CompanySchema } from '@/schema/company/base.schema';
 import { cn } from '@/common/utils';
 import ColorBadge from '@/components/ColorBadge';
 

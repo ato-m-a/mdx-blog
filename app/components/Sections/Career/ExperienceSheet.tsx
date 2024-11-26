@@ -1,7 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
-import type { ExperienceSchema } from '@/schema/experience.schema';
+import type { ExperienceSchema } from '@/schema/experience/base.schema';
 import type { EditableProps, WithTrigger } from '@/components/types';
 import {
   Sheet,

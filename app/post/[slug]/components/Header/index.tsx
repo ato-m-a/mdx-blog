@@ -1,11 +1,11 @@
 import type { FC } from 'react';
-import type { PostResponseSchema } from '@/schema/post/post-response.schema';
+import type { PostSchema } from '@/schema/post/base.schema';
 import { format } from 'date-fns';
 import Breadcrumb from '@/components/Breadcrumb';
 import ThemeToggleButton from '@/components/ThemeToggleButton';
 import UpdatePostLink from '../UpdatePostLink';
 
-type PostHeaderProps = Pick<PostResponseSchema, 'title' | 'subtitle' | 'createdAt'>;
+type PostHeaderProps = Pick<PostSchema, 'title' | 'subtitle' | 'createdAt'>;
 
 const PostHeader: FC<PostHeaderProps> = ({ title, subtitle, createdAt }) => {
   return (

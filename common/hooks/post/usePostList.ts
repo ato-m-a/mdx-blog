@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { getPostsRequestSchema } from '@/schema/post/request.schema';
 import getQueryState from '@/common/utils/getQueryState';
 import useSearchParams from '@/common/hooks/useSearchParams';
-import postListRequestSchema from '@/schema/post/list-request.schema';
 import trpc from 'trpc-client';
 
 const usePostList = () => {
@@ -12,7 +12,7 @@ const usePostList = () => {
 
   const {
     searchParams: { keyword, tag, category },
-  } = useSearchParams(postListRequestSchema.parse);
+  } = useSearchParams(getPostsRequestSchema.parse);
 
   const payload = { keyword, tag, category, take: 10 };
 

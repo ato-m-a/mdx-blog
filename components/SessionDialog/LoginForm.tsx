@@ -13,8 +13,8 @@ import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormItem, FormControl, FormField } from '@/components/ui/form';
+import { loginRequestSchema, type LoginRequestSchema } from '@/schema/auth/request.schema';
 import toast from '@/common/utils/toast';
-import loginRequestSchema, { type LoginRequestSchema } from '@/schema/auth/login-request.schema';
 import useLogin from '@/common/hooks/session/useLogin';
 
 const LoginForm: FC = () => {

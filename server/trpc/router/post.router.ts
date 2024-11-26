@@ -2,16 +2,21 @@ import type { Category } from '@prisma/client';
 import type { Prisma } from '@prisma/client';
 import { router, publicProcedure, protectedProcedure } from '@/server/trpc';
 import { BadRequestException, ConflictException } from '@/server/trpc/lib/exceptions';
-import pagedResponseSchema from '@/schema/common/paged-response.schema';
-import getCountsByTagSchema from '@/schema/post/getCountsByTag.schema';
-import postRequestSchema from '@/schema/post/post-request.schema';
-import postListRequestSchema from '@/schema/post/list-request.schema';
-import postResponseSchema from '@/schema/post/post-response.schema';
-import createPostSchema from '@/schema/post/create-post.schema';
+import {
+  createPostRequestSchema,
+  getPostRequestSchema,
+  getPostsRequestSchema,
+} from '@/schema/post/request.schema';
+import {
+  getPostResponseSchema,
+  getCountsByTagResponseSchema,
+  getPostsResponseSchema,
+} from '@/schema/post/response.schema';
+import { postSchema } from '@/schema/post/base.schema';
 
 const postRouter = router({
   getCountsByTag: publicProcedure
-    .output(getCountsByTagSchema)
+    .output(getCountsByTagResponseSchema)
     .query(async ({ ctx: { prisma } }) => {
       const [totalCount, tags] = await Promise.all([
         prisma.post.count(),
@@ -39,8 +44,8 @@ const postRouter = router({
       };
     }),
   get: publicProcedure
-    .input(postRequestSchema)
-    .output(postResponseSchema.nullable())
+    .input(getPostRequestSchema)
+    .output(getPostResponseSchema)
     .query(async ({ ctx: { prisma }, input: { slug } }) => {
       return await prisma.post.findUnique({
         where: { slug },
@@ -48,8 +53,8 @@ const postRouter = router({
       });
     }),
   getMany: publicProcedure
-    .input(postListRequestSchema.optional())
-    .output(pagedResponseSchema(postResponseSchema))
+    .input(getPostsRequestSchema.optional())
+    .output(getPostsResponseSchema)
     .query(async ({ ctx: { prisma }, input }) => {
       const { cursor, take = 10, category, keyword, tag } = input ?? {};
 
@@ -88,7 +93,8 @@ const postRouter = router({
       return { data: posts, nextCursor };
     }),
   create: protectedProcedure
-    .input(createPostSchema)
+    .input(createPostRequestSchema)
+    .output(postSchema.omit({ tags: true, category: true }).passthrough())
     .mutation(async ({ ctx: { prisma }, input: { tag, category, ...postInput } }) => {
       return await prisma.$transaction(async (tx) => {
         const { title } = postInput;

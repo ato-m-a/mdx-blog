@@ -15,7 +15,10 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import createPostSchema, { type CreatePostSchema } from '@/schema/post/create-post.schema';
+import {
+  createPostRequestSchema,
+  type CreatePostRequestSchema,
+} from '@/schema/post/request.schema';
 import Select from '@/components/Select';
 import useCategories from '@/common/hooks/category/useCategories';
 import toast from '@/common/utils/toast';
@@ -25,8 +28,8 @@ const CreatePostForm: FC = () => {
   const router = useRouter();
   const categories = useCategories();
 
-  const form = useForm<CreatePostSchema>({
-    resolver: zodResolver(createPostSchema),
+  const form = useForm<CreatePostRequestSchema>({
+    resolver: zodResolver(createPostRequestSchema),
     defaultValues: {
       category: undefined,
       title: '',

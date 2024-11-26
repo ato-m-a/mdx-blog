@@ -1,9 +1,9 @@
 import { router, publicProcedure } from '@/server/trpc';
-import categoryResponseSchema from '@/schema/category/category-response.schema';
+import { categorySchema } from '@/schema/category/base.schema';
 
 const categoryRouter = router({
   getMany: publicProcedure
-    .output(categoryResponseSchema.array())
+    .output(categorySchema.array())
     .query(async ({ ctx: { prisma } }) => await prisma.category.findMany()),
 });
 

@@ -1,11 +1,11 @@
 import type { FC } from 'react';
-import type { PostResponseSchema } from '@/schema/post/post-response.schema';
+import type { PostSchema } from '@/schema/post/base.schema';
 import type { FetchStatus } from '@tanstack/react-query';
 import { Skeleton } from '@/components/ui/skeleton';
 import { format } from 'date-fns';
 import Link from 'next/link';
 
-type PostArticleProps = Pick<PostResponseSchema, 'title' | 'slug' | 'createdAt'> & {
+type PostArticleProps = Pick<PostSchema, 'title' | 'slug' | 'createdAt'> & {
   fetchStatus: FetchStatus;
 };
 

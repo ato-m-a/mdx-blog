@@ -1,6 +1,6 @@
 'use client';
 
-import type { ExperienceSchema } from '@/schema/experience.schema';
+import type { ExperienceSchema } from '@/schema/experience/base.schema';
 import type { FC } from 'react';
 import { format } from 'date-fns';
 

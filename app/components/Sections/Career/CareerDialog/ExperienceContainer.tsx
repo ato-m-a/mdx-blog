@@ -1,6 +1,6 @@
 'use client';
 
-import type { ExperienceSchema } from '@/schema/experience.schema';
+import type { ExperienceSchema } from '@/schema/experience/base.schema';
 import type { FC, PropsWithChildren } from 'react';
 import Observed from '@/components/Observed';
 import AsideCarousel from './AsideCarousel';

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import type { WithTrigger } from '@/components/types';
-import type { ExperienceSchema } from '@/schema/experience.schema';
-import type { CompanySchema } from '@/schema/company/company.schema';
+import type { ExperienceSchema } from '@/schema/experience/base.schema';
+import type { CompanySchema } from '@/schema/company/base.schema';
 import {
   Dialog,
   DialogContent,
