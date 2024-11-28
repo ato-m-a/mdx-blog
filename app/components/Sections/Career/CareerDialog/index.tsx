@@ -15,7 +15,7 @@ import {
 import { Button } from '@/components/ui/button';
 import ExperienceContainer from './ExperienceContainer';
 import ScrollContainer from '@/components/ScrollContainer';
-import MDXRemote from '@/components/MDXRemote';
+import MDXRenderer from '@/components/MDXRenderer';
 
 type CareerDialogProps = {
   company: CompanySchema;
@@ -46,7 +46,7 @@ const CareerDialog: FC<CareerDialogProps> = ({ trigger, company, experiences }) 
           <ScrollContainer as="article" className="h-full overflow-y-auto flex-1">
             {experiences.map((experience, index) => (
               <div key={`exp-${index}`} className="pb-10" data-index={index}>
-                <MDXRemote
+                <MDXRenderer
                   key={experience.id}
                   source={`
                     # 제목

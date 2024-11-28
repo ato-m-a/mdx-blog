@@ -95,7 +95,7 @@ const postRouter = router({
   create: protectedProcedure
     .input(createPostRequestSchema)
     .output(postSchema.omit({ tags: true, category: true }).passthrough())
-    .mutation(async ({ ctx: { prisma }, input: { tag, category, ...postInput } }) => {
+    .mutation(async ({ ctx: { prisma }, input: { tags, category, ...postInput } }) => {
       return await prisma.$transaction(async (tx) => {
         const { title } = postInput;
 
@@ -107,27 +107,6 @@ const postRouter = router({
 
         if (!categoryExists) {
           throw new BadRequestException('카테고리가 존재하지 않습니다.');
-        }
-
-        let tagData = undefined;
-        if (tag) {
-          let tagExists = await tx.tag.findUnique({
-            where: {
-              name: tag,
-            },
-          });
-
-          if (!tagExists) {
-            tagExists = await tx.tag.create({
-              data: {
-                name: tag,
-              },
-            });
-          }
-
-          tagData = {
-            connect: { id: tagExists.id },
-          };
         }
 
         const slug = title
@@ -148,7 +127,16 @@ const postRouter = router({
             slug,
             ...postInput,
             category: { connect: { id: categoryExists.id } },
-            ...(tagData ? { tags: tagData } : {}),
+            ...(tags && tags.length
+              ? {
+                  tags: {
+                    connectOrCreate: tags.map((tag) => ({
+                      where: { name: tag },
+                      create: { name: tag },
+                    })),
+                  },
+                }
+              : {}),
           },
         });
 

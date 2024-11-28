@@ -1,7 +1,7 @@
 'use client';
 
 import type { SelectProps as SelectCoreProps } from '@radix-ui/react-select';
-import { useState, useEffect, type FC } from 'react';
+import type { FC } from 'react';
 import {
   Select as SelectCore,
   SelectContent,
@@ -31,15 +31,8 @@ const Select: FC<SelectProps> = ({
   placeholder,
   className,
 }) => {
-  /** hydration 과정의 불일치 문제로 SelectValue 깜빡임 현상이 있어 임시 조치 */
-  const [isMount, setIsMount] = useState(false);
-  useEffect(() => setIsMount(true), []);
-
   return (
-    <SelectCore
-      onValueChange={(value: string) => onValueChange(value !== 'null' ? value : '')}
-      value={isMount ? (value ?? 'null') : undefined}
-    >
+    <SelectCore onValueChange={(value: string) => onValueChange(value)} value={value}>
       <SelectTrigger>
         <SelectValue placeholder={value || placeholder} />
       </SelectTrigger>

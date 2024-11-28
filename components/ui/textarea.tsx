@@ -24,7 +24,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
       onKeyDown?.(e);
-      if (e.key === 'Tab') {
+      if (e.key === 'Tab' && enableTab) {
         e.preventDefault();
 
         const textarea = e.target;

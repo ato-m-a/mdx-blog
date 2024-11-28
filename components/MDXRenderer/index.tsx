@@ -1,15 +1,10 @@
 import type { FC } from 'react';
-import type { MDXComponents } from 'mdx/types';
-import { MDXRemote as MDXRemoteCore, type MDXRemoteSerializeResult } from 'next-mdx-remote/rsc';
-import { components } from './config';
+import type { MDXRendererProps } from '@/components/MDXRenderer/types';
+import { components } from '@/components/MDXRenderer/config';
+import { MDXRemote as MDXRemoteCore } from 'next-mdx-remote/rsc';
 import rehypePrismPlus from 'rehype-prism-plus';
 
-type MDXRemoteProps = {
-  source: MDXRemoteSerializeResult | string;
-  components?: MDXComponents;
-};
-
-const MDXRemote: FC<MDXRemoteProps> = async ({ source, components: componentsOverride }) => {
+const MDXRenderer: FC<MDXRendererProps> = ({ source, components: componentsOverride }) => {
   return (
     <MDXRemoteCore
       source={source}
@@ -34,4 +29,4 @@ const MDXRemote: FC<MDXRemoteProps> = async ({ source, components: componentsOve
   );
 };
 
-export default MDXRemote;
+export default MDXRenderer;

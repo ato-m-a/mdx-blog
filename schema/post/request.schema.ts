@@ -24,5 +24,5 @@ export const createPostRequestSchema = z.object({
     .string()
     .min(1, EMPTY_CATEGORY)
     .refine((value) => value !== '', { message: EMPTY_CATEGORY }),
-  tag: z.string().optional(),
+  tags: z.array(z.string()).optional(),
 });

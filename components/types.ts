@@ -1,4 +1,4 @@
-import type { ElementType, ComponentProps, ReactNode } from 'react';
+import type { ElementType, ComponentProps, ReactNode, Dispatch, SetStateAction } from 'react';
 
 type FlexibleProps<E extends ElementType, T = object> = { as?: E } & T;
 
@@ -11,3 +11,5 @@ export type WithTrigger = { trigger: ReactNode };
 
 export type SearchParams<T extends string> = { searchParams: { [key in T]?: string } };
 export type Params<T extends string> = { params: { [key in T]?: string } };
+
+export type StateTuples<T> = [T, Dispatch<SetStateAction<T>>];

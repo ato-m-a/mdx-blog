@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import createMetadata from '@/common/utils/createMetadata';
 import createOpenGraph from '@/common/utils/createOpenGraph';
 import Container from '@/components/Container';
-import MDXRemote from '@/components/MDXRemote';
+import MDXRenderer from '@/components/MDXRenderer';
 import PostHeader from './components/Header';
 import trpc from 'trpc-server';
 
@@ -51,7 +51,7 @@ const PostViewPage: NextPage<PostViewPageProps> = async ({ params: { slug } }) =
   return (
     <Container className="flex flex-col gap-16 max-lg:gap-10 max-md:gap-6">
       <PostHeader {...post} />
-      <MDXRemote source={post.content} />
+      <MDXRenderer source={post.content} />
     </Container>
   );
 };
