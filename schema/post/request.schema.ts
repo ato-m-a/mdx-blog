@@ -5,10 +5,12 @@ import { EMPTY_TITLE, EMPTY_CONTENT, EMPTY_CATEGORY } from '@/schema/post/consta
 export type GetPostRequestSchema = z.infer<typeof getPostRequestSchema>;
 export type GetPostsRequestSchema = z.infer<typeof getPostsRequestSchema>;
 export type CreatePostRequestSchema = z.infer<typeof createPostRequestSchema>;
+export type UpdatePostRequestSchema = z.infer<typeof updatePostRequestSchema>;
 export type DeletePostRequestSchema = z.infer<typeof deletePostRequestSchema>;
 
 export const getPostRequestSchema = z.object({
-  slug: z.string(),
+  slug: z.string().optional(),
+  id: z.number().optional(),
 });
 
 export const getPostsRequestSchema = pagedRequestSchema.extend({
@@ -26,6 +28,10 @@ export const createPostRequestSchema = z.object({
     .min(1, EMPTY_CATEGORY)
     .refine((value) => value !== '', { message: EMPTY_CATEGORY }),
   tags: z.array(z.string()).optional(),
+});
+
+export const updatePostRequestSchema = createPostRequestSchema.extend({
+  id: z.number(),
 });
 
 export const deletePostRequestSchema = z.object({

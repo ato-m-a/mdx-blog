@@ -10,6 +10,7 @@ import {
   getPostRequestSchema,
   getPostsRequestSchema,
   createPostRequestSchema,
+  updatePostRequestSchema,
   deletePostRequestSchema,
 } from '@/schema/post/request.schema';
 import {
@@ -51,9 +52,11 @@ const postRouter = router({
   get: publicProcedure
     .input(getPostRequestSchema)
     .output(getPostResponseSchema)
-    .query(async ({ ctx: { prisma }, input: { slug } }) => {
+    .query(async ({ ctx: { prisma }, input: { slug, id } }) => {
+      if (!slug && !id) throw new BadRequestException('slug 또는 id를 입력해주세요.');
+
       return await prisma.post.findUnique({
-        where: { slug },
+        where: { ...(slug ? { slug } : { id }) },
         include: { category: true, tags: true },
       });
     }),
@@ -148,6 +151,60 @@ const postRouter = router({
         return post;
       });
     }),
+  update: protectedProcedure
+    .input(updatePostRequestSchema)
+    .output(postSchema.omit({ tags: true, category: true }).passthrough())
+    .mutation(async ({ ctx: { prisma }, input: { id, category, title, tags, ...postInput } }) => {
+      return await prisma.$transaction(async (tx) => {
+        const categoryExists = await tx.category.findUnique({
+          where: {
+            name: category,
+          },
+        });
+
+        if (!categoryExists) {
+          throw new BadRequestException('카테고리가 존재하지 않습니다.');
+        }
+
+        const slug = title
+          .replace(/[^a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]/g, '-')
+          .replace(/-+/g, '-')
+          .replace(/^-|-$/g, '');
+
+        const isDuplicated = await tx.post.findFirst({
+          where: { title, slug },
+        });
+
+        if (isDuplicated && isDuplicated.id !== id) {
+          throw new ConflictException('이미 존재하는 포스트입니다.');
+        }
+
+        const post = await tx.post.update({
+          where: { id },
+          data: {
+            ...postInput,
+            category: { connect: { id: categoryExists.id } },
+            ...(tags && tags.length
+              ? {
+                  tags: {
+                    set: tags.map((tag) => ({ name: tag })),
+                  },
+                }
+              : {}),
+          },
+        });
+
+        await tx.tag.deleteMany({
+          where: {
+            posts: {
+              none: {},
+            },
+          },
+        });
+
+        return post;
+      });
+    }),
   delete: protectedProcedure
     .input(deletePostRequestSchema)
     .mutation(async ({ ctx: { prisma }, input: { id } }) => {
@@ -158,8 +215,14 @@ const postRouter = router({
       }
 
       return await prisma.$transaction(async (tx) => {
-        await tx.tag.deleteMany({ where: { posts: { some: { id } } } });
         await tx.post.delete({ where: { id } });
+        await tx.tag.deleteMany({
+          where: {
+            posts: {
+              none: {},
+            },
+          },
+        });
       });
     }),
 });
