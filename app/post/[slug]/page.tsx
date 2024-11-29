@@ -51,7 +51,9 @@ const PostViewPage: NextPage<PostViewPageProps> = async ({ params: { slug } }) =
   return (
     <Container className="flex flex-col gap-16 max-lg:gap-10 max-md:gap-6">
       <PostHeader {...post} />
-      <MDXRenderer source={post.content} />
+      <main>
+        <MDXRenderer source={post.content} />
+      </main>
     </Container>
   );
 };

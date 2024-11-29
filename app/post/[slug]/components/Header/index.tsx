@@ -7,6 +7,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import ThemeToggleButton from '@/components/ThemeToggleButton';
 import Protected from '@/components/Protected';
 import DeleteDialog from '../DeleteDialog';
+import Link from 'next/link';
 
 type PostHeaderProps = NonNullable<GetPostResponseSchema>;
 
@@ -30,9 +31,11 @@ const PostHeader: FC<PostHeaderProps> = ({ id, slug, title, subtitle, createdAt 
             <Protected>
               <div className="flex gap-2">
                 <DeleteDialog id={id} slug={slug} />
-                <Button>
-                  <Edit className="w-4 h-4" />
-                  수정
+                <Button asChild>
+                  <Link href={`/manage/post/update/${id}`}>
+                    <Edit className="w-4 h-4" />
+                    수정
+                  </Link>
                 </Button>
               </div>
             </Protected>
