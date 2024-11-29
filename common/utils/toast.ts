@@ -11,6 +11,9 @@ const toast = {
   create_post_success: () => t.success('새 포스트를 작성했습니다.'),
   create_post_failed: (message?: string) =>
     t.error('포스트 작성에 실패했습니다.', { description: message }),
+  delete_post_success: () => t.success('포스트를 성공적으로 삭제했습니다.'),
+  delete_post_failed: (message?: string) =>
+    t.error('포스트 삭제에 실패했습니다.', { description: message }),
 } as const;
 
 export default toast;

@@ -1,13 +1,16 @@
 import type { FC } from 'react';
-import type { PostSchema } from '@/schema/post/base.schema';
+import { GetPostResponseSchema } from '@/schema/post/response.schema';
+import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
+import { Edit } from 'lucide-react';
 import Breadcrumb from '@/components/Breadcrumb';
 import ThemeToggleButton from '@/components/ThemeToggleButton';
-import UpdatePostLink from '../UpdatePostLink';
+import Protected from '@/components/Protected';
+import DeleteDialog from '../DeleteDialog';
 
-type PostHeaderProps = Pick<PostSchema, 'title' | 'subtitle' | 'createdAt'>;
+type PostHeaderProps = NonNullable<GetPostResponseSchema>;
 
-const PostHeader: FC<PostHeaderProps> = ({ title, subtitle, createdAt }) => {
+const PostHeader: FC<PostHeaderProps> = ({ id, slug, title, subtitle, createdAt }) => {
   return (
     <header className="flex flex-col gap-10 max-lg:gap-8 max-md:gap-6">
       <Breadcrumb
@@ -24,7 +27,15 @@ const PostHeader: FC<PostHeaderProps> = ({ title, subtitle, createdAt }) => {
           </h1>
           <div className="flex flex-col justify-between items-end">
             <ThemeToggleButton />
-            <UpdatePostLink />
+            <Protected>
+              <div className="flex gap-2">
+                <DeleteDialog id={id} slug={slug} />
+                <Button>
+                  <Edit className="w-4 h-4" />
+                  수정
+                </Button>
+              </div>
+            </Protected>
           </div>
         </div>
         <div className="flex justify-between items-center max-md:flex-col max-md:gap-2 max-md:items-start">

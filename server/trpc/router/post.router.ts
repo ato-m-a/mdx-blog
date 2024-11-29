@@ -1,11 +1,16 @@
 import type { Category } from '@prisma/client';
 import type { Prisma } from '@prisma/client';
 import { router, publicProcedure, protectedProcedure } from '@/server/trpc';
-import { BadRequestException, ConflictException } from '@/server/trpc/lib/exceptions';
 import {
-  createPostRequestSchema,
+  BadRequestException,
+  ConflictException,
+  NotFoundException,
+} from '@/server/trpc/lib/exceptions';
+import {
   getPostRequestSchema,
   getPostsRequestSchema,
+  createPostRequestSchema,
+  deletePostRequestSchema,
 } from '@/schema/post/request.schema';
 import {
   getPostResponseSchema,
@@ -141,6 +146,20 @@ const postRouter = router({
         });
 
         return post;
+      });
+    }),
+  delete: protectedProcedure
+    .input(deletePostRequestSchema)
+    .mutation(async ({ ctx: { prisma }, input: { id } }) => {
+      const post = await prisma.post.findUnique({ where: { id } });
+
+      if (!post) {
+        throw new NotFoundException('포스트가 존재하지 않습니다.');
+      }
+
+      return await prisma.$transaction(async (tx) => {
+        await tx.tag.deleteMany({ where: { posts: { some: { id } } } });
+        await tx.post.delete({ where: { id } });
       });
     }),
 });

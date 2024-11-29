@@ -23,3 +23,9 @@ export class ConflictException extends TRPCError {
     super({ code: 'CONFLICT', message });
   }
 }
+
+export class NotFoundException extends TRPCError {
+  constructor(message?: string) {
+    super({ code: 'NOT_FOUND', message });
+  }
+}

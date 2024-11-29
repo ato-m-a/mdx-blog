@@ -34,9 +34,7 @@ export const generateMetadata = async ({ params: { slug } }: PostViewPageProps) 
   });
 };
 
-export const generateStaticParams = async ({ params: { slug } }: PostViewPageProps) => {
-  if (!slug) return [];
-
+export const generateStaticParams = async () => {
   const posts = await trpc.post.getMany();
 
   return posts.data.map(({ slug }) => ({ slug }));
@@ -45,7 +43,9 @@ export const generateStaticParams = async ({ params: { slug } }: PostViewPagePro
 const PostViewPage: NextPage<PostViewPageProps> = async ({ params: { slug } }) => {
   if (!slug) return notFound();
 
-  const post = await trpc.post.get({ slug: decodeURIComponent(slug) });
+  const decoded = decodeURIComponent(slug);
+
+  const post = await trpc.post.get({ slug: decoded });
   if (!post) return notFound();
 
   return (
