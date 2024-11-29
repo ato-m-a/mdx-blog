@@ -9,6 +9,8 @@ import runtime from 'react/jsx-runtime';
 import useDebounce from '@/common/hooks/useDebounce';
 import matter from 'gray-matter';
 import rehypePrismPlus from 'rehype-prism-plus';
+import rehypeRewrite from 'rehype-rewrite';
+import nestedParagraphRewrite from './rehypePlugins/nestedParagraphRewrite';
 
 type ClientRendererProps = MDXRendererProps & {
   debounce?: number;
@@ -41,6 +43,12 @@ const MDXRenderer: FC<ClientRendererProps> = ({
               {
                 showLineNumbers: true,
                 highlightLines: true,
+              },
+            ],
+            [
+              rehypeRewrite,
+              {
+                rewrite: nestedParagraphRewrite,
               },
             ],
           ],
