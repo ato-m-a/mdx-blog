@@ -41,9 +41,9 @@ const SessionDialog: FC = () => {
     onError: () => dispatch('close'),
   });
 
-  useCommands('l', () => dispatch('toggle'));
-  useCommands('o', () => logout(), { enabled: isOpen && sessionValid });
-  useCommands('e', () => extend(), { enabled: isOpen && sessionValid });
+  useCommands(['l'], () => dispatch('toggle'));
+  useCommands(['o'], () => logout(), { enabled: isOpen && sessionValid });
+  useCommands(['e'], () => extend(), { enabled: isOpen && sessionValid });
 
   return (
     <Dialog open={isOpen} onOpenChange={dispatch}>

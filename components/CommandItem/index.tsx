@@ -11,7 +11,7 @@ import useExtendSession from '@/common/hooks/session/useExtendSession';
 
 type CreateCommandItemOptions = {
   label: string;
-  shortcut: string | string[];
+  shortcut: string[];
   useActionHook: (options: MutationOptions) => () => void;
 };
 type CommandItemProps = MutationOptions & { className?: string; enabled?: boolean };
@@ -52,12 +52,12 @@ const createCommandItem = ({
 const CommandItem: CommandItemRecord = {
   logout: createCommandItem({
     label: '로그아웃',
-    shortcut: 'o',
+    shortcut: ['o'],
     useActionHook: useLogout,
   }),
   extendSession: createCommandItem({
     label: '세션 연장',
-    shortcut: 'e',
+    shortcut: ['e'],
     useActionHook: useExtendSession,
   }),
 } as const;

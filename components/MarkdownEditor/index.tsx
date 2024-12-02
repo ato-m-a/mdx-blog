@@ -18,7 +18,10 @@ const MarkdownEditor: FC<MarkdownEditorProps> = ({ source, setSource, widget, cl
   const [isMaximized, setIsMaximized] = useState<boolean>(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState<boolean>(false);
 
-  useCommands('Escape', () => setIsMaximized(false), { enabled: isMaximized });
+  useCommands(['Escape'], () => setIsMaximized(false), {
+    enabled: isMaximized,
+    coerceMetaKey: false,
+  });
 
   return (
     <div
