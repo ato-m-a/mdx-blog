@@ -1,11 +1,11 @@
 import { router } from '@/server/trpc';
 
 /** routers */
-import experienceRouter from './experience.router';
-import postRouter from './post.router';
-import authRouter from './auth.router';
-import companyRouter from './company.router';
-import categoryRouter from './category.router';
+import experienceRouter from './experience';
+import postRouter from './post';
+import authRouter from './auth';
+import companyRouter from './company';
+import categoryRouter from './category';
 
 const appRouter = router({
   experience: experienceRouter,
