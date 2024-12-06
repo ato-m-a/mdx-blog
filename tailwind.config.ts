@@ -71,13 +71,13 @@ const config: Config = {
       /** animated underline */
       addUtilities({
         '.animated-underline': {
-          'background-image': `linear-gradient(to right, ${theme('colors.zinc.100')}, ${theme('colors.zinc.100')}), linear-gradient(to right, ${theme('colors.zinc.900')}, ${theme('colors.zinc.900')}, ${theme('colors.zinc.900')})`,
+          'background-image': `linear-gradient(to right, transparent, transparent), linear-gradient(to right, ${theme('colors.zinc.900')}, ${theme('colors.zinc.900')}, ${theme('colors.zinc.900')})`,
           'background-size': '100% 0.1em, 0 0.1em',
           'background-position': '100% 100%, 0 100%',
           'background-repeat': 'no-repeat',
           'transition': 'background-size 300ms',
           '.dark &': {
-            'background-image': `linear-gradient(to right, ${theme('colors.zinc.900')}, ${theme('colors.zinc.900')}), linear-gradient(to right, ${theme('colors.zinc.100')}, ${theme('colors.zinc.100')}, ${theme('colors.zinc.100')})`,
+            'background-image': `linear-gradient(to right, transparent, transparent), linear-gradient(to right, ${theme('colors.zinc.100')}, ${theme('colors.zinc.100')}, ${theme('colors.zinc.100')})`,
           }
         },
         '.animated-underline:hover, .animated-underline:focus': {
