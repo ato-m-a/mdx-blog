@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { FC } from 'react';
 import { HydrationBoundary } from '@tanstack/react-query';
 import { getDehydrated } from 'trpc/lib';
 import Container from '@/components/Container';
@@ -25,7 +25,7 @@ export const metadata = createMetadata({
   }),
 });
 
-const Home: NextPage = async () => {
+const Home: FC = async () => {
   const dehydrated = await getDehydrated((helpers) => [
     helpers.experience.getCurrentJob.prefetch(),
     helpers.post.getMany.prefetch({ take: 4 }),

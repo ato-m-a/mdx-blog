@@ -1,11 +1,11 @@
-import type { NextPage } from 'next';
+import type { FC } from 'react';
 import { Button } from '@/components/ui/button';
 import { Home, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import Container from '@/components/Container';
 import BackLink from '@/app/components/BackLink';
 
-const NotFound: NextPage = () => {
+const NotFound: FC = () => {
   return (
     <Container className="flex justify-center items-center">
       <div className="text-center space-y-8">

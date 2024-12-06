@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { FC } from 'react';
 import type { Params } from '@/components/types';
 import { notFound } from 'next/navigation';
 import createMetadata from '@/common/utils/createMetadata';
@@ -40,7 +40,7 @@ export const generateStaticParams = async () => {
   return posts.data.map(({ slug }) => ({ slug }));
 };
 
-const PostViewPage: NextPage<PostViewPageProps> = async ({ params: { slug } }) => {
+const PostViewPage: FC<PostViewPageProps> = async ({ params: { slug } }) => {
   if (!slug) return notFound();
 
   const decoded = decodeURIComponent(slug);

@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { FC } from 'react';
 import type { Params } from '@/components/types';
 import { notFound } from 'next/navigation';
 import createMetadata from '@/common/utils/createMetadata';
@@ -14,7 +14,7 @@ export const metadata = createMetadata({
   description: '포스트 수정 페이지',
 });
 
-const UpdatePostPage: NextPage<Params<'id'>> = async ({ params: { id } }) => {
+const UpdatePostPage: FC<Params<'id'>> = async ({ params: { id } }) => {
   if (!id) return notFound();
 
   const postId = parseInt(id);

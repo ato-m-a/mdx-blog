@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { FC } from 'react';
 import { getDehydrated } from '@/common/trpc/lib';
 import { HydrationBoundary } from '@tanstack/react-query';
 import SearchParamsProvider from '@/components/Providers/SearchParamsProvider';
@@ -24,7 +24,7 @@ export const metadata = createMetadata({
   }),
 });
 
-const PostPage: NextPage = async () => {
+const PostPage: FC = async () => {
   const dehydrated = await getDehydrated((helpers) => [
     helpers.post.getMany.prefetchInfinite({ take: 10 }),
     helpers.post.getCountsByTag.prefetch(),

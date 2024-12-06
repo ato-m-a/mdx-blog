@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { FC } from 'react';
 import createMetadata from '@/common/utils/createMetadata';
 import SessionController from '@/components/SessionController';
 import Container from '@/components/Container';
@@ -11,7 +11,7 @@ export const metadata = createMetadata({
   description: '새 포스트 작성 페이지',
 });
 
-const CreatePostPage: NextPage = () => {
+const CreatePostPage: FC = () => {
   return (
     <Container className="flex flex-col gap-10">
       <Header
