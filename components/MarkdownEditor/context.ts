@@ -1,12 +1,7 @@
 'use client';
 
-import {
-  createContext,
-  useContext,
-  type Dispatch,
-  type SetStateAction,
-  type ReactNode,
-} from 'react';
+import type { WithWidget } from '@/components/types';
+import { createContext, useContext, type Dispatch, type SetStateAction } from 'react';
 
 export type MarkdownEditorContextType = {
   isLoading: boolean;
@@ -17,8 +12,7 @@ export type MarkdownEditorContextType = {
   setIsPreviewOpen: Dispatch<SetStateAction<boolean>>;
   source: string;
   setSource: Dispatch<SetStateAction<string>>;
-  widget?: ReactNode;
-};
+} & WithWidget;
 
 export const MarkdownEditorContext = createContext<MarkdownEditorContextType | null>(null);
 

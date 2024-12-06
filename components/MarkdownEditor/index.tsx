@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type FC, type ReactNode } from 'react';
+import { useState, type HTMLAttributes, type FC } from 'react';
 import { cn } from '@/common/utils';
 import { MarkdownEditorContext, type MarkdownEditorContextType } from './context';
 import useCommands from '@/common/hooks/useCommands';
@@ -8,10 +8,8 @@ import EditorCore from './EditorCore';
 import EditorToolbar from './EditorToolbar';
 import EditorPreview from './EditorPreview';
 
-type MarkdownEditorProps = Pick<MarkdownEditorContextType, 'source' | 'setSource'> & {
-  widget?: ReactNode;
-  className?: string;
-};
+type MarkdownEditorProps = Pick<MarkdownEditorContextType, 'source' | 'setSource' | 'widget'> &
+  HTMLAttributes<HTMLDivElement>;
 
 const MarkdownEditor: FC<MarkdownEditorProps> = ({ source, setSource, widget, className }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);

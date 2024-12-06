@@ -21,10 +21,10 @@ import LoginForm from './LoginForm';
 const SessionDialog: FC = () => {
   const [isOpen, dispatch] = useReducer(
     (state: boolean, action: boolean | ('open' | 'close' | 'toggle')) => {
-      if (typeof action === 'boolean') return action;
-      if (action === 'open') return true;
-      if (action === 'close') return false;
-      return !state;
+      if (typeof action === 'boolean') return action; // boolean 직접 전달
+      if (action === 'open') return true; // 명시적 열기
+      if (action === 'close') return false; // 명시적 닫기
+      return !state; // 토글
     },
     false,
   );

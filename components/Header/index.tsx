@@ -1,12 +1,12 @@
-import type { FC, ReactNode } from 'react';
+import type { FC } from 'react';
+import type { WithWidget } from '@/components/types';
 import Breadcrumb, { type BreadcrumbProps } from '@/components/Breadcrumb';
 import ThemeToggleButton from '@/components/ThemeToggleButton';
 
 type HeaderProps = BreadcrumbProps & {
   title: string;
   subtitle?: string;
-  widget?: ReactNode;
-};
+} & WithWidget;
 
 const Header: FC<HeaderProps> = ({ pathMap, title, subtitle, widget }) => {
   return (

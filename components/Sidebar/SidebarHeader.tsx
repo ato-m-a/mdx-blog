@@ -1,4 +1,5 @@
-import { useEffect, useState, type FC, type ReactNode } from 'react';
+import type { WithWidget } from '@/components/types';
+import { useEffect, useState, type FC } from 'react';
 import {
   SidebarHeader as SidebarHeaderCore,
   SidebarMenu,
@@ -16,12 +17,12 @@ import {
 import { CommandShortcut } from '@/components/ui/command';
 import { cn } from '@/common/utils';
 import CommandItem from '@/components/CommandItem';
+
 type SidebarHeaderProps = {
   className?: string;
   title: string;
   subtitle: string;
-  widget?: ReactNode;
-};
+} & WithWidget;
 
 const SidebarHeader: FC<SidebarHeaderProps> = ({ className, title, subtitle, widget }) => {
   const { open, setOpen } = useSidebar();
