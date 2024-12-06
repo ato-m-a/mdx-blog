@@ -1,9 +1,14 @@
 import { router } from '@/server/trpc';
-import { getCompanyProcedure, getCareersProcedure } from './procedures/read';
+import {
+  getCompanyProcedure,
+  getManyCompaniesProcedure,
+  getCareersProcedure,
+} from './procedures/read';
 import { updateCompanyProcedure } from './procedures/update';
 
 const companyRouter = router({
   get: getCompanyProcedure,
+  getMany: getManyCompaniesProcedure,
   getCareers: getCareersProcedure,
   update: updateCompanyProcedure,
 });

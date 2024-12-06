@@ -1,4 +1,4 @@
-import { publicProcedure } from '@/server/trpc';
+import { protectedProcedure, publicProcedure } from '@/server/trpc';
 import { companySchema } from '@/schema/company/base.schema';
 import { getCareersResponseSchema } from '@/schema/company/response.schema';
 
@@ -7,6 +7,12 @@ export const getCompanyProcedure = publicProcedure
   .output(companySchema.nullable())
   .query(async ({ ctx: { prisma }, input: { id } }) => {
     return await prisma.company.findUnique({ where: { id } });
+  });
+
+export const getManyCompaniesProcedure = protectedProcedure
+  .output(companySchema.array())
+  .query(async ({ ctx: { prisma } }) => {
+    return await prisma.company.findMany();
   });
 
 export const getCareersProcedure = publicProcedure
