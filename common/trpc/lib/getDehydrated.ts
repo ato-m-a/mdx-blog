@@ -17,6 +17,8 @@ type Queries = (helpers: Helpers) => Promise<void>[];
  *   helpers.career.getMany.prefetch(),
  *   helpers.project.getMany.prefetch()
  * ]);
+ *
+ * @todo 추후 protectedProcedure를 prefetch시 req.headers cookie를 전달받아야 합니다.
  */
 const getDehydrated = async (queries: Queries) => {
   const helpers = createHelpers();
