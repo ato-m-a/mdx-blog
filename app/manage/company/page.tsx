@@ -1,4 +1,3 @@
-import type { NextPage } from 'next';
 import { HydrationBoundary } from '@tanstack/react-query';
 import { getDehydrated } from '@/common/trpc/lib';
 import Container from '@/components/Container';
@@ -13,8 +12,13 @@ export const metadata = createMetadata({
   description: '재직 정보를 관리합니다.',
 });
 
-const ManageCompanyPage: NextPage = () => {
-  const dehydrated = getDehydrated((helper) => [helper.company.getMany.prefetch()]);
+const ManageCompanyPage = async () => {
+  const dehydrated = await getDehydrated((helpers) => [helpers.company.getMany.prefetch()]);
+  await getDehydrated((helpers) => {
+    console.log(helpers.queryClient.getQueryData(['company.getMany']));
+
+    return [helpers.company.getMany.prefetch()];
+  });
 
   return (
     <Container className="space-y-12">

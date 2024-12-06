@@ -9,7 +9,7 @@ export const getCompanyProcedure = publicProcedure
     return await prisma.company.findUnique({ where: { id } });
   });
 
-export const getManyCompaniesProcedure = protectedProcedure
+export const getManyCompaniesProcedure = publicProcedure
   .output(companySchema.array())
   .query(async ({ ctx: { prisma } }) => {
     return await prisma.company.findMany();
