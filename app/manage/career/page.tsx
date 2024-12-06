@@ -4,38 +4,33 @@ import Container from '@/components/Container';
 import Header from '@/components/Header';
 import SessionController from '@/components/SessionController';
 import createMetadata from '@/common/utils/createMetadata';
-import ManageCompanyContent from './components/Content';
+import ManageCareerContent from './components/Content';
 
 export const metadata = createMetadata({
-  pathname: '/manage/company',
-  title: '재직 정보',
-  description: '재직 정보를 관리합니다.',
+  pathname: '/manage/career',
+  title: '이력 관리',
+  description: '내 이력을 관리합니다.',
 });
 
-const ManageCompanyPage = async () => {
+const ManageCareerPage = async () => {
   const dehydrated = await getDehydrated((helpers) => [helpers.company.getMany.prefetch()]);
-  await getDehydrated((helpers) => {
-    console.log(helpers.queryClient.getQueryData(['company.getMany']));
-
-    return [helpers.company.getMany.prefetch()];
-  });
 
   return (
     <Container className="space-y-12">
       <Header
         pathMap={[
           { href: '/', label: '홈' },
-          { href: '/manage/company', label: '재직 정보' },
+          { href: '/manage/career', label: '이력 관리' },
         ]}
-        title="재직 정보"
-        subtitle="재직 정보를 관리합니다."
+        title="이력 관리"
+        subtitle="내 이력을 관리합니다."
         widget={<SessionController />}
       />
       <HydrationBoundary state={dehydrated}>
-        <ManageCompanyContent />
+        <ManageCareerContent />
       </HydrationBoundary>
     </Container>
   );
 };
 
-export default ManageCompanyPage;
+export default ManageCareerPage;

@@ -13,7 +13,7 @@ const CompanyLabel: FC<CompanyLabelProps> = ({ brandColor, name, href, className
 
   return (
     <Element
-      className={cn('flex items-center gap-2 animated-underline cursor-pointer', className)}
+      className={cn('flex items-center gap-2 animated-underline cursor-pointer w-fit', className)}
       {...(href ? { href, target: '_blank', rel: 'noopener noreferrer' } : { type: 'button' })}
     >
       <ColorBadge color={brandColor} />
