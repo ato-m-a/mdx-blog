@@ -1,4 +1,4 @@
-import { protectedProcedure, publicProcedure } from '@/server/trpc';
+import { publicProcedure } from '@/server/trpc';
 import { companySchema } from '@/schema/company/base.schema';
 import { getCareersResponseSchema } from '@/schema/company/response.schema';
 

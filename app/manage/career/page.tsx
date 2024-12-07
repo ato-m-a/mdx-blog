@@ -13,7 +13,7 @@ export const metadata = createMetadata({
 });
 
 const ManageCareerPage = async () => {
-  const dehydrated = await getDehydrated((helpers) => [helpers.company.getMany.prefetch()]);
+  const dehydrated = await getDehydrated((helpers) => [helpers.company.getCareers.prefetch()]);
 
   return (
     <Container className="space-y-12">
