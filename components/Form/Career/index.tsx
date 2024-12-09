@@ -1,12 +1,10 @@
 'use client';
 
 import type { FC } from 'react';
-import type { FormProps } from '../types';
 import {
   createCareerRequestSchema,
   updateCareerRequestSchema,
   type CreateCareerRequestSchema,
-  type UpdateCareerRequestSchema,
 } from '@/schema/company/request.schema';
 import { Form as FormCore } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -22,22 +20,29 @@ import toast from '@/common/utils/toast';
 import trpc from 'trpc-client';
 
 type OnErrorParams = { message: string };
+type CareerFormProps =
+  | {
+      action: 'update';
+      id: number;
+    }
+  | {
+      action: 'create';
+      id?: never;
+    };
 
-type CareerFormProps = FormProps<UpdateCareerRequestSchema>;
+const defaultValues = {
+  name: '',
+  url: '',
+  brandColor: '#000000',
+  description: '',
+  experiences: [],
+};
 
-const Form: FC<CareerFormProps> = ({
-  action,
-  defaultValues: { id, ...defaultValues } = {
-    name: '',
-    url: '',
-    brandColor: '#000000',
-    description: '',
-    experiences: [],
-  },
-}) => {
+const Form: FC<CareerFormProps> = ({ action, id }) => {
   const router = useRouter();
 
   const isUpdate = action === 'update' && Boolean(id);
+  const { data: career } = trpc.company.getCareer.useQuery({ id: id! }, { enabled: isUpdate });
 
   const toastOnFailure = (message: string) =>
     switchCase(action, {
@@ -50,7 +55,7 @@ const Form: FC<CareerFormProps> = ({
   });
 
   const form = useForm<CreateCareerRequestSchema>({
-    defaultValues,
+    defaultValues: career ? { ...career } : defaultValues,
     resolver: zodResolver(createCareerRequestSchema),
   });
 
@@ -58,6 +63,7 @@ const Form: FC<CareerFormProps> = ({
 
   const mutationOptions = {
     onSuccess: () => {
+      if (id) utils.company.getCareer.invalidate({ id });
       utils.company.getCareers.invalidate();
       router.push('/manage/career');
       toastOnSuccess();

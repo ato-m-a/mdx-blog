@@ -1,5 +1,7 @@
 import type { FC } from 'react';
 import type { Params } from '@/components/types';
+import { getDehydrated } from 'trpc/lib';
+import { HydrationBoundary } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
 import createMetadata from '@/common/utils/createMetadata';
 import SessionController from '@/components/SessionController';
@@ -23,12 +25,7 @@ const UpdatePostPage: FC<Params<'id'>> = async ({ params: { id } }) => {
   const post = await trpc.post.get({ id: postId });
   if (!post) return notFound();
 
-  const defaultValues = {
-    ...post,
-    subtitle: post.subtitle ?? '',
-    category: post.category.name,
-    tags: post.tags.map((tag) => tag.name),
-  };
+  const dehydrated = await getDehydrated((helpers) => [helpers.post.get.prefetch({ id: postId })]);
 
   return (
     <Container className="flex flex-col gap-10">
@@ -42,7 +39,9 @@ const UpdatePostPage: FC<Params<'id'>> = async ({ params: { id } }) => {
         subtitle="포스트를 수정합니다."
         widget={<SessionController />}
       />
-      <Form action="update" defaultValues={defaultValues} />
+      <HydrationBoundary state={dehydrated}>
+        <Form action="update" id={postId} />
+      </HydrationBoundary>
     </Container>
   );
 };

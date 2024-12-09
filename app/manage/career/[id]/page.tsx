@@ -1,6 +1,8 @@
 import type { FC } from 'react';
 import type { Params } from '@/components/types';
 import { notFound } from 'next/navigation';
+import { getDehydrated } from 'trpc/lib';
+import { HydrationBoundary } from '@tanstack/react-query';
 import createMetadata from '@/common/utils/createMetadata';
 import Container from '@/components/Container';
 import Header from '@/components/Header';
@@ -9,8 +11,6 @@ import Form from '@/components/Form/Career';
 import trpc from 'trpc-server';
 
 type CareerDetailPageProps = Params<'id'>;
-
-export const dynamic = 'force-dynamic';
 
 export const metadata = createMetadata({
   pathname: '/manage/career',
@@ -22,9 +22,15 @@ const CareerDetailPage: FC<CareerDetailPageProps> = async ({ params: { id } }) =
   if (!id) return notFound();
 
   const parsedId = parseInt(id);
+  if (isNaN(parsedId)) return notFound();
+
   const career = await trpc.company.getCareer({ id: parsedId });
 
   if (!career) notFound();
+
+  const dehydrated = await getDehydrated((helpers) => [
+    helpers.company.getCareer.prefetch({ id: parsedId }),
+  ]);
 
   return (
     <Container className="space-y-12">
@@ -38,7 +44,9 @@ const CareerDetailPage: FC<CareerDetailPageProps> = async ({ params: { id } }) =
         subtitle={`${career.name}의 이력을 관리합니다.`}
         widget={<SessionController />}
       />
-      <Form action="update" defaultValues={career} />
+      <HydrationBoundary state={dehydrated}>
+        <Form action="update" id={parsedId} />
+      </HydrationBoundary>
     </Container>
   );
 };

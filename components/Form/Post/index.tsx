@@ -1,13 +1,11 @@
 'use client';
 
 import type { FC } from 'react';
-import type { FormProps } from '../types';
 import type { PostSchema } from '@/schema/post/base.schema';
 import {
   updatePostRequestSchema,
   createPostRequestSchema,
   type CreatePostRequestSchema,
-  type UpdatePostRequestSchema,
 } from '@/schema/post/request.schema';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -20,20 +18,20 @@ import trpc from 'trpc-client';
 
 type OnSuccessParams = Pick<PostSchema, 'slug'>;
 type OnErrorParams = { message: string };
+type PostFormProps =
+  | {
+      action: 'update';
+      id: number;
+    }
+  | {
+      action: 'create';
+      id?: never;
+    };
 
-type PostFormProps = FormProps<UpdatePostRequestSchema>;
-
-const Form: FC<PostFormProps> = ({ action, defaultValues }) => {
+const Form: FC<PostFormProps> = ({ action, id }) => {
   const router = useRouter();
-  const isUpdate = action === 'update';
-  const {
-    title,
-    subtitle,
-    category,
-    tags,
-    id,
-    content: defaultContent,
-  } = isUpdate ? defaultValues : {};
+  const isUpdate = action === 'update' && Boolean(id);
+  const { data: post } = trpc.post.get.useQuery({ id: id! }, { enabled: isUpdate });
 
   const toastOnFailure = (message: string) =>
     switchCase(action, {
@@ -46,12 +44,16 @@ const Form: FC<PostFormProps> = ({ action, defaultValues }) => {
   });
 
   const { source, content, frontmatter } = useMarkdown<Omit<CreatePostRequestSchema, 'content'>>({
-    content: defaultContent ?? undefined,
+    content: post?.content ?? undefined,
     frontmatter: {
-      title: title ?? '포스트 제목을 입력해주세요 (required)',
-      subtitle: subtitle ?? '포스트 부제목을 입력하거나, 지워주세요. (optional)',
-      category: category ?? '게시할 카테고리를 입력해주세요. (required)',
-      tags: tags ?? ['태그를 나열해주세요.', '(optional)'],
+      title: post?.title ?? '포스트 제목',
+      ...(post
+        ? post.subtitle
+          ? { subtitle: post.subtitle }
+          : {}
+        : { subtitle: '포스트 부제목' }),
+      category: post?.category?.name ?? '카테고리',
+      tags: (post?.tags ?? []).map(({ name }) => name) ?? ['태그', '나열'],
     },
   });
 
@@ -59,7 +61,9 @@ const Form: FC<PostFormProps> = ({ action, defaultValues }) => {
 
   const mutationOptions = {
     onSuccess: ({ slug }: OnSuccessParams) => {
-      utils.post.invalidate();
+      utils.post.get.invalidate({ slug });
+      utils.post.getMany.invalidate();
+      utils.post.getCountsByTag.invalidate();
       router.push(`/post/${slug}`);
       toastOnSuccess();
     },
