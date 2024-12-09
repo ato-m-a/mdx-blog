@@ -17,6 +17,12 @@ const toast = {
   delete_post_success: () => t.success('포스트를 성공적으로 삭제했습니다.'),
   delete_post_failed: (message?: string) =>
     t.error('포스트 삭제에 실패했습니다.', { description: message }),
+  create_career_success: () => t.success('새 경력을 작성했습니다.'),
+  create_career_failed: (message?: string) =>
+    t.error('경력 작성에 실패했습니다.', { description: message }),
+  update_career_success: () => t.success('경력을 성공적으로 수정했습니다.'),
+  update_career_failed: (message?: string) =>
+    t.error('경력 수정에 실패했습니다.', { description: message }),
 } as const;
 
 export default toast;

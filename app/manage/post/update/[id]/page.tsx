@@ -5,7 +5,7 @@ import createMetadata from '@/common/utils/createMetadata';
 import SessionController from '@/components/SessionController';
 import Container from '@/components/Container';
 import Header from '@/components/Header';
-import PostForm from '@/components/PostForm';
+import Form from '@/components/Form/Post';
 import trpc from 'trpc-server';
 
 export const metadata = createMetadata({
@@ -42,7 +42,7 @@ const UpdatePostPage: FC<Params<'id'>> = async ({ params: { id } }) => {
         subtitle="포스트를 수정합니다."
         widget={<SessionController />}
       />
-      <PostForm action="update" defaultValues={defaultValues} />
+      <Form action="update" defaultValues={defaultValues} />
     </Container>
   );
 };

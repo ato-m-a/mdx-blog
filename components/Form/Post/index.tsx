@@ -1,6 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
+import type { FormProps } from '../types';
 import type { PostSchema } from '@/schema/post/base.schema';
 import {
   updatePostRequestSchema,
@@ -10,26 +11,19 @@ import {
 } from '@/schema/post/request.schema';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import switchCase from '@/common/utils/switchCase';
 import useMarkdown from '@/common/hooks/useMarkdown';
 import MarkdownEditor from '@/components/MarkdownEditor';
-import MetadataSheet from '@/components/PostForm/MetadataSheet';
+import MetadataSheet from './MetadataSheet';
 import toast from '@/common/utils/toast';
 import trpc from 'trpc-client';
 
 type OnSuccessParams = Pick<PostSchema, 'slug'>;
 type OnErrorParams = { message: string };
 
-type PostFormProps =
-  | {
-      action: 'update';
-      defaultValues: UpdatePostRequestSchema;
-    }
-  | {
-      action: 'create';
-      defaultValues?: never;
-    };
+type PostFormProps = FormProps<UpdatePostRequestSchema>;
 
-const PostForm: FC<PostFormProps> = ({ action, defaultValues }) => {
+const Form: FC<PostFormProps> = ({ action, defaultValues }) => {
   const router = useRouter();
   const isUpdate = action === 'update';
   const {
@@ -41,14 +35,15 @@ const PostForm: FC<PostFormProps> = ({ action, defaultValues }) => {
     content: defaultContent,
   } = isUpdate ? defaultValues : {};
 
-  const toastOnFailure = (message: string) => {
-    if (isUpdate) return toast.update_post_failed(message);
-    else return toast.create_post_failed(message);
-  };
-  const toastOnSuccess = () => {
-    if (isUpdate) return toast.update_post_success();
-    else return toast.create_post_success();
-  };
+  const toastOnFailure = (message: string) =>
+    switchCase(action, {
+      update: () => toast.update_post_failed(message),
+      create: () => toast.create_post_failed(message),
+    });
+  const toastOnSuccess = switchCase(action, {
+    update: () => toast.update_post_success(),
+    create: () => toast.create_post_success(),
+  });
 
   const { source, content, frontmatter } = useMarkdown<Omit<CreatePostRequestSchema, 'content'>>({
     content: defaultContent ?? undefined,
@@ -59,6 +54,8 @@ const PostForm: FC<PostFormProps> = ({ action, defaultValues }) => {
       tags: tags ?? ['태그를 나열해주세요.', '(optional)'],
     },
   });
+
+  const utils = trpc.useUtils();
 
   const mutationOptions = {
     onSuccess: ({ slug }: OnSuccessParams) => {
@@ -71,22 +68,28 @@ const PostForm: FC<PostFormProps> = ({ action, defaultValues }) => {
     },
   };
 
-  const utils = trpc.useUtils();
   const { mutate: updatePost } = trpc.post.update.useMutation(mutationOptions);
   const { mutate: createPost } = trpc.post.create.useMutation(mutationOptions);
 
   const handleSubmit = () => {
-    const mutateSchema = isUpdate ? updatePostRequestSchema : createPostRequestSchema;
+    const schema = switchCase(action, {
+      create: createPostRequestSchema,
+      update: updatePostRequestSchema,
+    });
 
-    const { error, data } = mutateSchema.safeParse({
+    const { error, data } = schema.safeParse({
       content: content.get(),
       ...frontmatter.get(),
       ...(isUpdate ? { id } : {}),
     });
 
     if (error) return toastOnFailure(error.message);
-    if (id) return updatePost({ ...data, id });
-    else return createPost(data);
+
+    const mutateFn = switchCase(action, {
+      create: () => createPost(data),
+      update: () => updatePost({ ...data, id: id! }),
+    });
+    return mutateFn();
   };
 
   return (
@@ -105,4 +108,4 @@ const PostForm: FC<PostFormProps> = ({ action, defaultValues }) => {
   );
 };
 
-export default PostForm;
+export default Form;

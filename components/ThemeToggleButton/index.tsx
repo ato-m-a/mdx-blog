@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, type FC } from 'react';
+import { useState, useEffect, memo, type FC } from 'react';
 import { Button, type ButtonProps } from '@/components/ui/button';
 import { cn } from '@/common/utils';
 import { Moon, Sun } from 'lucide-react';
@@ -22,7 +22,7 @@ const sunVariants = {
   exit: { scale: 0.6, rotate: -90, transition: { duration: 0.5 } },
 };
 
-const ThemeToggleButton: FC<ThemeToggleButtonProps> = ({ className }) => {
+const ThemeToggleButton: FC<ThemeToggleButtonProps> = memo(({ className }) => {
   const [mounted, setMounted] = useState<boolean>(false);
 
   useEffect(() => {
@@ -55,6 +55,8 @@ const ThemeToggleButton: FC<ThemeToggleButtonProps> = ({ className }) => {
       </motion.div>
     </Button>
   );
-};
+});
+
+ThemeToggleButton.displayName = 'ThemeToggleButton';
 
 export default ThemeToggleButton;

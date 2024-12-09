@@ -1,5 +1,5 @@
 import type { MenuItemOptions } from './types';
-import { FileText, Home, Building, Briefcase } from 'lucide-react';
+import { FileText, Home, Briefcase } from 'lucide-react';
 
 export const navigationDef: ReadonlyArray<MenuItemOptions> = [
   { href: '/', Icon: Home, label: 'Home' },
@@ -7,6 +7,5 @@ export const navigationDef: ReadonlyArray<MenuItemOptions> = [
 ] as const;
 
 export const manageDataDef: ReadonlyArray<MenuItemOptions> = [
-  { href: '/company', Icon: Building, label: 'Company' },
-  { href: '/experiences', Icon: Briefcase, label: 'Experience' },
+  { href: '/manage/career', Icon: Briefcase, label: 'Career' },
 ] as const;

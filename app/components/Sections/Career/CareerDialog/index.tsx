@@ -46,48 +46,7 @@ const CareerDialog: FC<CareerDialogProps> = ({ trigger, company, experiences }) 
           <ScrollContainer as="article" className="h-full overflow-y-auto flex-1">
             {experiences.map((experience, index) => (
               <div key={`exp-${index}`} className="pb-10" data-index={index}>
-                <MDXRenderer
-                  key={experience.id}
-                  source={`
-                    # 제목
-                    ## 소제목1
-            
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum
-                    dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Quisquam, quos.
-
-                    \`/app.tsx\`
-            
-                    \`\`\`javascript {start:1}{2}
-                    function greet(name) {
-                      return \`안녕하세요, \${name}님!\`;
-                    }
-                    \`\`\`
-            
-                    ## 소제목2-1
-            
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum
-                    dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Quisquam, quos.
-            
-                    ## 소제목2-2
-            
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum
-                    dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Quisquam, quos.
-            
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum
-                    dolor sit amet consectetur adipisicing elit.
-            
-                    # 제목2
-            
-                    ## 소제목2-1
-                    
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. 
-                  `}
-                />
+                <MDXRenderer key={experience.id} source={experience.content} />
               </div>
             ))}
           </ScrollContainer>

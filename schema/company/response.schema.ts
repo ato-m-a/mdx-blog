@@ -2,8 +2,8 @@ import { z } from 'zod';
 import { companySchema } from '@/schema/company/base.schema';
 import { experienceSchema } from '@/schema/experience/base.schema';
 
-export type GetCareersResponseSchema = z.infer<typeof getCareersResponseSchema>;
+export type GetCareerResponseSchema = z.infer<typeof getCareerResponseSchema>;
 
-export const getCareersResponseSchema = companySchema.extend({
+export const getCareerResponseSchema = companySchema.extend({
   experiences: experienceSchema.array(),
 });

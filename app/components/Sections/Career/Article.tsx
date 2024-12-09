@@ -1,13 +1,11 @@
 import type { FC } from 'react';
-import type { GetCareersResponseSchema } from '@/schema/company/response.schema';
-import { format } from 'date-fns';
+import type { GetCareerResponseSchema } from '@/schema/company/response.schema';
 import CompanyLabel from '@/components/CompanyLabel';
 import CareerDialog from './CareerDialog';
+import getPeriod from '@/common/utils/getPeriod';
 
-const CareerArticle: FC<GetCareersResponseSchema> = ({ experiences, ...company }) => {
-  const startDate = experiences[0].startDate;
-  const endDate = experiences[experiences.length - 1].endDate;
-  const period = `${format(startDate, 'yyyy')} - ${endDate ? format(endDate, 'yyyy') : ''}`;
+const CareerArticle: FC<GetCareerResponseSchema> = ({ experiences, ...company }) => {
+  const period = getPeriod(experiences, { format: 'yyyy', flat: true });
 
   return (
     <article className="flex justify-between">
