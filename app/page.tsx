@@ -10,7 +10,6 @@ import AboutSection from './components/Sections/About';
 import CareerSection from './components/Sections/Career';
 import HomeHeader from './components/Header';
 import HomeMain from './components/Main';
-import HomeFooter from './components/Footer';
 import ThemeToggleButton from '@/components/ThemeToggleButton';
 
 export const revalidate = 60;
@@ -48,7 +47,6 @@ const Home: FC = async () => {
           <CareerSection />
         </HydrationBoundary>
       </HomeMain>
-      <HomeFooter />
     </Container>
   );
 };
