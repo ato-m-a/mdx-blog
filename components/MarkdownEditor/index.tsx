@@ -24,7 +24,7 @@ const MarkdownEditor: FC<MarkdownEditorProps> = ({ source, setSource, widget, cl
   return (
     <div
       className={cn(
-        'overflow-hidden border-base rounded-lg flex flex-col',
+        'overflow-hidden border-base rounded-lg flex flex-col !mt-0',
         className,
         !isLoading && 'border-[1px] bg-white dark:bg-[#0d1117]',
         isMaximized && 'rounded-none h-screen fixed inset-0 z-20',
