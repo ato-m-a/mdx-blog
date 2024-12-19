@@ -35,5 +35,5 @@ export const getCareersProcedure = publicProcedure
       },
     });
 
-    return response.sort(sortByExperience);
+    return response.toSorted(sortByExperience);
   });
