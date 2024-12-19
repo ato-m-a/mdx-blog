@@ -10,6 +10,11 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       lastModified: new Date(),
       priority: 0.5,
     },
+    {
+      url: 'https://ato-m-a.me/posts',
+      lastModified: new Date(),
+      priority: 0.5,
+    },
     ...posts.map(({ slug, createdAt, updatedAt }) => ({
       url: `https://ato-m-a.me/posts/${slug}`,
       lastModified: updatedAt ?? createdAt,
